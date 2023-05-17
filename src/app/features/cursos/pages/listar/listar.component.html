@@ -1,0 +1,95 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+  <div fxFlex="95%">
+
+    <mat-card>
+      
+      <mat-card-content>
+        <h2 *ngIf="isAlumno"> Alumnos</h2>
+        <h2 *ngIf="isCurso"> Cursos</h2>
+        <h2 *ngIf="isInforme"> Informes de Desempeño</h2>
+
+
+        <div class="serch">
+
+        <button *ngIf="isCurso" mat-raised-button (click)="addEditCurso()" >
+          <mat-icon>add</mat-icon>
+          Agregar Curso
+        </button>
+        <mat-form-field appearance="standard">
+          <mat-label>Filtro</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input autocomplete="off">
+        </mat-form-field>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+         
+          <ng-container matColumnDef="anio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by year"> Año </th>
+            <td mat-cell *matCellDef="let element"> {{element.anio}} </td>
+          </ng-container>
+        
+       
+          <ng-container matColumnDef="Division">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Division </th>
+            <td mat-cell *matCellDef="let element"> {{element.division}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="turno">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Turno </th>
+            <td mat-cell *matCellDef="let element"> {{element.turno}} </td>
+          </ng-container>
+        
+       
+          <ng-container matColumnDef="Ciclo Lectivo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ciclo Lectivo </th>
+            <td mat-cell *matCellDef="let element"> {{element.cicloLectivo}} </td>
+                  
+          </ng-container>
+          
+          <ng-container  matColumnDef="acciones">
+            <th  mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
+            <td mat-cell *matCellDef="let element" > 
+                <mat-icon *ngIf="isCurso" (click)="addEditCurso(element.idCurso)" class="btnEdit" matTooltip="Editar">edit</mat-icon>
+                <mat-icon *ngIf="isCurso" (click)="deleteCurso(element.idCurso)" class="btnDelete" matTooltip="Delete">delete</mat-icon>
+                <mat-icon *ngIf="isAlumno" (click)="addAlumno(element.idCurso)" class="btnEdit" matTooltip="Agregar Alumno">person_add</mat-icon>
+                <mat-icon *ngIf="isAlumno" (click)="addAlumno(element.idCurso)" class="btnEdit" matTooltip="Ver Alumnos">visibility</mat-icon>       
+                <button  *ngIf="isInforme" mat-raised-button (click)="informes(element.idCurso , element.anio)">
+                  <mat-icon>add_circle</mat-icon>
+                  Generar Informes
+                </button>
+                
+              </td>
+         </ng-container>
+          
+         
+
+       
+
+        <ng-container matColumnDef="contenidos">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+          <td mat-cell *matCellDef="let element" > 
+        
+          <button *ngIf="isInforme" mat-raised-button (click)="agregarContenido(element.idCurso , element.anio)" >
+            <mat-icon>add_circle</mat-icon>
+            Agregar Contenidos
+          </button>
+        </td>
+        </ng-container>
+        
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        
+          <mat-paginator [pageSizeOptions]="[10, 20]"
+          showFirstLastButtons
+          aria-label="">
+        </mat-paginator>
+        
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

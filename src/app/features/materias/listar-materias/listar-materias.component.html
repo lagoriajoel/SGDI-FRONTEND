@@ -1,0 +1,26 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+  <div fxFlex="95%">
+    <mat-card>
+      <mat-card-content>
+        <h2>Materias</h2>
+       
+        <mat-divider></mat-divider>
+        <mat-card-content class="cards">
+        <div  *ngFor="let materia of materias">
+          <mat-card *ngIf="materia.anioCurso==anoCurso">
+            <mat-card-content class="card" >
+              <mat-card-actions class="boton">
+                <div class="boton">
+
+                  <button mat-button class="but" (click)="addInforme(materia.asignatura_id)">{{materia.nombre}}</button>
+                  <p class="cursoAnio">{{materia.anioCurso}} Año</p>
+                </div>
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-card-content>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

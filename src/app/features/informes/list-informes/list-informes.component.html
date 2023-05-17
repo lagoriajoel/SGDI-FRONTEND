@@ -1,0 +1,67 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="95%">
+  
+      <mat-card>
+        
+        <mat-card-content>
+          <h2>Alumnos</h2>
+          <div class="serch">
+
+         
+          <mat-form-field appearance="standard">
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input autocomplete="off">
+          </mat-form-field>
+          </div>
+  
+          <table mat-table [dataSource]="dataSource" matSort>
+  
+           
+            <ng-container matColumnDef="dni">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Dni </th>
+              <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+            </ng-container>
+          
+         
+            <ng-container matColumnDef="nombres">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+            </ng-container>
+          
+         
+            <ng-container matColumnDef="apellido">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
+              <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+                    
+            </ng-container>
+
+          
+
+            
+            
+            <ng-container matColumnDef="informes">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
+              <td mat-cell *matCellDef="let element"> 
+           
+                <button mat-raised-button (click)="generarInforme(element.id)" >
+                  <mat-icon>add</mat-icon>
+                  Generar Informe
+                </button>
+           </ng-container>
+          
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+  
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+          
+        </mat-card-content>
+      </mat-card>
+  
+    </div>
+  </div>

@@ -1,0 +1,106 @@
+<div class="container">
+    <h2 mat-dialog-title>Informes de Desempeño</h2>
+    <mat-spinner *ngIf="loading" [diameter]="30"></mat-spinner>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="generarInforme()" disable="deshabilitado">
+  
+    <mat-dialog-content >
+  
+      <div class="row">
+        <div class="column">
+          <mat-form-field appearance="fill">
+            <mat-label>DNI</mat-label>
+            <input formControlName="dni" matInput placeholder="Ingrese su DNI" autocomplete="off" readonly>
+          </mat-form-field>
+          <div class="error">
+            <span *ngIf="form.get('dni')?.hasError('required') && form.get('dni')?.touched">
+              El DNI es un campo <strong>requerido</strong>  
+            </span>
+            <span *ngIf="form.get('dni')?.hasError('maxlength')">
+              El DNI debe tener como maximo <strong>11 caracteres</strong> 
+            </span>
+          </div>
+        </div>
+    
+        <div class="column">
+          <mat-form-field appearance="fill">
+            <mat-label>Nombres</mat-label>
+            <input formControlName="nombres" matInput placeholder="Ingrese Su Nombre" autocomplete="off" readonly>
+          </mat-form-field>
+          <div class="error">
+            <span *ngIf="form.get('nombres')?.hasError('required') && form.get('nombres')?.touched">
+              La división del curso es un campo <strong>requerido</strong>  
+            </span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="column">
+          <mat-form-field appearance="fill">
+            <mat-label>Apellido</mat-label>
+            <input formControlName="apellido" matInput placeholder="Ingrese su Apellido" autocomplete="off" readonly>
+          </mat-form-field>
+          <div class="error">
+            <span *ngIf="form.get('cicloLectivo')?.hasError('required') && form.get('cicloLectivo')?.touched">
+              El Ciclo Lectivo es un campo <strong>requerido</strong>  
+            </span>
+            <span *ngIf="form.get('cicloLectivo')?.hasError('email') && form.get('cicloLectivo')?.touched">
+              El correo es <strong>invalido</strong>
+            </span>
+          </div>
+        </div>
+        <div class="column">
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input formControlName="email" matInput placeholder="Ingrese su Email" autocomplete="off" readonly>
+            </mat-form-field>
+            <div class="error">
+              <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+                El Ciclo Lectivo es un campo <strong>requerido</strong>  
+              </span>
+              <span *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+                El correo es <strong>invalido</strong>
+              </span>
+            </div>
+          </div>
+      </div>
+    
+    </mat-dialog-content>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+           
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Contenido </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+        </ng-container>
+      
+     
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+          <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>
+      
+        
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
+          <td mat-cell *matCellDef="let element"> 
+            
+              <mat-icon  class="btnDelete" matTooltip="Delete" (click)="deleteContenido(element.id)">delete</mat-icon>
+                      
+            </td>
+       </ng-container>
+      
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+    <mat-dialog-actions align="end">
+      <button type="button" (click)="cancelar()" mat-button>Cancelar</button>
+      <button type="submit" mat-button cdkFocusInitial> Generar </button>
+    </mat-dialog-actions>
+    
+  </form>
+

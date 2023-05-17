@@ -1,0 +1,59 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="95%">
+  
+      <mat-card>
+        
+        <mat-card-content>
+          <h2>Contenidos de {{ asignatura }} </h2>
+          <div class="serch">
+
+          <button mat-raised-button (click)="addEditCurso()" >
+            <mat-icon>add</mat-icon>
+            Agregar Contenido 
+          </button>
+          <mat-form-field appearance="standard">
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input autocomplete="off">
+          </mat-form-field>
+          </div>
+  
+          <table mat-table [dataSource]="dataSource" matSort>
+  
+           
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contenido </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+            </ng-container>
+          
+         
+            <ng-container matColumnDef="descripcion">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+              <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+            </ng-container>
+          
+            
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
+              <td mat-cell *matCellDef="let element"> 
+                  <mat-icon (click)="addEditCurso(element.id)" class="btnEdit" matTooltip="Editar">edit</mat-icon>
+                  <mat-icon  class="btnDelete" matTooltip="Delete">delete</mat-icon>
+                          
+                </td>
+           </ng-container>
+          
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+  
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+          
+        </mat-card-content>
+      </mat-card>
+  
+    </div>
+  </div>
