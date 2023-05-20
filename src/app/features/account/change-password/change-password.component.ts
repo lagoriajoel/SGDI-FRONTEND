@@ -58,18 +58,18 @@ export class ChangePasswordComponent implements OnInit {
       return;
     }
 
-    const email = this.authService.getCurrentUser().email;
+    //const email = this.authService.getCurrentUser().email;
 
-    this.authService.changePassword(email, this.currentPassword, this.newPassword)
-      .subscribe(
-        data => {
-          this.logger.info(`User ${email} changed password.`);
-          this.form.reset();
-          this.notificationService.openSnackBar('Your password has been changed.');
-        },
-        error => {
-          this.notificationService.openSnackBar(error.error);
-        }
-      );
+    // this.authService.changePassword(email, this.currentPassword, this.newPassword)
+    //   .subscribe(
+    //     data => {
+    //       this.logger.info(`User ${email} changed password.`);
+    //       this.form.reset();
+    //       this.notificationService.openSnackBar('Your password has been changed.');
+    //     },
+    //     error => {
+    //       this.notificationService.openSnackBar(error.error);
+    //     }
+    //   );
   }
 }

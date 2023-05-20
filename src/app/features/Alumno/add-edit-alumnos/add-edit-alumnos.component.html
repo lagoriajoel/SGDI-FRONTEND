@@ -42,7 +42,7 @@
             <input formControlName="apellido" matInput placeholder="Ingrese su Apellido" autocomplete="off">
           </mat-form-field>
           <div class="error">
-            <span *ngIf="form.get('cicloLectivo')?.hasError('required') && form.get('cicloLectivo')?.touched">
+            <span *ngIf="form.get('apellido')?.hasError('required') && form.get('apellido')?.touched">
               El Ciclo Lectivo es un campo <strong>requerido</strong>  
             </span>
             <span *ngIf="form.get('cicloLectivo')?.hasError('email') && form.get('cicloLectivo')?.touched">
@@ -57,10 +57,10 @@
             </mat-form-field>
             <div class="error">
               <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
-                El Ciclo Lectivo es un campo <strong>requerido</strong>  
+                El Email  es un campo <strong>requerido</strong>  
               </span>
-              <span *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
-                El correo es <strong>invalido</strong>
+              <span *ngIf="form.get('email')?.hasError('email')">
+                El Email es <strong>invalido</strong>
               </span>
             </div>
           </div>

@@ -9,8 +9,8 @@ export class NotificationService {
     constructor(private snackBar: MatSnackBar) { }
 
     config: MatSnackBarConfig = {
-        duration: 3000,
-        horizontalPosition: 'right',
+        duration: 4000,
+        horizontalPosition: 'center',
         verticalPosition: 'top'
       }
 
@@ -20,7 +20,7 @@ export class NotificationService {
         });
     }
 
-    success( msj : string): void {
+   public success( msj : string): void {
         this.config['panelClass'] = ['notification', 'success'];
         this.snackBar.open(msj,'',this.config);
       }

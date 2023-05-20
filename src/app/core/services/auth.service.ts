@@ -5,57 +5,87 @@ import * as jwt_decode from 'jwt-decode';
 import * as moment from 'moment';
 
 import { environment } from '../../../environments/environment';
-import { of, EMPTY } from 'rxjs';
+import { of, EMPTY, Observable } from 'rxjs';
+import { JwtDTO } from '../Entities/JwtDTO';
+import { Router } from '@angular/router';
+const TOKEN_KEY = 'token';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
 
+    authURL = 'http://localhost:8001/auth/';
+
     constructor(private http: HttpClient,
-        @Inject('LOCALSTORAGE') private localStorage: Storage) {
+        @Inject('LOCALSTORAGE') private localStorage: Storage, private router: Router) {
     }
 
-    login(email: string, password: string) {
-        return of(true)
-            .pipe(delay(1000),
-                map((/*response*/) => {
-                    // set token property
-                    // const decodedToken = jwt_decode(response['token']);
+   
+    
+    
 
-                    // store email and jwt token in local storage to keep user logged in between page refreshes
-                    this.localStorage.setItem('currentUser', JSON.stringify({
-                        token: 'aisdnaksjdn,axmnczm',
-                        isAdmin: true,
-                        email: 'john.doe@gmail.com',
-                        id: '12312323232',
-                        alias: 'john.doe@gmail.com'.split('@')[0],
-                        expiration: moment().add(1, 'days').toDate(),
-                        fullName: 'John Doe'
-                    }));
+    
+    public login(userName:string, password:string): Observable<JwtDTO> {
 
-                    return true;
-                }));
-    }
+        const loginUsuario= new LoginUsuario(userName, password)
+        return this.http.post<JwtDTO>(this.authURL + 'login', loginUsuario);
+      }
+      public refresh(dto: JwtDTO): Observable<JwtDTO> {
+        return this.http.post<JwtDTO>(this.authURL + 'refresh', dto);
+      }
+    
+    
+    // login(userName: string, password: string) {
+    //     return of(true)
+    //         .pipe(delay(1000),
+    //             map((/*response*/) => {
+    //                 // set token property
+    //                 // const decodedToken = jwt_decode(response['token']);
+
+    //                 // store email and jwt token in local storage to keep user logged in between page refreshes
+    //                 this.localStorage.setItem('currentUser', JSON.stringify({
+    //                     token: 'aisdnaksjdn,axmnczm',
+    //                     isAdmin: true,
+    //                     email: 'john.doe@gmail.com',
+    //                     id: '12312323232',
+    //                     alias: 'john.doe@gmail.com'.split('@')[0],
+    //                     expiration: moment().add(1, 'days').toDate(),
+    //                     fullName: 'John Doe'
+    //                 }));
+
+    //                 return true;
+    //             }));
+    // }
 
     logout(): void {
         // clear token remove user from local storage to log user out
-        this.localStorage.removeItem('currentUser');
+        this.localStorage.clear()
+        this.router.navigate(['/auth/login']);
     }
 
-    getCurrentUser(): any {
-        // TODO: Enable after implementation
-        // return JSON.parse(this.localStorage.getItem('currentUser'));
-        return {
-            token: 'aisdnaksjdn,axmnczm',
-            isAdmin: true,
-            email: 'john.doe@gmail.com',
-            id: '12312323232',
-            alias: 'john.doe@gmail.com'.split('@')[0],
-            expiration: moment().add(1, 'days').toDate(),
-            fullName: 'John Doe'
-        };
-    }
+    public getToken(): string {
+        return localStorage.getItem(TOKEN_KEY)!;
+      }
+    
+    public setToken(token: string): void {
+        window.localStorage.removeItem(TOKEN_KEY);
+        window.localStorage.setItem(TOKEN_KEY, token);
+      }
+
+    // getCurrentUser(): any {
+    //     // TODO: Enable after implementation
+    //     // return JSON.parse(this.localStorage.getItem('currentUser'));
+    //     return {
+    //         token: 'aisdnaksjdn,axmnczm',
+    //         isAdmin: true,
+    //         email: 'john.doe@gmail.com',
+    //         id: '12312323232',
+    //         alias: 'john.doe@gmail.com'.split('@')[0],
+    //         expiration: moment().add(1, 'days').toDate(),
+    //         fullName: 'John Doe'
+    //     };
+    // }
 
     passwordResetRequest(email: string) {
         return of(true).pipe(delay(1000));
@@ -68,4 +98,17 @@ export class AuthenticationService {
     passwordReset(email: string, token: string, password: string, confirmPassword: string): any {
         return of(true).pipe(delay(1000));
     }
+}
+
+export class LoginUsuario {
+
+    nombreUsuario:string
+    password:string
+
+    constructor(nombreUsuario:string, password:string){
+        this.nombreUsuario=nombreUsuario
+        this.password=password
+    }
+
+    
 }

@@ -36,11 +36,13 @@ export class AddEditAlumnosComponent implements OnInit {
     private _cursoService: CursosService,
     private notificationService: NotificationService) {
       this.loading=false;
+
+      
     this.form = this.fb.group({
       dni: ['', [Validators.required, Validators.maxLength(10)]],
       nombres: ['', Validators.required],
       apellido: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       
      
 
