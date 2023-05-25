@@ -21,10 +21,6 @@ export class AuthenticationService {
         @Inject('LOCALSTORAGE') private localStorage: Storage, private router: Router) {
     }
 
-   
-    
-    
-
     
     public login(userName:string, password:string): Observable<JwtDTO> {
 
@@ -36,27 +32,7 @@ export class AuthenticationService {
       }
     
     
-    // login(userName: string, password: string) {
-    //     return of(true)
-    //         .pipe(delay(1000),
-    //             map((/*response*/) => {
-    //                 // set token property
-    //                 // const decodedToken = jwt_decode(response['token']);
-
-    //                 // store email and jwt token in local storage to keep user logged in between page refreshes
-    //                 this.localStorage.setItem('currentUser', JSON.stringify({
-    //                     token: 'aisdnaksjdn,axmnczm',
-    //                     isAdmin: true,
-    //                     email: 'john.doe@gmail.com',
-    //                     id: '12312323232',
-    //                     alias: 'john.doe@gmail.com'.split('@')[0],
-    //                     expiration: moment().add(1, 'days').toDate(),
-    //                     fullName: 'John Doe'
-    //                 }));
-
-    //                 return true;
-    //             }));
-    // }
+   
 
     logout(): void {
         // clear token remove user from local storage to log user out
@@ -98,6 +74,27 @@ export class AuthenticationService {
     passwordReset(email: string, token: string, password: string, confirmPassword: string): any {
         return of(true).pipe(delay(1000));
     }
+
+    public isLogged(): boolean {
+        if (this.getToken()) {
+          return true;
+        }
+        return false;
+      }
+    
+      public getUserName(): string {
+        if (!this.isLogged()) {
+          return null!;
+        }
+        const token = this.getToken();
+        const payload = token.split('.')[1];
+        const payloadDecoded = atob(payload);
+        const values = JSON.parse(payloadDecoded);
+        const username = values.nombre;
+        console.log(username);
+        return username;
+
+      }
 }
 
 export class LoginUsuario {
@@ -109,6 +106,8 @@ export class LoginUsuario {
         this.nombreUsuario=nombreUsuario
         this.password=password
     }
+
+    
 
     
 }

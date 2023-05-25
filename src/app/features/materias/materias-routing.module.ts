@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {path: '', component:LayoutComponent,
   children:[
-    { path:'listar/:id/:anioCurso/:isContenido', component: ListarMateriasComponent },
+    { path:'listar', component: ListarMateriasComponent },
   
     { path:'**', redirectTo:'listar' }
   

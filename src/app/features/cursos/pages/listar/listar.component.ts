@@ -32,6 +32,7 @@ export class ListarComponent implements OnInit {
   isInforme: boolean = false;
   isCurso: boolean = false;
   color:string=""
+  informesPorAsignatura:number = 0;
 
 
   displayedColumns: string[] = ["anio",
@@ -41,6 +42,7 @@ export class ListarComponent implements OnInit {
   "acciones",
   "contenidos"];
   dataSource = new MatTableDataSource(this.cursos);
+  FilaCurso!: CursoDto;
 
   @ViewChild(MatSort, { static: true })
   sort: MatSort = new MatSort();
@@ -138,29 +140,70 @@ export class ListarComponent implements OnInit {
 
   }
  //generar informes de desempeño del curso. se envia por url id curso y año para el filtrado
- informes(idCurso: number, añoCurso: string) {
+ 
+     informes(idCurso: number, añoCurso: string) {
+              this.isContenidos = 1;
+              this.idCurso = idCurso;
+              this.añoCurso = añoCurso;
+              // this.router.navigate(["/materias/listar/",
+              //   this.idCurso,
+              //   this.añoCurso,
+              //   this.isContenidos,
+              // ]);
+
+              this.router.navigate(["/materias/listar/"], { 
+                queryParams: {
+                  curso:this.idCurso, 
+                  anioCurso:this.añoCurso,
+                  isContenido: this.isContenidos,
+                  isInforme: this.informesPorAsignatura
+                }
+              });
+            }
+
+      agregarContenido(idCurso: number, añoCurso: string) {
+              this.isContenidos = 0;
+              this.idCurso = idCurso;
+              this.añoCurso = añoCurso;
+        //       this.router.navigate([
+        //         "/materias/listar/",
+        //         this.idCurso,
+        //         this.añoCurso,
+        //         this.isContenidos,
+        // ]);
+
+        this.router.navigate(["/materias/listar/"], { 
+          queryParams: {
+            curso:this.idCurso, 
+            anioCurso:this.añoCurso,
+            isContenido: this.isContenidos,
+           
+          }
+        });
+      }
+
+
+mostrarFila( curso1: CursoDto){
+  
+
   this.isContenidos = 1;
-  this.idCurso = idCurso;
-  this.añoCurso = añoCurso;
-  this.router.navigate([
-    "/materias/listar/",
-    this.idCurso,
-    this.añoCurso,
-    this.isContenidos,
-  ]);
+  this.idCurso = curso1.idCurso;
+  this.añoCurso = curso1.anio;
+  this.informesPorAsignatura=1
+
+  this.router.navigate(["/materias/listar/"], { 
+    queryParams: {
+      curso:this.idCurso, 
+      anioCurso:this.añoCurso,
+      isContenido: this.isContenidos,
+      isInforme: this.informesPorAsignatura
+     
+    }
+  });
+  
 }
 
-agregarContenido(idCurso: number, añoCurso: string) {
-  this.isContenidos = 0;
-  this.idCurso = idCurso;
-  this.añoCurso = añoCurso;
-  this.router.navigate([
-    "/materias/listar/",
-    this.idCurso,
-    this.añoCurso,
-    this.isContenidos,
-  ]);
-}
+
 
 announceSortChange(sortState: Sort) {
   // This example uses English messages. If your application supports
@@ -173,5 +216,9 @@ announceSortChange(sortState: Sort) {
     this._liveAnnouncer.announce("Sorting cleared");
   }
 }
+
+
+
+
 
 }

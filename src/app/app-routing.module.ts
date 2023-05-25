@@ -40,6 +40,21 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'user',
+    loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profesor',
+    loadChildren: () => import('./features/profesor/profesor.module').then(m => m.ProfesorModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'administradores',
+    loadChildren: () => import('./features/administrador/administrador.module').then(m => m.AdministradorModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'cursos',
     loadChildren: () => import('./features/cursos/cursos.module').then(m => m.CursosModule),
     canActivate: [AuthGuard]

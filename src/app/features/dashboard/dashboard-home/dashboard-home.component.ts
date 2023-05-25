@@ -56,6 +56,8 @@ export class DashboardHomeComponent implements OnInit {
     
    
     this.dataSource.sort = this.sort;
+
+    
   }
   listarAlumnos(): void {
     this.alumnos = [];
@@ -100,4 +102,6 @@ export class DashboardHomeComponent implements OnInit {
         window.open(donwloadURL, "_blank");
       });
   }
+
+  
 }

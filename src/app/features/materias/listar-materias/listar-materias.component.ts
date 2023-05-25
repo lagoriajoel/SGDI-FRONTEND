@@ -20,8 +20,10 @@ export class ListarMateriasComponent implements OnInit {
   loading: boolean = true;
   idAsignatura: number = 0;
   isGenerarInforme: boolean = false;
-  idCurso: number = 0;
-  anoCurso: String = ""
+  idCurso: string='';
+  anoCurso: String =''
+  isContenido!: number;
+  informe: number = 0;
 
   constructor(
     private logger: NGXLogger,
@@ -33,16 +35,34 @@ export class ListarMateriasComponent implements OnInit {
     private router: Router,
     private _materiasService: MateriasService,
     private _routes: ActivatedRoute
-  ) {}
+  ) {
+
+    this._routes.queryParamMap
+    .subscribe((params) => {
+     
+       
+  
+       this.idCurso=params.get("curso")!;
+       this.anoCurso=params.get("anioCurso")!;
+       this.isContenido=Number(params.get("isContenido")!);
+       this.informe=Number(params.get("isInforme"))!;
+    
+     
+  
+     
+    }
+  );
+  }
 
   ngOnInit() {
     this.titleService.setTitle("Gestion de Informes - Cursos");
     this.logger.log("Asignaturas Cargadas");
     this.notificationService.openSnackBar("Asignaturas Cargadas");
-    this.idCurso = this._routes.snapshot.params["id"];
-    this.anoCurso= this._routes.snapshot.params["anioCurso"]
-    this._routes.snapshot.params["isContenido"];
+    // this.idCurso = this._routes.snapshot.params["id"];
+    // this.anoCurso= this._routes.snapshot.params["anioCurso"]
+    // this._routes.snapshot.params["isContenido"];
 
+   
     this.cargarMaterias();
   }
   cargarMaterias(): void {
@@ -60,22 +80,25 @@ export class ListarMateriasComponent implements OnInit {
     
 
     
-    if(this._routes.snapshot.params["isContenido"]==0){
+    if(this.isContenido===0){
       
    
       this.router.navigate(["/contenidos/listar/", this.idAsignatura]);
     }
    else {
       
-      this.router.navigate(["/informes/listar/", this.idCurso, this.idAsignatura]); 
+     // this.router.navigate(["/informes/listar/", this.idCurso, this.idAsignatura]); 
+    
+     this.router.navigate(["/informes/listar/"], {
+      queryParams: {
+        curso:this.idCurso,
+        asignatura:this.idAsignatura,
+        informe: this.informe
+      }});
    }
   }
 
-  mensajeExito() {
-    this._snackBar.open("La persona fue eliminada con exito", "", {
-      duration: 2000,
-    });
-  }
+  
 
  
 }

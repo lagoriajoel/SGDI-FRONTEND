@@ -23,10 +23,10 @@ export class ListarAlumnosComponent implements OnInit {
   loading: boolean=false
   idCurso = null;
   
-
-
   displayedColumns: string[] = ["dni", "nombres", "apellido", "email","cursoId", "acciones"];
   dataSource = new MatTableDataSource(this.alumnos);
+
+  clickedRows = new Set<Alumno>();
 
   @ViewChild(MatSort, { static: true })
   sort: MatSort = new MatSort();
@@ -43,7 +43,6 @@ export class ListarAlumnosComponent implements OnInit {
   ) {
     
     this.dataSource = new MatTableDataSource();
-    console.log( this._routes.snapshot.paramMap.get('id'));
    this.idCurso =this._routes.snapshot.params['id']
   }
 
@@ -126,5 +125,11 @@ export class ListarAlumnosComponent implements OnInit {
       duration: 2000
     });
   }
+
+  ver(){
+
+    this._snackBar.open('fila seleccionada', '', {
+      duration: 2000
+  })}
 
 }
