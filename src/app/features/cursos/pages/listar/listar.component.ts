@@ -185,6 +185,7 @@ export class ListarComponent implements OnInit {
 
 mostrarFila( curso1: CursoDto){
   
+  if(this.isInforme){
 
   this.isContenidos = 1;
   this.idCurso = curso1.idCurso;
@@ -200,7 +201,7 @@ mostrarFila( curso1: CursoDto){
      
     }
   });
-  
+}
 }
 
 

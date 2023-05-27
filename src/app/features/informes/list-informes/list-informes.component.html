@@ -4,7 +4,7 @@
       <mat-card>
         
         <mat-card-content>
-          <h2>Alumnos</h2>
+          <h2>Informes de Desemepeño de {{NombreAsignatura}}</h2>
           <div class="serch">
 
          
@@ -44,12 +44,12 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
               <td mat-cell *matCellDef="let element" > 
                
-                <button *ngIf="isInforme==0" mat-raised-button (click)="generarInforme(element.id)" >
+                <button *ngIf="isInforme===0" mat-raised-button (click)="generarInforme(element.id)" >
                   <mat-icon>add</mat-icon>
                   Generar Informe
                 </button>
                  
-                <mat-icon *ngIf="isInforme==1" class="btnEdit" matTooltip="Ver Informe">visibility</mat-icon>   
+                <mat-icon *ngIf="isInforme===1" class="btnEdit" matTooltip="Ver Informe">visibility</mat-icon>   
               
                 
            </ng-container>

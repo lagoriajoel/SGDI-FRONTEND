@@ -24,7 +24,7 @@ export class ListarMateriasComponent implements OnInit {
   anoCurso: String =''
   isContenido!: number;
   informe: number = 0;
-
+ 
   constructor(
     private logger: NGXLogger,
     private notificationService: NotificationService,
@@ -74,7 +74,7 @@ export class ListarMateriasComponent implements OnInit {
   ngAfterViewInit() {}
 
    
-  addInforme(id: number){
+  addInforme(id: number, nombreAsignaturas: string): void {
     
     this.idAsignatura = id;
     
@@ -93,7 +93,8 @@ export class ListarMateriasComponent implements OnInit {
       queryParams: {
         curso:this.idCurso,
         asignatura:this.idAsignatura,
-        informe: this.informe
+        informe: this.informe,
+        nombreAsignatura: nombreAsignaturas
       }});
    }
   }

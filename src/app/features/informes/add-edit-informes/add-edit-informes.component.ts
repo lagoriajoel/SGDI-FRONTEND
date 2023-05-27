@@ -102,9 +102,12 @@ export class AddEditInformesComponent implements OnInit {
     this._contenidosService
       .listarContenidoPorAsignatura(id)
       .subscribe((data) => {
+        
+      
         this.dataSource.data = data;
-
+      
         this.contenidos = data;
+       
       });
   }
 

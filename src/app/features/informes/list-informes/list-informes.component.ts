@@ -13,6 +13,7 @@ import { AlumnoService } from 'src/app/core/services/alumno.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { AddEditInformesComponent } from '../add-edit-informes/add-edit-informes.component';
 import { MostrarInformeComponent } from '../mostrar-informe/mostrar-informe.component';
+import { contenido } from 'src/app/core/Entities/Contenido';
 
 @Component({
   selector: 'app-list-informes',
@@ -28,6 +29,8 @@ export class ListInformesComponent implements OnInit {
   idAsignatura!:number;
   fecha: string="";
   isInforme!:number;
+  InformeAlumno: Informes[]=[];
+  NombreAsignatura: string=''
 
 
   displayedColumns: string[] = ["dni", "nombres", "apellido", "informes"];
@@ -63,6 +66,8 @@ export class ListInformesComponent implements OnInit {
       
       
        this.isInforme=Number(params.get("informe"))!;
+
+       this.NombreAsignatura=params.get("nombreAsignatura")!;
 
     
      console.log(this.isInforme);
@@ -111,12 +116,11 @@ export class ListInformesComponent implements OnInit {
             this.alumnoService
             .listarCurso(Number(this.idCurso))
             .subscribe((data) => {
-           //const r=data.filter(informes=>informes.informeDesempenios.some(x=>(x.id_asignatura==2&&x.id_asignatura!=null)))
-            //console.log(r);
-
-            data.forEach(inform => {
-              if(inform.informeDesempenios.some(x=>(x.id_asignatura==this.idAsignatura&&x.id_asignatura!=null)))
-                  this.alumnosConInformes.push(inform);
+          
+            data.forEach(alumno => {
+              if(alumno.informeDesempenios.some(x=>(x.id_asignatura==this.idAsignatura&&x.id_asignatura!=null)))
+                  this.alumnosConInformes.push(alumno);
+                  
             })
             console.log(this.alumnosConInformes);
             this.dataSource.data = this.alumnosConInformes;
@@ -130,7 +134,7 @@ export class ListInformesComponent implements OnInit {
   // abre un modal para agregar los contenidos adeidados por el alumno
   generarInforme(idAlumno:number){
 
-    console.log(idAlumno,+" "+ this.idAsignatura,+ " "+ Number(this.idCurso))
+   
     const dialogRef = this.dialog.open(AddEditInformesComponent, {
       width: "700px",
       disableClose: true,
@@ -165,11 +169,25 @@ export class ListInformesComponent implements OnInit {
     }
   }
 
+  //mostrar los informes de desempeño de los alumnos
+
   SelectedRow(alumno: Alumno) {
 
+
+    if(this.isInforme!=0){
+       
+     this.InformeAlumno= this.getInformeAlumno(alumno,this.idAsignatura)
+     console.log(this.InformeAlumno);
+      
     const dialogRef = this.dialog.open(MostrarInformeComponent, {
       width: "700px",
-      disableClose: true,
+      disableClose: true, data: {
+        infome: this.InformeAlumno,
+        NombreAlumno: alumno.nombres +' '+ alumno.apellido,
+        dni: alumno.dni,
+        NombreAsignatura: this.NombreAsignatura
+
+      }
       
     });
 
@@ -179,5 +197,16 @@ export class ListInformesComponent implements OnInit {
       }
     });
   }
+  }
 
+
+
+  //metodo que obtiene el informe de un alumno por asignatura
+  
+  getInformeAlumno(alumno: Alumno, idAsignatura: number): Informes[]{
+
+       const informe= alumno.informeDesempenios.filter(inf => inf.id_asignatura === idAsignatura)
+    
+      return informe;
+  }
 }

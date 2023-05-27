@@ -79,10 +79,7 @@
         
         
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr 
-          mat-row
-          (click)="mostrarFila(row)"
-         
+          <tr mat-row (click)="mostrarFila(row)"         
           mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 

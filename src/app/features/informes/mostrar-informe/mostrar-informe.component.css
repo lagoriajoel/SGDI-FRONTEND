@@ -1,0 +1,17 @@
+.text-inside-grid {
+    position: absolute;
+    left: 5px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  mat-divider{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  mat-grid-list {
+    margin-top: 10px;
+  }
