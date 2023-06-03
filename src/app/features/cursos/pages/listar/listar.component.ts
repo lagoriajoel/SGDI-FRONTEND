@@ -16,6 +16,19 @@ import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CursoDto } from "src/app/core/Entities/CursoDto";
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSelectChange } from '@angular/material/select';
+
+export interface EmpFilter {
+  name:string;
+  options:string[];
+  defaultValue:string;
+}
+
+export interface filterOption{
+  name:string;
+  value:string;
+  isdefault:boolean;
+}
 
 @Component({
   selector: "app-listar",
@@ -35,14 +48,27 @@ export class ListarComponent implements OnInit {
   informesPorAsignatura:number = 0;
 
 
+  anio: string[]=['Todos','1','2','3','4','5','6'];
+  division: string[]=['Todos','A','B','C','D','F','G','H','I'];
+  cicloLectivo: string[]=['Todos','2021','2022','2023','2024','2025','2026'];
+  empFilters: EmpFilter[]=[];
+  
+  defaultValue = "Todos";
+
+  filterDictionary= new Map<string,string>();
+  
+
+
   displayedColumns: string[] = ["anio",
   "Division",
   "turno",
   "Ciclo Lectivo",
   "acciones",
   "contenidos"];
+
   dataSource = new MatTableDataSource(this.cursos);
-  FilaCurso!: CursoDto;
+  dataSourceFilters = new MatTableDataSource(this.cursos);
+ 
 
   @ViewChild(MatSort, { static: true })
   sort: MatSort = new MatSort();
@@ -63,6 +89,7 @@ export class ListarComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.titleService.setTitle("Gestion de Informes - Cursos");
     this.logger.log("Cursos loaded");
     this.notificationService.openSnackBar("Cursos loaded");
@@ -75,15 +102,53 @@ export class ListarComponent implements OnInit {
       params.get("curso") ? (this.isCurso = true) : (this.isCurso = false);
 
     });
-    
+
+
+
+    //filtrado
+
+    this.empFilters.push({name:'anio',options:this.anio,defaultValue:this.defaultValue});
+    this.empFilters.push({name:'division',options:this.division,defaultValue:this.defaultValue});
+    this.empFilters.push({name:'cicloLectivo',options:this.cicloLectivo,defaultValue:this.defaultValue});
+
+    this.dataSource.filterPredicate = function (record,filter) {
+     
+      var map = new Map(JSON.parse(filter));
+      let isMatch = false;
+      for(let [key,value] of map){
+        isMatch = (value=="Todos") || (record[key as keyof CursoDto] == value); 
+        if(!isMatch) return false;
+      }
+      return isMatch;
+    }
   }
+
+  //metodos para el filtrado
+  applyEmpFilter(ob:MatSelectChange,empfilter:EmpFilter) {
+
+    this.filterDictionary.set(empfilter.name,ob.value);
+
+
+    var jsonString = JSON.stringify(Array.from(this.filterDictionary.entries()));
+    
+    this.dataSource.filter = jsonString;
+    //console.log(this.filterValues);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  // metodo que lista los curso 
   cargarCurso(): void {
     this.cursoService.lista().subscribe(data => {
       this.dataSource.data = data;
+      this.cursos=data
+      console.log(this.cursos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-     
-    })
+         })
     
   }
 
@@ -93,6 +158,7 @@ export class ListarComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  // agregar un curso o editarlo
   addEditCurso(id?: number) {
     const dialogRef = this.dialog.open(AddEditCursoComponent, {
       width: "550px",
@@ -107,14 +173,14 @@ export class ListarComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
+  //   if (this.dataSource.paginator) {
+  //     this.dataSource.paginator.firstPage();
+  //   }
+  // }
 
   deleteCurso(id: number) {
     

@@ -6,18 +6,32 @@
         <mat-card-content>
           <h2>Alumnos</h2>
           <div class="serch">
-
+           
+         <div>
           <button mat-raised-button (click)="addEditAlumno()" >
             <mat-icon>add</mat-icon>
             Agregar Alumno
           </button>
-          <mat-form-field appearance="standard">
-            <mat-label>Filtro</mat-label>
-            <input matInput (keyup)="applyFilter($event)" #input autocomplete="off">
-          </mat-form-field>
-          </div>
-  
-          <table mat-table [dataSource]="dataSource" matSort>
+         
+         </div>
+              
+         <div>
+
+                <div class="selectFile">
+                  <input class="seleccionar" #fileInput type="file" (change)="selectFile($event)"  ngModel/>
+                <mat-form-field class="example-full-width" (click)="fileInput.click()">
+                  <input matInput placeholder="Seleccione un archivo" value="{{fileInput.value.substr(fileInput.value.lastIndexOf('\\')+1)}}">
+                  <mat-icon matSuffix>folder_open</mat-icon>
+                </mat-form-field>
+                
+                
+                <button mat-raised-button color="primary" (click)="upload()">Subir archivo CSV</button>
+                </div>
+               
+              </div>
+         </div>
+       
+        <table mat-table [dataSource]="dataSource" matSort>
   
            
             <ng-container matColumnDef="dni">
@@ -75,7 +89,8 @@
           
         </mat-card-content>
       </mat-card>
-  
+    
+      
     </div>
   </div>
 

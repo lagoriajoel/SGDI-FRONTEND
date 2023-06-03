@@ -17,6 +17,9 @@ export class MostrarInformeComponent implements OnInit {
   contenidos: contenido[] = [];
   NombreAlumno: string =''
   NombreCurso: string =''
+  NombreDivision: string =''
+
+
   NombreProfesor: string =''
   NombreAsignatura: string =''
   dniAlumno: string =''
@@ -43,10 +46,15 @@ dataSource: any;
     this.contenidos=this.data.infome[0].contenidosAdeudados
   
     this.dataSource = new MatTableDataSource<contenido>(this.contenidos) 
-
+    console.log(data.alumno);
     this.NombreAlumno=data.NombreAlumno
-    this.dniAlumno=data.dni
+    
     this.NombreAsignatura=data.NombreAsignatura
+    this.NombreCurso=data.alumno.curso.anio
+    this.dniAlumno=data.alumno.dni
+    this.NombreDivision=data.alumno.curso.division
+    this.cicloLectivo=data.alumno.curso.cicloLectivo
+    console.log(this.NombreCurso);
   
   }
 
@@ -57,6 +65,8 @@ dataSource: any;
    
   }
 
-  
+  generarPDF(){
+    
+  }
   
 }

@@ -1,6 +1,6 @@
 import { AboutModule } from './../../features/about/about.module';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Alumno } from '../Entities/alumno';
@@ -9,6 +9,8 @@ import { Alumno } from '../Entities/alumno';
   providedIn: 'root'
 })
 export class AlumnoService {
+  
+ 
 
 
   AlumnoURL = 'http://localhost:8001/alumnos/';
@@ -47,5 +49,19 @@ export class AlumnoService {
   public generarPDF(informeId: number, dniAlumno:string) {
 
     return this.httpClient.get(this.AlumnoURL + `pdf/${informeId}/${dniAlumno}`, {responseType: 'blob'})
+  }
+
+
+
+  uploadSingleFile(file: File, idCurso: number): Observable<HttpEvent<{}>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    console.log(formData);
+    return this.httpClient.post<any>(this.AlumnoURL +`uploadFile/${idCurso}`, formData, { reportProgress: true, observe: 'events' });
+  }
+
+  fetchFileNames() {
+    return this.httpClient
+      .get<string[]>('http://localhost:8080/getFiles');
   }
 }

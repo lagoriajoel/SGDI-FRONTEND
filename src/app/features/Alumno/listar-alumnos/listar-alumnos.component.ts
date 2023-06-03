@@ -11,6 +11,9 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
+import { FormControl } from '@angular/forms';
+import { tap } from 'rxjs';
 
 
 @Component({
@@ -22,6 +25,8 @@ export class ListarAlumnosComponent implements OnInit {
   alumnos: Alumno[] = [];
   loading: boolean=false
   idCurso = null;
+
+  
   
   displayedColumns: string[] = ["dni", "nombres", "apellido", "email","cursoId", "acciones"];
   dataSource = new MatTableDataSource(this.alumnos);
@@ -38,7 +43,8 @@ export class ListarAlumnosComponent implements OnInit {
     private alumnoService: AlumnoService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private _routes :ActivatedRoute
+    private _routes :ActivatedRoute,
+    public http: HttpClient
 
   ) {
     
@@ -131,5 +137,40 @@ export class ListarAlumnosComponent implements OnInit {
     this._snackBar.open('fila seleccionada', '', {
       duration: 2000
   })}
+
+  // csvInputChange(fileInputEvent: any) {
+  //   console.log(fileInputEvent.target.files[0]);
+  // }
+
+
+
+  loaded = 0;
+  selectedFiles!: FileList;
+  currentFileUpload!: File;
+ // Selected file is stored into selectedFiles.
+ selectFile(event: any) {
+  this.selectedFiles = event.target.files;
+}
+
+// Uploads the file to backend server.
+upload() {
+  this.currentFileUpload = this.selectedFiles.item(0)!;
+  this.alumnoService.uploadSingleFile(this.currentFileUpload, this._routes.snapshot.params['id'])
+    .pipe(tap(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.loaded = Math.round(100 * event.loaded / event.total!);
+      }
+    })).subscribe(event => {
+    if (event instanceof HttpResponse) {
+      this._snackBar.open('File uploaded successfully!', 'Close', {
+        duration: 3000
+      });
+      this.listarAlumnos();
+    }
+  });
+}
+
+
+
 
 }

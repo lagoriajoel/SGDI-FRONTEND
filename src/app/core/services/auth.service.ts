@@ -41,12 +41,12 @@ export class AuthenticationService {
     }
 
     public getToken(): string {
-        return localStorage.getItem(TOKEN_KEY)!;
+        return sessionStorage.getItem(TOKEN_KEY)!;
       }
     
     public setToken(token: string): void {
-        window.localStorage.removeItem(TOKEN_KEY);
-        window.localStorage.setItem(TOKEN_KEY, token);
+        window.sessionStorage.removeItem(TOKEN_KEY);
+        window.sessionStorage.setItem(TOKEN_KEY, token);
       }
 
     // getCurrentUser(): any {
@@ -90,10 +90,41 @@ export class AuthenticationService {
         const payload = token.split('.')[1];
         const payloadDecoded = atob(payload);
         const values = JSON.parse(payloadDecoded);
-        const username = values.nombre;
+        const username = values.sub;
         console.log(username);
         return username;
 
+      }
+
+      public getName(): string {
+        if (!this.isLogged()) {
+          return null!;
+        }
+        const token = this.getToken();
+        const payload = token.split('.')[1];
+        const payloadDecoded = atob(payload);
+        const values = JSON.parse(payloadDecoded);
+        const name = values.nombre;
+        console.log(name);
+        return name;
+
+      }
+
+
+      isAdmin(): boolean {
+        if (!this.isLogged()) {
+          return false;
+        }
+        const token = this.getToken();
+        const payload = token.split('.')[1];
+        const payloadDecoded = atob(payload);
+        const values = JSON.parse(payloadDecoded);
+        const roles = values.roles;
+         
+       if(roles.indexOf("ROLE_ADMIN") < 0){
+        return false
+       }
+        return true
       }
 }
 

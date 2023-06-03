@@ -38,7 +38,7 @@
     <div class="column">
       <mat-form-field appearance="fill">
         <mat-label>Turno</mat-label>
-        <mat-select [(ngModel)]="selectedValue" formControlName="turno">
+        <mat-select formControlName="turno">
           <mat-option *ngFor="let turno of turnos" [value]="turno.value">
             {{turno.viewValue}}
           </mat-option>

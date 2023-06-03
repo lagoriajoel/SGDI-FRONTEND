@@ -180,8 +180,9 @@ export class ListInformesComponent implements OnInit {
      console.log(this.InformeAlumno);
       
     const dialogRef = this.dialog.open(MostrarInformeComponent, {
-      width: "700px",
+      width: "1000px",
       disableClose: true, data: {
+        alumno: alumno,
         infome: this.InformeAlumno,
         NombreAlumno: alumno.nombres +' '+ alumno.apellido,
         dni: alumno.dni,

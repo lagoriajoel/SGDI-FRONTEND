@@ -15,10 +15,19 @@
           <mat-icon>add</mat-icon>
           Agregar Curso
         </button>
-        <mat-form-field appearance="standard">
-          <mat-label>Filtro</mat-label>
-          <input matInput (keyup)="applyFilter($event)" #input autocomplete="off">
+        <mat-form-field appearance="fill" *ngFor="let empfilter of empFilters">
+          <mat-label>{{ empfilter.name }}</mat-label>
+          <mat-select
+            [(value)]="empfilter.defaultValue"
+            (selectionChange)="applyEmpFilter($event, empfilter)"
+          >
+            <mat-option *ngFor="let op of empfilter.options" [value]="op">
+              {{ op }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
+
+        
         </div>
 
         <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">

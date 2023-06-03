@@ -67,34 +67,46 @@
           </mat-icon>
           <p mat-line> Dashboard </p>
         </a>
-        <a mat-list-item [routerLink]="['/cursos']" [queryParams]="{ informes: 'true'}" routerLinkActive="active">
+        <a *ngIf="!isAdmin" mat-list-item [routerLink]="['/dashboard/dashboardAlumno']" routerLinkActive="active">
+          <mat-icon mat-list-icon>
+            description
+          </mat-icon>
+          <p mat-line> Mis Informes </p>
+        </a>
+        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/cursos']" [queryParams]="{ informes: 'true'}" routerLinkActive="active">
           <mat-icon mat-list-icon>
             dashboard
           </mat-icon>
           <p mat-line> Informes Desempeño </p>
         </a>
+        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/dashboard']" [queryParams]="{ mesa: 'true'}" routerLinkActive="active">
+          <mat-icon mat-list-icon>
+            dashboard
+          </mat-icon>
+          <p mat-line> Mesa de Examen </p>
+        </a>
 
 
-        <a mat-list-item [routerLink]="['/cursos']"  [queryParams]="{ curso: 'true'}" routerLinkActive="active">
+        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/cursos']"  [queryParams]="{ curso: 'true'}" routerLinkActive="active">
 
           <mat-icon mat-list-icon>
             business
           </mat-icon>
           <p mat-line> Cursos </p>
         </a>
-        <a mat-list-item [routerLink]="['/cursos']" [queryParams]="{ alumnos: 'true'}" routerLinkActive="active">
+        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/cursos']" [queryParams]="{ alumnos: 'true'}" routerLinkActive="active">
           <mat-icon mat-list-icon>
             people
           </mat-icon>
           <p mat-line> Alumnos </p>
         </a>
-        <a mat-list-item [routerLink]="['/materias/:id']" routerLinkActive="active">
+        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/materias/mostrar']" routerLinkActive="active">
           <mat-icon mat-list-icon>
            assignment
           </mat-icon>
           <p mat-line> Materias </p>
         </a>
-        <a mat-list-item [routerLink]="['/contenidos/:idCurso']" routerLinkActive="active">
+        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/contenidos/:idCurso']" routerLinkActive="active">
           <mat-icon mat-list-icon>
            
               library_books
@@ -103,7 +115,7 @@
           <p mat-line> Contenidos </p>
         </a>
 
-        <a mat-list-item [routerLink]="['/user']">
+        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/user']">
           <mat-icon mat-list-icon>
             people
           </mat-icon>

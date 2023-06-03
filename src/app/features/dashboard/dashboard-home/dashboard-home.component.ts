@@ -19,89 +19,30 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./dashboard-home.component.css']
 })
 export class DashboardHomeComponent implements OnInit {
-  alumnos: Alumno[] = [];
-  alumno!: Alumno;
-  informesDesempenio: Informes[] = [];
-  loading: boolean = true;
-  idCurso = null;
-  dni_ingresado: string = "";
-  AsignaturaInforme: string = "";
-  CursoInforme: string = "";
-  nombreAlumno!: string;
-  apellidoAlumno!: string;
-  cicloLectivo: string = "";
   
-
-  displayedColumns: string[] = ["Asignatura", "Curso", "acciones"];
-  dataSource = new MatTableDataSource(this.informesDesempenio);
-
-  @ViewChild(MatSort, { static: true })
-  sort: MatSort = new MatSort();
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
+  nombreUsuario: string=''
+ 
   constructor(
-    private logger: NGXLogger,
-    private notificationService: NotificationService,
-    private titleService: Title,
-    private alumnoService: AlumnoService,
-    public dialog: MatDialog,
-    private _snackBar: MatSnackBar,
-    private _routes: ActivatedRoute,
-    private _router: Router
+   private authService: AuthenticationService,
+   private notificationService: NotificationService,
+   private alumnoService: AlumnoService,
+   private router: Router,
+   private snackBarService: MatSnackBar,
+   private titleService: Title,
   ) {
-    this.dataSource = new MatTableDataSource();
+    
   }
 
   ngOnInit() {
-    this.titleService.setTitle("Gestion de Informes - Cursos");
     
-   
-    this.dataSource.sort = this.sort;
-
+    this.titleService.setTitle("SiGeID - Dashboard");
+     this.nombreUsuario=this.authService.getName()
     
   }
-  listarAlumnos(): void {
-    this.alumnos = [];
 
-    this.alumnoService.listaPorDni(this.dni_ingresado).subscribe(
-      (data) => {
-        this.alumnos.push(data);
-        this.alumno = data;
-        console.log(this.alumno);
-        this.dataSource.data = data.informeDesempenios;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(data);
-        this.nombreAlumno = this.alumno.nombres;
-        this.apellidoAlumno = this.alumno.apellido;
-      },
-      (error) => {
-        this.notificationService.openSnackBar(error.error.Mensaje);
-      }
-    );
-  }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  // enviamos el id del informe al back
-
-  generarPDF(id: number) {
-    let informeId = id;
-
-    this.alumnoService
-      .generarPDF(informeId, this.dni_ingresado)
-      .subscribe((data) => {
-        let donwloadURL = window.URL.createObjectURL(data);
-        // let link= document.createElement('a')
-        // link.href=donwloadURL
-        // link.download="informe.pdf"
-        // link.click()
-
-        window.open(donwloadURL, "_blank");
-      });
-  }
+  
 
   
 }

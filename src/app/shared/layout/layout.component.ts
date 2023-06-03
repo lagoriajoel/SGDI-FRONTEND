@@ -41,9 +41,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         this.showSpinner=true
         // const user = this.authService.getCurrentUser();
 
-        // this.isAdmin = user.isAdmin;
-        this.userName = this.authService.getUserName();
-        console.log(this.userName+"aca");
+        this.isAdmin = this.authService.isAdmin();
+        this.userName = this.authService.getName();
+        
 
        
     }

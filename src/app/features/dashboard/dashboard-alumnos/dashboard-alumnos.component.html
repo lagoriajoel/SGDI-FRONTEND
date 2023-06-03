@@ -1,0 +1,59 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="95%">
+  
+      <mat-card>
+        
+        <mat-card-content>
+          
+         
+         <ng-container>
+         
+            
+            <h2 mat-dialog-title *ngIf="nombreAlumno" > Nombre: {{nombreAlumno}} {{apellidoAlumno}}</h2>
+           
+         <mat-divider></mat-divider>
+    
+         </ng-container>
+         
+          
+          <table mat-table [dataSource]="dataSource" matSort>
+  
+           
+            <ng-container matColumnDef="Asignatura">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Asignatura </th>
+              <td mat-cell *matCellDef="let element"> {{element.contenidosAdeudados[0].asignatura.nombre}} </td>
+            </ng-container>
+          
+         
+            <ng-container matColumnDef="Curso">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso </th>
+              <td mat-cell *matCellDef="let element"> {{element.contenidosAdeudados[0].asignatura.anioCurso}} Año </td>
+            </ng-container>
+          
+        
+            
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
+              <td mat-cell *matCellDef="let element"> 
+                <!-- capturamos el id del informe  -->
+                <button mat-raised-button (click)="generarPDF(element.id)">
+                  <mat-icon  class="btnVer"  matTooltip="Ver">visibility</mat-icon> Ver </button>  
+                </td>
+           </ng-container>
+          
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+  
+          
+            <mat-paginator [pageSizeOptions]="[10, 20]"
+            showFirstLastButtons
+            >
+          </mat-paginator>
+          
+        </mat-card-content>
+      </mat-card>
+  
+    </div>
+  </div>

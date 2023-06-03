@@ -41,6 +41,7 @@ export class AddEditCursoComponent implements OnInit {
     this.form = this.fb.group({
       anio: ['', [Validators.required, Validators.maxLength(20)]],
       division: ['', Validators.required],
+      turno:['', Validators.required],
       cicloLectivo: ['', [Validators.required]],
       
     })
@@ -53,6 +54,8 @@ export class AddEditCursoComponent implements OnInit {
    
   }
 
+  // metodo para editar
+
   esEditar(id: number | undefined) {
     if (id !== undefined) {
       this.operacion = 'Editar ';
@@ -60,11 +63,14 @@ export class AddEditCursoComponent implements OnInit {
     }
   }
 
+  // se obtiene el curso para poder editarlo
+
   getCurso(id: number) {
     this._cursoService.detail(id).subscribe(data => {
       this.form.setValue({
         anio: data.anio,
         division: data.division,
+        turno: data.turno,
         cicloLectivo: data.cicloLectivo
        
       })
@@ -74,6 +80,8 @@ export class AddEditCursoComponent implements OnInit {
   cancelar() {
     this.dialogRef.close(false);
   }
+
+
 
   addEditCurso() {
 
@@ -85,7 +93,7 @@ export class AddEditCursoComponent implements OnInit {
       idCurso: 0,
       anio: this.form.value.anio,
       division: this.form.value.division,
-      turno: this.selectedValue,
+      turno: this.form.value.turno,
       cicloLectivo: this.form.value.cicloLectivo
     }
 

@@ -1,40 +1,66 @@
 
-      <h2 mat-dialog-title>Informe de desempeño </h2>
-  
-      <mat-divider> </mat-divider>
-    
-        <mat-dialog-content class="mat-typography">
 
+
+<mat-dialog-content class="mat-typography">
+  <mat-card>
+     
+  <div class="titulo">
+    <h2 mat-dialog-title>Informe de desempeño </h2>
+  </div>
+  <mat-divider> </mat-divider>
  
-          <mat-grid-list cols="2" rowHeight="30px" >
+          <mat-grid-list class="header"cols="2" rowHeight="30px" >
               
                   <mat-grid-tile > 
-                      <div class="text-inside-grid"><h3>Alumno: {{NombreAlumno}}</h3></div> 
+                      <div class="text-inside-grid">
+                        Alumno: {{NombreAlumno}}</div> 
                   </mat-grid-tile>
                   <mat-grid-tile > 
-                      <div class="text-inside-grid"><h3>Espacio Curricular : {{NombreAsignatura}}</h3></div>
+                      <div class="text-inside-grid">Espacio Curricular : <span>{{NombreAsignatura}} </span></div>
                   </mat-grid-tile>
                   <mat-grid-tile > 
-                      <div class="text-inside-grid"><h3>Curso: </h3></div> 
+                      <div class="text-inside-grid">Curso: <span> {{NombreCurso}}° Año  </span></div> 
                   </mat-grid-tile>
                   <mat-grid-tile > 
-                      <div class="text-inside-grid"><h3>Profesor: </h3></div> 
+                      <div class="text-inside-grid">Profesor:<span></span></div> 
                   </mat-grid-tile>
                   <mat-grid-tile > 
-                      <div class="text-inside-grid"><h3>Division: </h3></div> 
+                      <div class="text-inside-grid">Division: <span>{{NombreDivision}}</span></div> 
                   </mat-grid-tile>
                   <mat-grid-tile > 
-                      <div class="text-inside-grid"><h3>Ciclo Lectivo: </h3></div> 
+                      <div class="text-inside-grid">Ciclo Lectivo: <span>{{cicloLectivo}}</span></div> 
                   </mat-grid-tile>
-  
+                 
                 
             </mat-grid-list>
-  
+            <mat-divider> </mat-divider>
+            <mat-dialog-content class="mat-typography">
+                <mat-grid-list cols="2" rowHeight="150px">
+                  <mat-grid-tile > 
+                    <div >
+                      Criterios de Evaluacion:
+                       <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                         Alias dicta similique inventore eius commodi maxime accusamus, 
+                         dolor quae labore modi iure impedit vel recusandae consequuntur! 
+                         Eveniet aperiam quae dolores fugiat.</span>
+                      </div> 
+                </mat-grid-tile>
+                <mat-grid-tile > 
+                  <div >
+                    Estrategias de Evaluacion:
+                     <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                       Alias dicta similique inventore eius commodi maxime accusamus, 
+                       dolor quae labore modi iure impedit vel recusandae consequuntur! 
+                       Eveniet aperiam quae dolores fugiat.</span>
+                    </div> 
+              </mat-grid-tile>
+                </mat-grid-list>
+              </mat-dialog-content>
             <table mat-table [dataSource]="dataSource" matSort>
     
              
               <ng-container matColumnDef="contenido">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contenido </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contenidos Adeudados </th>
                 <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
               </ng-container>
             
@@ -56,12 +82,13 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-        </mat-dialog-content>
+  </mat-card>
+</mat-dialog-content>
 
           
         <mat-dialog-actions align="end">
           <button mat-button mat-dialog-close>Cancelar</button>
-          <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+          <button mat-button   (click)="generarPDF()">descargar</button>
         </mat-dialog-actions>
 
 
