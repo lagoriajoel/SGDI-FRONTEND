@@ -1,0 +1,61 @@
+<h2>Administradores</h2>
+<div class="serch">
+
+<button mat-raised-button (click)="addEditProfesor()" >
+  <mat-icon>add</mat-icon>
+  Agregar Administrador/a
+</button>
+<mat-form-field appearance="standard">
+  <mat-label>Filtro</mat-label>
+  <input matInput (keyup)="applyFilter($event)" #input autocomplete="off">
+</mat-form-field>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort>
+
+ 
+  <ng-container matColumnDef="dni">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Dni </th>
+    <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="apellido">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
+    <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+          
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          
+  </ng-container>
+
+  
+  
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
+    <td mat-cell *matCellDef="let element"> 
+        <mat-icon (click)="addEditProfesor(element.id)" class="btnEdit" matTooltip="Editar">edit</mat-icon>
+        <mat-icon (click)="deleteProfesor(element.id)" class="btnDelete" matTooltip="Delete">delete</mat-icon>
+                
+      </td>
+ </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+  <mat-paginator [pageSizeOptions]="[20, 30]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements">
+</mat-paginator>

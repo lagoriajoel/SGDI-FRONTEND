@@ -10,6 +10,7 @@ import { cursoAlumno } from 'src/app/core/Entities/cursoAlumno';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { Informes } from 'src/app/core/Entities/informe';
+import { AlumnoDto } from 'src/app/core/Entities/AlumnoDto';
 
 
 @Component({
@@ -102,8 +103,8 @@ export class AddEditAlumnosComponent implements OnInit {
      
     }
    
-    const alumno: Alumno = {
-      id: 0,
+    const alumno: AlumnoDto = {
+      
       dni: this.form.value.dni,
       nombres: this.form.value.nombres,
       apellido: this.form.value.apellido,

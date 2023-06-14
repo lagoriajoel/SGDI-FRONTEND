@@ -67,7 +67,7 @@ export class AddEditInformesComponent implements OnInit {
     this.idCurso = data.idCurso;
     this.idAsignatura = data.idAsignatura;
 
-    console.log(this.idAlumno);
+    console.log('id de alumno '+this.idAlumno);
     console.log(this.idAsignatura);
    
 

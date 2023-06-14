@@ -1,0 +1,64 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="95%">
+      <mat-card>
+        <mat-card-content>
+          <h2>Materias</h2>
+        
+  
+      
+      
+  
+                <div class="row">
+
+                   
+                     <h3> Espacio Curricular :  </h3>{{NombreMateria}}
+                  
+                </div>
+
+                <div class="row">
+
+            
+                  <h3> Año : </h3>{{anioMateria}}
+                     
+              
+                </div>
+
+                <div class="row">
+            
+                  <h3> División :  </h3>{{divisionMateria}}
+                   
+        
+                 </div>
+
+                 <div class="row">
+                      
+                  <h3> Ciclo Lectivo :  </h3>{{cicloLectivoMateria}}
+                    
+                </div>
+                <div class="row">
+                      
+                      Profesor   :
+                    <mat-form-field appearance="fill">
+                      <input  matInput [(ngModel)]="NombreProfesor" >
+                    </mat-form-field>
+                    <button class="botonAsignar" mat-raised-button (click)="asignarProfesor()">
+                      <mat-icon>add_circle</mat-icon>
+                     Asignar Profesor
+                    </button>
+          
+                 </div>
+
+    
+     
+   
+              <mat-dialog-actions >
+                <button type="button" (click)="cancelar()" mat-button>Cancelar</button>
+                <button type="button" (click)="aceptar()" mat-button cdkFocusInitial>Aceptar</button>
+              </mat-dialog-actions>
+              
+      
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+</div>

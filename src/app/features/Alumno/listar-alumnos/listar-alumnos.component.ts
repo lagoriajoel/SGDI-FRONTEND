@@ -28,7 +28,7 @@ export class ListarAlumnosComponent implements OnInit {
 
   
   
-  displayedColumns: string[] = ["dni", "nombres", "apellido", "email","cursoId", "acciones"];
+  displayedColumns: string[] = ["dni", "nombres", "apellido", "email", "acciones"];
   dataSource = new MatTableDataSource(this.alumnos);
 
   clickedRows = new Set<Alumno>();

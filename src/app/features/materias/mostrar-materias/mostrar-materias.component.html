@@ -1,1 +1,81 @@
-<p>mostrar-materias works!</p>
+ 
+  
+          <div class="serch">
+  
+         
+          <mat-form-field appearance="fill" *ngFor="let empfilter of empFilters">
+            <mat-label>{{ empfilter.name }}</mat-label>
+            <mat-select
+              [(value)]="empfilter.defaultValue"
+              (selectionChange)="applyEmpFilter($event, empfilter)"
+            >
+              <mat-option *ngFor="let op of empfilter.options" [value]="op">
+                {{ op }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          
+          </div>
+  
+          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+  
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by year"> Espacio Curricular </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+              </ng-container>
+            <ng-container matColumnDef="anio">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by year"> Año </th>
+              <td mat-cell *matCellDef="let element"> {{element.curso.anio}} </td>
+            </ng-container>
+          
+         
+            <ng-container matColumnDef="Division">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Division </th>
+              <td mat-cell *matCellDef="let element"> {{element.curso.division}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="turno">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Turno </th>
+              <td mat-cell *matCellDef="let element"> {{element.curso.turno}} </td>
+            </ng-container>
+          
+         
+            <ng-container matColumnDef="Ciclo Lectivo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Ciclo Lectivo </th>
+              <td mat-cell *matCellDef="let element"> {{element.curso.cicloLectivo}} </td>
+                    
+            </ng-container>
+            
+            
+            <ng-container  matColumnDef="acciones">
+              <th  mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
+              <td mat-cell *matCellDef="let element" > 
+                  <mat-icon (click)="addEditCurso(element.idCurso)" class="btnEdit" matTooltip="Editar">edit</mat-icon>
+                  <mat-icon (click)="deleteCurso(element.idCurso)" class="btnDelete" matTooltip="Delete">delete</mat-icon>
+                              
+                
+                  
+                </td>
+           </ng-container>
+            
+           
+  
+         
+  
+        
+          
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row (click)="mostrarDetalle(row)"         
+            mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+  
+          
+            <mat-paginator [pageSizeOptions]="[10, 20]"
+            showFirstLastButtons
+            aria-label="">
+          </mat-paginator>
+      
+  
+  

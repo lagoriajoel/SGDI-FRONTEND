@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+.btnDelete {
+
+    color:brown
+}
+.btnDelete:hover {
+
+    color :red
+    
+}
+.serch {
+
+  align-items: center;
+}
+
+mat-form-field {
+   margin-left: 20px;
+}

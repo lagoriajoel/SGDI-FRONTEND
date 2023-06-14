@@ -4,6 +4,7 @@ import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Alumno } from '../Entities/alumno';
+import { AlumnoDto } from '../Entities/AlumnoDto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,11 +35,11 @@ export class AlumnoService {
   }
 
  
-  public save(alumno: Alumno): Observable<any> {
+  public save(alumno: AlumnoDto): Observable<any> {
     return this.httpClient.post<any>(this.AlumnoURL + 'save', alumno);
   }
 
-  public update(id: number, alumno: Alumno): Observable<any> {
+  public update(id: number, alumno: AlumnoDto): Observable<any> {
     return this.httpClient.put<any>(this.AlumnoURL + `update/${id}`, alumno);
   }
 

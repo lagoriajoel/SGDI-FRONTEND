@@ -9,14 +9,14 @@ import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { LoggerModule } from 'ngx-logger';
 import { environment } from '../environments/environment';
-import { ActualizarInformesComponent } from './features/mesa-examen/actualizar-informes/actualizar-informes.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    
+   
+     
     
     
     

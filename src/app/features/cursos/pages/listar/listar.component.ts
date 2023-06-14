@@ -132,7 +132,7 @@ export class ListarComponent implements OnInit {
     var jsonString = JSON.stringify(Array.from(this.filterDictionary.entries()));
     
     this.dataSource.filter = jsonString;
-    //console.log(this.filterValues);
+    
   }
 
   applyFilter(event: Event) {
@@ -145,7 +145,6 @@ export class ListarComponent implements OnInit {
     this.cursoService.lista().subscribe(data => {
       this.dataSource.data = data;
       this.cursos=data
-      console.log(this.cursos);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
          })
@@ -211,11 +210,7 @@ export class ListarComponent implements OnInit {
               this.isContenidos = 1;
               this.idCurso = idCurso;
               this.añoCurso = añoCurso;
-              // this.router.navigate(["/materias/listar/",
-              //   this.idCurso,
-              //   this.añoCurso,
-              //   this.isContenidos,
-              // ]);
+             
 
               this.router.navigate(["/materias/listar/"], { 
                 queryParams: {
@@ -231,12 +226,7 @@ export class ListarComponent implements OnInit {
               this.isContenidos = 0;
               this.idCurso = idCurso;
               this.añoCurso = añoCurso;
-        //       this.router.navigate([
-        //         "/materias/listar/",
-        //         this.idCurso,
-        //         this.añoCurso,
-        //         this.isContenidos,
-        // ]);
+       
 
         this.router.navigate(["/materias/listar/"], { 
           queryParams: {
@@ -251,6 +241,7 @@ export class ListarComponent implements OnInit {
 
 mostrarFila( curso1: CursoDto){
   
+  this.idCurso=curso1.idCurso;
   if(this.isInforme){
 
   this.isContenidos = 1;
@@ -268,6 +259,7 @@ mostrarFila( curso1: CursoDto){
     }
   });
 }
+this.router.navigate(["/alumnos/listar/", this.idCurso]);
 }
 
 

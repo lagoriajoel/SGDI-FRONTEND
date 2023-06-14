@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MateriaContenido } from "src/app/core/Entities/materiaContenido";
 import { ContenidosService } from "src/app/core/services/contenidos.service";
+import { NotificationService } from "src/app/core/services/notification.service";
 
 @Component({
   selector: "app-add-edit-contenidos",
@@ -22,6 +23,7 @@ export class AddEditContenidosComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddEditContenidosComponent>,
     private fb: FormBuilder,
+    private notificationService: NotificationService,
     private _contenidoService: ContenidosService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -44,6 +46,7 @@ export class AddEditContenidosComponent implements OnInit {
     if (id !== undefined) {
       this.operacion = "Editar ";
       this.getCurso(id);
+      console.log("edirar "+this.id);
     }
   }
 
@@ -71,21 +74,28 @@ export class AddEditContenidosComponent implements OnInit {
     this.loading = true;
     if (this.id == undefined) {
       // Es agregar
-      this._contenidoService.save(contenido).subscribe(() => {
-        this.mensajeExito("agregada");
+      this._contenidoService.save(contenido).subscribe(
+        {
+          next: () => {
+        this.mensajeExito("agregado");
         this.dialogRef.close(true);
-      });
+      },
+      error: (error) => {
+        this.notificationService.openSnackBar(error.error)
+      }
+        }
+      );
     } else {
       // Es editar
       this._contenidoService.update(this.id, contenido).subscribe((data) => {
-        this.mensajeExito("actualizada");
+        this.mensajeExito("actualizado");
         this.dialogRef.close(true);
       });
     }
   }
 
   mensajeExito(operacion: string) {
-    this._snackBar.open(`La persona fue ${operacion} con exito`, "", {
+    this._snackBar.open(`El contenido fue ${operacion} con exito`, "", {
       duration: 2000,
     });
   }

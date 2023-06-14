@@ -17,9 +17,14 @@ const appRoutes: Routes = [
    
   },
   {
+    path: 'dashboardProfesor',
+    loadChildren: () => import('./features/dashboard-profesor/dashboar-profesor.module').then(m => m.DashboarProfesorModule),
+    canActivate:  [AdminGuard], data: {expectedRol: ['profesor']}
+  },
+  {
     path: 'informes',
     loadChildren: () => import('./features/informes/informes.module').then(m => m.InformesModule),
-    canActivate: [AdminGuard], data: {expectedRol: ['admin']}
+    canActivate: [AdminGuard], data: {expectedRol: ['admin', 'profesor']}
   },
   {
     path: 'customers',
@@ -34,7 +39,7 @@ const appRoutes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule),
-    canActivate: [AdminGuard], data: {expectedRol: ['user']}
+    canActivate: [AdminGuard], data: {expectedRol: ['user', 'admin', 'profesor']}
   },
   
   {
@@ -71,7 +76,7 @@ const appRoutes: Routes = [
   {
     path: 'contenidos',
     loadChildren: () => import('./features/contenidos/contenidos.module').then(m => m.ContenidosModule),
-    canActivate: [AuthGuard]
+    canActivate: [AdminGuard], data: {expectedRol: ['admin', 'profesor']}
   }
   ,
   
@@ -80,6 +85,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./features/Alumno/alumnos.module').then(m => m.AlumnosModule),
     canActivate:  [AdminGuard], data: {expectedRol: ['admin']}
   },
+ 
   {
     path: '**',
     redirectTo: 'dashboard',

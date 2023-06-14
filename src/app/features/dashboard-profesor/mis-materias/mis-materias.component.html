@@ -1,0 +1,66 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="95%">
+  
+      <mat-card>
+        
+        <mat-card-content>
+          <h2 *ngIf="isMaterias">Espacios Curriculares </h2>
+          <h2 *ngIf="isContenidos">Contenidos Curriculares </h2>
+          <h2 *ngIf="informes">Informes de Desempeño </h2>
+
+
+         
+         
+           
+        
+            
+       
+        <table mat-table [dataSource]="dataSource" matSort>
+  
+           
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Materia </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            </ng-container>
+          
+         
+            <ng-container matColumnDef="año">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Año </th>
+              <td mat-cell *matCellDef="let element"> {{element.curso.anio}} </td>
+            </ng-container>
+          
+         
+            <ng-container matColumnDef="division">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> División </th>
+              <td mat-cell *matCellDef="let element"> {{element.curso.division}} </td>
+                    
+            </ng-container>
+
+            <ng-container matColumnDef="cicloLectivo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Ciclo Lectívo </th>
+              <td mat-cell *matCellDef="let element"> {{element.curso.cicloLectivo}} </td>
+                    
+            </ng-container>
+
+          
+          
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row (click)="mostrarFila(row)"         
+          mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+  
+          
+            <mat-paginator [pageSizeOptions]="[20, 30]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+          
+        </mat-card-content>
+      </mat-card>
+    
+      
+    </div>
+  </div>
+
+ 

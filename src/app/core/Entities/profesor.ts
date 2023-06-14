@@ -1,4 +1,5 @@
 import { MateriaContenido } from "./materiaContenido";
+import { MateriasDto } from "./materias";
 
 
 
@@ -10,6 +11,7 @@ export interface Profesor {
     apellido:string;
     email: string;
     nombreCompleto:string; 
+    asignaturas: MateriasDto[]
    
      
 

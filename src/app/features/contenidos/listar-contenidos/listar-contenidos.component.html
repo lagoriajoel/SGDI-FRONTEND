@@ -4,7 +4,7 @@
       <mat-card>
         
         <mat-card-content>
-          <h2>Contenidos de {{ asignatura }} </h2>
+          <h2>Contenidos de {{ NombreAsignatura }} {{cursoNombre}} </h2>
           <div class="serch">
 
           <button mat-raised-button (click)="addEditCurso()" >
@@ -36,7 +36,7 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
               <td mat-cell *matCellDef="let element"> 
                   <mat-icon (click)="addEditCurso(element.id)" class="btnEdit" matTooltip="Editar">edit</mat-icon>
-                  <mat-icon  class="btnDelete" matTooltip="Delete">delete</mat-icon>
+                  <mat-icon  class="btnDelete" (click)="eliminar(element.id)" matTooltip="Delete">delete</mat-icon>
                           
                 </td>
            </ng-container>

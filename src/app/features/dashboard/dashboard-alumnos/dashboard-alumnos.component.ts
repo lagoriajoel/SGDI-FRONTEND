@@ -67,6 +67,7 @@ export class DashboardAlumnosComponent implements OnInit {
 
     this.listarInformesAlumnos(this._authService.getUserName())
 
+
     this.isAdmin=this._authService.isAdmin()
 
     
@@ -75,7 +76,7 @@ export class DashboardAlumnosComponent implements OnInit {
 
   listarInformesAlumnos(dni:string): void {
     this.alumnos = [];
-
+   
      
         this.alumnoService.listaPorDni(dni).subscribe({
          next: (data) => {

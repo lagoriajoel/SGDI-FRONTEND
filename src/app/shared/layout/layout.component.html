@@ -33,8 +33,10 @@
 
     <button mat-button [matMenuTriggerFor]="userMenu">
       <mat-icon>person</mat-icon>
+      
+      
       <span fxShow fxHide.xs>
-        {{userName}}
+       {{usuario}} {{userName}}
       </span>
     </button>
     <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
@@ -67,7 +69,7 @@
           </mat-icon>
           <p mat-line> Dashboard </p>
         </a>
-        <a *ngIf="!isAdmin" mat-list-item [routerLink]="['/dashboard/dashboardAlumno']" routerLinkActive="active">
+        <a *ngIf="!isAdmin&&!isProfesor" mat-list-item [routerLink]="['/dashboard/dashboardAlumno']" routerLinkActive="active">
           <mat-icon mat-list-icon>
             description
           </mat-icon>
@@ -86,6 +88,25 @@
           <p mat-line> Mesa de Examen </p>
         </a>
 
+        <a *ngIf="isProfesor" mat-list-item [routerLink]="['/dashboardProfesor/misMaterias']"[queryParams]="{ materias: 'true'}" routerLinkActive="active">
+          <mat-icon mat-list-icon>
+            assignment
+          </mat-icon>
+          <p mat-line> mis Espacios </p>
+        </a>
+
+        <a *ngIf="isProfesor" mat-list-item [routerLink]="['/dashboardProfesor/misMaterias']"[queryParams]="{ contenidos: 'true'}" routerLinkActive="active">
+          <mat-icon mat-list-icon>
+            library_books
+          </mat-icon>
+          <p mat-line> mis Contenidos </p>
+        </a>
+        <a *ngIf="isProfesor" mat-list-item [routerLink]="['/dashboardProfesor/misMaterias']"[queryParams]="{ informes: 'true'}" routerLinkActive="active">
+          <mat-icon mat-list-icon>
+            library_books
+          </mat-icon>
+          <p mat-line> mis Informes </p>
+        </a>
 
         <a *ngIf="isAdmin" mat-list-item [routerLink]="['/cursos']"  [queryParams]="{ curso: 'true'}" routerLinkActive="active">
 
@@ -104,15 +125,7 @@
           <mat-icon mat-list-icon>
            assignment
           </mat-icon>
-          <p mat-line> Materias </p>
-        </a>
-        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/contenidos/:idCurso']" routerLinkActive="active">
-          <mat-icon mat-list-icon>
-           
-              library_books
-  
-          </mat-icon>
-          <p mat-line> Contenidos </p>
+          <p mat-line> Espacios Curriculares </p>
         </a>
 
         <a *ngIf="isAdmin" mat-list-item [routerLink]="['/user']">

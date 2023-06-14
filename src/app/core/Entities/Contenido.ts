@@ -1,5 +1,5 @@
 import { MateriaContenido } from "./materiaContenido";
-import { Materias } from "./materias";
+import { MateriasDto } from "./materias";
 
 export interface contenido {
         

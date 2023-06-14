@@ -14,6 +14,7 @@ const TOKEN_KEY = 'token';
     providedIn: 'root'
 })
 export class AuthenticationService {
+    
 
     authURL = 'http://localhost:8001/auth/';
 
@@ -91,7 +92,6 @@ export class AuthenticationService {
         const payloadDecoded = atob(payload);
         const values = JSON.parse(payloadDecoded);
         const username = values.sub;
-        console.log(username);
         return username;
 
       }
@@ -105,7 +105,6 @@ export class AuthenticationService {
         const payloadDecoded = atob(payload);
         const values = JSON.parse(payloadDecoded);
         const name = values.nombre;
-        console.log(name);
         return name;
 
       }
@@ -126,6 +125,22 @@ export class AuthenticationService {
        }
         return true
       }
+
+      isProfesor(): boolean {
+        if (!this.isLogged()) {
+          return false;
+        }
+        const token = this.getToken();
+        const payload = token.split('.')[1];
+        const payloadDecoded = atob(payload);
+        const values = JSON.parse(payloadDecoded);
+        const roles = values.roles;
+         
+       if(roles.indexOf("ROLE_PROFESOR") < 0){
+        return false
+       }
+        return true
+    }
 }
 
 export class LoginUsuario {

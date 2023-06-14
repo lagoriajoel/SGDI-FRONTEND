@@ -1,4 +1,4 @@
-import { Materias } from "./../../../core/Entities/materias";
+import { MateriasDto } from "./../../../core/Entities/materias";
 import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { NGXLogger } from "ngx-logger";
@@ -16,7 +16,7 @@ import { MateriasService } from "src/app/core/services/materias.service";
   styleUrls: ["./listar-materias.component.css"],
 })
 export class ListarMateriasComponent implements OnInit {
-  materias: Materias[] = [];
+  materias: MateriasDto[] = [];
   loading: boolean = true;
   idAsignatura: number = 0;
   isGenerarInforme: boolean = false;
@@ -56,12 +56,6 @@ export class ListarMateriasComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle("Gestion de Informes - Cursos");
-    this.logger.log("Asignaturas Cargadas");
-    this.notificationService.openSnackBar("Asignaturas Cargadas");
-    // this.idCurso = this._routes.snapshot.params["id"];
-    // this.anoCurso= this._routes.snapshot.params["anioCurso"]
-    // this._routes.snapshot.params["isContenido"];
-
    
     this.cargarMaterias();
   }

@@ -7,12 +7,13 @@ import { MatPaginator } from "@angular/material/paginator";
 import { NGXLogger } from "ngx-logger";
 import { NotificationService } from "src/app/core/services/notification.service";
 import { Title } from "@angular/platform-browser";
-import { AlumnoService } from "src/app/core/services/alumno.service";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute } from "@angular/router";
 import { ContenidosService } from "src/app/core/services/contenidos.service";
 import { MateriasService } from "src/app/core/services/materias.service";
+import { MateriasDto } from "src/app/core/Entities/materias";
+
 
 @Component({
   selector: "app-listar-contenidos",
@@ -23,8 +24,9 @@ export class ListarContenidosComponent implements OnInit {
   contenidos: contenido[] = [];
   loading: boolean = true;
   idAsignatura = null;
-  asignatura!: string;
-
+  asignatura!: MateriasDto;
+  NombreAsignatura=''
+  cursoNombre=''
   displayedColumns: string[] = ["nombre", "descripcion", "acciones"];
   dataSource = new MatTableDataSource(this.contenidos);
 
@@ -42,7 +44,7 @@ export class ListarContenidosComponent implements OnInit {
     private _materiaService: MateriasService
   ) {
     this.dataSource = new MatTableDataSource();
-    console.log(this._routes.snapshot.paramMap.get("id"));
+   
     this.idAsignatura = this._routes.snapshot.params["id"];
   }
 
@@ -50,15 +52,16 @@ export class ListarContenidosComponent implements OnInit {
     this._materiaService
       .detail((this.idAsignatura = this._routes.snapshot.params["id"]))
       .subscribe((data) => {
-        this.asignatura = data.nombre;
-        console.log(this.asignatura);
+        this.asignatura = data;
+        this.NombreAsignatura = this.asignatura.nombre
+        this.cursoNombre = this.asignatura.curso.anio + this.asignatura.curso.division
+       
       });
   }
 
   ngOnInit() {
     this.titleService.setTitle("Gestion de Informes - Cursos");
-    this.logger.log("Cursos loaded");
-    this.notificationService.openSnackBar("Cursos loaded");
+
 
     this.dataSource.sort = this.sort;
     this.getNombreAsignatura();
@@ -75,7 +78,7 @@ export class ListarContenidosComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.contenidos = data;
-        //console.log(data);
+       
       });
   }
 
@@ -106,5 +109,16 @@ export class ListarContenidosComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  eliminar(id: number){
+       this.contenidoService.delete(id).subscribe({
+        next: data=> {
+          console.log("eliminado");
+        },
+        error : error=> {
+         console.log(error);
+        }
+       })
   }
 }

@@ -15,10 +15,22 @@ export class AdminGuard implements CanActivate {
       
 
         const expectedRol = route.data['expectedRol']
-        this.realRol = this.authService.isAdmin() ? 'admin' : 'user';
+
+      
+         if(this.authService.isProfesor()) {
+            this.realRol = 'profesor';
+         }
+         else if(this.authService.isAdmin()) {
+          this.realRol = 'admin' 
+         }
+         else {
+          this.realRol='user'
+         }
+
+        
         if (!this.authService.isLogged() || expectedRol.indexOf(this.realRol) < 0) {
           this.router.navigate(['auth/login']);
-         
+          console.log(this.realRol);
           return false;
         }
         return true;

@@ -31,6 +31,10 @@ export class ProfesorService {
     return this.httpClient.get<Profesor>(this.profesorURL + `list/${id}`);
   }
 
+  public listarPorMateria(idAsignatura: number): Observable<Profesor> {
+    return this.httpClient.get<Profesor>(this.profesorURL + `listarPorAsignatura/${idAsignatura}`);
+  }
+
  
   public save(profesor: Profesor): Observable<any> {
     return this.httpClient.post<any>(this.profesorURL + 'save', profesor);
@@ -38,6 +42,9 @@ export class ProfesorService {
 
   public update(id: number, profesor: Profesor): Observable<any> {
     return this.httpClient.put<any>(this.profesorURL + `update/${id}`, profesor);
+  }
+  public asignarAsignatura(idProfesor: number, idAsignatura: number): Observable<any> {
+    return this.httpClient.put<any>(this.profesorURL + `asignar/${idProfesor}/Asignatura/${idAsignatura}`, null);
   }
 
   public delete(id: number): Observable<any> {

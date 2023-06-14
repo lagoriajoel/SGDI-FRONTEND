@@ -1,4 +1,4 @@
-import { Materias } from './../Entities/materias';
+import { MateriasDto } from './../Entities/materias';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,24 +11,29 @@ export class MateriasService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public lista(): Observable<Materias[]> {
-    return this.httpClient.get<Materias[]>(this.materiasURL + 'list');
+  public lista(): Observable<MateriasDto[]> {
+    return this.httpClient.get<MateriasDto[]>(this.materiasURL + 'list');
   }
 
-  public listarCurso(id: number): Observable<Materias[]> {
-    return this.httpClient.get<Materias[]>(this.materiasURL + `listOfCurso/${id}` );
+  public listarCurso(id: number): Observable<MateriasDto[]> {
+    return this.httpClient.get<MateriasDto[]>(this.materiasURL + `listOfCurso/${id}` );
+  }
+  public listarPorProfesor(id: number): Observable<MateriasDto[]> {
+    return this.httpClient.get<MateriasDto[]>(this.materiasURL + `listOfProfesor/${id}` );
   }
 
-  public detail(id: number): Observable<Materias> {
-    return this.httpClient.get<Materias>(this.materiasURL + `list/${id}`);
+  public detail(id: number): Observable<MateriasDto> {
+    return this.httpClient.get<MateriasDto>(this.materiasURL + `list/${id}`);
   }
-
+  public asignarAsignatura(idProfesor: number, idAsignatura: number): Observable<any> {
+    return this.httpClient.put<any>(this.materiasURL + `asignar/${idProfesor}/Asignatura/${idAsignatura}`, null);
+  }
  
-  public save(materias: Materias): Observable<any> {
+  public save(materias: MateriasDto): Observable<any> {
     return this.httpClient.post<any>(this.materiasURL + 'save', materias);
   }
 
-  public update(id: number, materias: Materias): Observable<any> {
+  public update(id: number, materias: MateriasDto): Observable<any> {
     return this.httpClient.put<any>(this.materiasURL + `update/${id}`, materias);
   }
 

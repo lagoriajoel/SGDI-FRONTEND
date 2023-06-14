@@ -2,7 +2,6 @@
 import { CursosService } from './../../../../core/services/cursos/cursos.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CursoDto } from 'src/app/core/Entities/CursoDto';
@@ -27,6 +26,26 @@ export class AddEditCursoComponent implements OnInit {
     {value: 'tarde', viewValue: 'TARDE'},
     {value: 'noche', viewValue: 'NOCHE'},
   ];
+  anios: turno[] = [
+    {value: '1', viewValue: '1°'},
+    {value: '2', viewValue: '2°'},
+    {value: '3', viewValue: '3°'},
+    {value: '4', viewValue: '4°'},
+    {value: '5', viewValue: '5°'},
+    {value: '6', viewValue: '6°'},
+  ];
+  divisiones: turno[] = [
+    {value: 'A', viewValue: 'A'},
+    {value: 'B', viewValue: 'B'},
+    {value: 'C', viewValue: 'C'},
+    {value: 'D', viewValue: 'D'},
+    {value: 'E', viewValue: 'E'},
+    {value: 'F', viewValue: 'F'},
+    {value: 'G', viewValue: 'G'},
+    {value: 'H', viewValue: 'H'},
+    {value: 'I', viewValue: 'I'},
+
+  ];
  
   selectedValue!: string;
  
@@ -39,7 +58,7 @@ export class AddEditCursoComponent implements OnInit {
     private _snackBar: MatSnackBar, @Inject(MAT_DIALOG_DATA) public data: any) {
    
     this.form = this.fb.group({
-      anio: ['', [Validators.required, Validators.maxLength(20)]],
+      anio: ['', Validators.required],
       division: ['', Validators.required],
       turno:['', Validators.required],
       cicloLectivo: ['', [Validators.required]],
@@ -86,7 +105,7 @@ export class AddEditCursoComponent implements OnInit {
   addEditCurso() {
 
     if (this.form.invalid) {
-      return;
+      return console.log("error");;
     }
    
     const curso: CursoDto = {

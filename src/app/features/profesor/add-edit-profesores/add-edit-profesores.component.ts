@@ -94,7 +94,9 @@ export class AddEditProfesoresComponent implements OnInit {
       nombre: this.form.value.nombre,
       apellido: this.form.value.apellido,
       email: this.form.value.email,
-      nombreCompleto:""
+      nombreCompleto:"",
+      asignaturas: []
+
     
 
     }

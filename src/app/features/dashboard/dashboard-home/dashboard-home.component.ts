@@ -22,6 +22,9 @@ export class DashboardHomeComponent implements OnInit {
   
   
   nombreUsuario: string=''
+  usuario: string=''
+  isAdmin: boolean = false;
+  isProfesor: boolean = false; //
  
   constructor(
    private authService: AuthenticationService,
@@ -38,6 +41,17 @@ export class DashboardHomeComponent implements OnInit {
     
     this.titleService.setTitle("SiGeID - Dashboard");
      this.nombreUsuario=this.authService.getName()
+     this.isAdmin = this.authService.isAdmin();
+   
+     this.isProfesor=this.authService.isProfesor();
+     
+     if(this.isAdmin){
+         this.usuario= 'Administrador :';
+     }
+     else if(this.isProfesor){
+         this.usuario='Profesor :';
+     }
+
     
   }
 
