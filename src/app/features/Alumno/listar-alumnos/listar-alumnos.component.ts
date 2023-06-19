@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { tap } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -57,8 +58,6 @@ export class ListarAlumnosComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle("Gestion de Informes - Alumno");
-    this.logger.log("Cursos loaded");
-    this.notificationService.openSnackBar("Alumnos Cargados");
     this.dataSource.sort = this.sort;
     this.listarAlumnos();
     
@@ -110,12 +109,18 @@ export class ListarAlumnosComponent implements OnInit {
 
   deleteAlumno(id: number) {
 
-    let idAlumnno=id
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: "500px",
+      disableClose: true,
+   data: {
+    title:"Eliminar Alumno",
+    message:"¿Esta seguro de eliminar el alumno?"
+   }
+   
 
-    console.log(idAlumnno);
-    this.loading = true;
+    }).afterClosed().subscribe((res) => {
 
-    setTimeout(() => {
+     if(res){
       this.alumnoService.delete(id).subscribe(() => {
         this.listarAlumnos();
         this.mensajeExito();
@@ -123,9 +128,17 @@ export class ListarAlumnosComponent implements OnInit {
       error => {
         this.notificationService.openSnackBar(error.error);
       })
-    },
-     1000);
+     }
+
+    });
+
+    let idAlumnno=id
+
+    console.log(idAlumnno);
+    this.loading = true;
   }
+
+
   mensajeExito() {
     this._snackBar.open('La persona fue eliminada con exito', '', {
       duration: 2000
@@ -138,9 +151,7 @@ export class ListarAlumnosComponent implements OnInit {
       duration: 2000
   })}
 
-  // csvInputChange(fileInputEvent: any) {
-  //   console.log(fileInputEvent.target.files[0]);
-  // }
+  
 
 
 
@@ -162,7 +173,7 @@ upload() {
       }
     })).subscribe(event => {
     if (event instanceof HttpResponse) {
-      this._snackBar.open('File uploaded successfully!', 'Close', {
+      this._snackBar.open('Archivos subidos correctamente!', 'Cerrar', {
         duration: 3000
       });
       this.listarAlumnos();

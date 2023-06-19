@@ -45,12 +45,31 @@ export class AddEditContenidosComponent implements OnInit {
   esEditar(id: number | undefined) {
     if (id !== undefined) {
       this.operacion = "Editar ";
-      this.getCurso(id);
-      console.log("edirar "+this.id);
+      this.getContenidos(id);
+      
     }
   }
 
-  getCurso(id: number) {}
+  getContenidos(id: number) {
+        
+   this._contenidoService.detail(id).subscribe({ 
+    next: data=>{  
+      console.log(data);
+      this.form.setValue({
+    
+      nombre: data.nombre,
+      descripcion: data.descripcion,
+     
+    
+  
+    })
+  },
+  error: (error) => {
+    this.notificationService.openSnackBar(error.error)
+  }
+
+   })
+  }
 
   cancelar() {
     this.dialogRef.close(false);

@@ -16,6 +16,7 @@ import { ContenidosService } from "src/app/core/services/contenidos.service";
 import { InformesService } from "src/app/core/services/informes.service";
 import { CursoInforme } from "src/app/core/Entities/cursoInforme";
 import { MateriaContenido } from "src/app/core/Entities/materiaContenido";
+import { AuthenticationService } from "src/app/core/services/auth.service";
 
 @Component({
   selector: "app-add-edit-informes",
@@ -53,7 +54,8 @@ export class AddEditInformesComponent implements OnInit {
       private _cursoService: CursosService,
       private _contenidosService: ContenidosService,
       private _informesService: InformesService,
-      private notificationService: NotificationService
+      private notificationService: NotificationService,
+      private authService: AuthenticationService
     ) {
 
     this.form = this.fb.group({
@@ -119,14 +121,17 @@ export class AddEditInformesComponent implements OnInit {
     const alumnoInf: AlumnoInforme = {
       id: this.idAlumno,
     };
-   
+   const materiaInf: MateriaContenido= {
+         asignatura_id: this.idAsignatura
+   }
     
 
     const informeNuevo: Informes = {
-      descripcion: "",
+      criteriosEvaluacion: "",
+      profesorNombre:this.authService.getName(),
+      asignatura: materiaInf,
       alumno: alumnoInf,
-      id_asignatura: Number(this.idAsignatura),
-      contenidosAdeudados: [],
+      contenidosAdeudados: this.contenidos,
     };
 
   
@@ -135,21 +140,7 @@ export class AddEditInformesComponent implements OnInit {
       
      next: (data) => {
      
-      this.idInforme = data.id;
-    
-      this.contenidos.forEach((element) => {
-        this._informesService
-          .asignarContenido(this.idInforme, element.id)
-          .subscribe(
-            (data) => {
-              console.log(data);
-            },
-            (error) => {
-              this.dialogRef.close(true);
-              this.notificationService.openSnackBar(error.error.Mensaje);
-            }
-          );
-      });
+       console.log(data);
     },
     error: (error) => {
           this.dialogRef.close(true);

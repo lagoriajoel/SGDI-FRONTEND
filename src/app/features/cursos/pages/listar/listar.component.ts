@@ -91,8 +91,6 @@ export class ListarComponent implements OnInit {
   ngOnInit() {
 
     this.titleService.setTitle("Gestion de Informes - Cursos");
-    this.logger.log("Cursos loaded");
-    this.notificationService.openSnackBar("Cursos loaded");
     this.dataSource.sort = this.sort;
     this.cargarCurso();
 
@@ -244,21 +242,21 @@ mostrarFila( curso1: CursoDto){
   this.idCurso=curso1.idCurso;
   if(this.isInforme){
 
-  this.isContenidos = 1;
-  this.idCurso = curso1.idCurso;
-  this.añoCurso = curso1.anio;
-  this.informesPorAsignatura=1
+            this.isContenidos = 1;
+            this.idCurso = curso1.idCurso;
+            this.añoCurso = curso1.anio;
+            this.informesPorAsignatura=1
 
-  this.router.navigate(["/materias/listar/"], { 
-    queryParams: {
-      curso:this.idCurso, 
-      anioCurso:this.añoCurso,
-      isContenido: this.isContenidos,
-      isInforme: this.informesPorAsignatura
-     
-    }
-  });
-}
+            this.router.navigate(["/materias/listar/"], { 
+              queryParams: {
+                curso:this.idCurso, 
+                anioCurso:this.añoCurso,
+                isContenido: this.isContenidos,
+                isInforme: this.informesPorAsignatura
+              
+                   }
+                 });
+          }
 this.router.navigate(["/alumnos/listar/", this.idCurso]);
 }
 

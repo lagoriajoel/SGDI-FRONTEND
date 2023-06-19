@@ -80,13 +80,15 @@ export class DashboardAlumnosComponent implements OnInit {
      
         this.alumnoService.listaPorDni(dni).subscribe({
          next: (data) => {
+            
+          console.log(data);
             this.alumnos.push(data);
             this.alumno = data;
-            console.log(this.alumno);
+            
             this.dataSource.data = data.informeDesempenios;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-            console.log(data);
+          
             this.nombreAlumno = this.alumno.nombres;
             this.apellidoAlumno = this.alumno.apellido;
           },

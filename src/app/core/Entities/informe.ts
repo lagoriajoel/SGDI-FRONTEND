@@ -1,11 +1,14 @@
 import { contenido } from "./Contenido";
+import { Materia } from "./Materia";
 
 import { AlumnoInforme } from "./alumnoInforme";
+import { MateriaContenido } from "./materiaContenido";
 
 
 export interface Informes {
-    descripcion: string;
+    criteriosEvaluacion: string;
+    profesorNombre: string;
+    asignatura: MateriaContenido;
     alumno: AlumnoInforme
-    id_asignatura: number;
     contenidosAdeudados: contenido []
 }

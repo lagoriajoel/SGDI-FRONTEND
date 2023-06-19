@@ -12,6 +12,7 @@ import { AlumnoService } from 'src/app/core/services/alumno.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmDialogModel } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -52,7 +53,6 @@ export class DashboardHomeComponent implements OnInit {
          this.usuario='Profesor :';
      }
 
-    
   }
 
 

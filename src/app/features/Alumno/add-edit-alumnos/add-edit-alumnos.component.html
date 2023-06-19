@@ -14,7 +14,7 @@
           </mat-form-field>
           <div class="error">
             <span *ngIf="form.get('dni')?.hasError('required') && form.get('dni')?.touched">
-              El DNI es un campo <strong>requerido</strong>  
+              Ingrese el DNI del alumno
             </span>
             <span *ngIf="form.get('dni')?.hasError('maxlength')">
               El DNI debe tener como maximo <strong>11 caracteres</strong> 
@@ -29,7 +29,7 @@
           </mat-form-field>
           <div class="error">
             <span *ngIf="form.get('nombres')?.hasError('required') && form.get('nombres')?.touched">
-              La división del curso es un campo <strong>requerido</strong>  
+             Ingrese el/los Nombre/s del alumno  
             </span>
           </div>
         </div>
@@ -43,10 +43,7 @@
           </mat-form-field>
           <div class="error">
             <span *ngIf="form.get('apellido')?.hasError('required') && form.get('apellido')?.touched">
-              El Ciclo Lectivo es un campo <strong>requerido</strong>  
-            </span>
-            <span *ngIf="form.get('cicloLectivo')?.hasError('email') && form.get('cicloLectivo')?.touched">
-              El correo es <strong>invalido</strong>
+              Ingrese el/los apellido/s del alumno  
             </span>
           </div>
         </div>

@@ -21,13 +21,13 @@
            
             <ng-container matColumnDef="Asignatura">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Asignatura </th>
-              <td mat-cell *matCellDef="let element"> {{element.contenidosAdeudados[0].asignatura.nombre}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.asignatura.nombre}} </td>
             </ng-container>
           
          
             <ng-container matColumnDef="Curso">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso </th>
-              <td mat-cell *matCellDef="let element"> {{element.contenidosAdeudados[0].asignatura.anioCurso}} Año </td>
+              <td mat-cell *matCellDef="let element">  {{element.asignatura.anioCurso}} Año </td>
             </ng-container>
           
         

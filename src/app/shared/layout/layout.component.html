@@ -115,12 +115,6 @@
           </mat-icon>
           <p mat-line> Cursos </p>
         </a>
-        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/cursos']" [queryParams]="{ alumnos: 'true'}" routerLinkActive="active">
-          <mat-icon mat-list-icon>
-            people
-          </mat-icon>
-          <p mat-line> Alumnos </p>
-        </a>
         <a *ngIf="isAdmin" mat-list-item [routerLink]="['/materias/mostrar']" routerLinkActive="active">
           <mat-icon mat-list-icon>
            assignment
