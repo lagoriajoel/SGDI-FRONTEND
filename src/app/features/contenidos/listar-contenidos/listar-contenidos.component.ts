@@ -13,6 +13,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ContenidosService } from "src/app/core/services/contenidos.service";
 import { MateriasService } from "src/app/core/services/materias.service";
 import { MateriasDto } from "src/app/core/Entities/materias";
+import { ConfirmDialogComponent } from "src/app/shared/confirm-dialog/confirm-dialog.component";
 
 
 @Component({
@@ -87,7 +88,7 @@ export class ListarContenidosComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  addEditCurso(id?: number, idAsignatura?: number) {
+  addEditContenido(id?: number, idAsignatura?: number) {
     const dialogRef = this.dialog.open(AddEditContenidosComponent, {
       width: "500px",
       disableClose: true,
@@ -111,14 +112,30 @@ export class ListarContenidosComponent implements OnInit {
     }
   }
 
-  eliminar(id: number){
-       this.contenidoService.delete(id).subscribe({
-        next: data=> {
-          console.log("eliminado");
-        },
-        error : error=> {
-         console.log(error);
-        }
-       })
+  eliminar(id: number) {
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: "500px",
+      disableClose: true,
+   data: {
+    title:"Eliminar Estrategia",
+    message:"¿Esta seguro de eliminar la estrategia?"
+   }
+   
+
+    }).afterClosed().subscribe((res) => {
+
+     if(res){
+      this.contenidoService.delete(id).subscribe(() => {
+        this.listarContenidos();
+        
+      },
+      error => {
+        this.notificationService.openSnackBar(error.error);
+      })
+     }
+
+    });
+    this.loading = true;
   }
 }

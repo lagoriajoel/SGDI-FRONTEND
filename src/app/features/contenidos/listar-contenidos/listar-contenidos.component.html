@@ -1,13 +1,10 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center none">
-    <div fxFlex="95%">
-  
-      <mat-card>
+
         
         <mat-card-content>
-          <h2>Contenidos de {{ NombreAsignatura }} {{cursoNombre}} </h2>
+          <h3>Contenidos de {{ NombreAsignatura }} {{cursoNombre}} </h3>
           <div class="serch">
 
-          <button mat-raised-button (click)="addEditCurso()" >
+          <button mat-raised-button (click)="addEditContenido()" >
             <mat-icon>add</mat-icon>
             Agregar Contenido 
           </button>
@@ -35,7 +32,7 @@
             <ng-container matColumnDef="acciones">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
               <td mat-cell *matCellDef="let element"> 
-                  <mat-icon (click)="addEditCurso(element.id)" class="btnEdit" matTooltip="Editar">edit</mat-icon>
+                  <mat-icon (click)="addEditContenido(element.id)" class="btnEdit" matTooltip="Editar">edit</mat-icon>
                   <mat-icon  class="btnDelete" (click)="eliminar(element.id)" matTooltip="Delete">delete</mat-icon>
                           
                 </td>
@@ -53,7 +50,4 @@
           </mat-paginator>
           
         </mat-card-content>
-      </mat-card>
-  
-    </div>
-  </div>
+     

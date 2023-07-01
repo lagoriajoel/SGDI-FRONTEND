@@ -6,10 +6,13 @@ import { MisContenidosComponent } from './mis-contenidos/mis-contenidos.componen
 import { MisMateriasComponent } from './mis-materias/mis-materias.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DashboardHomeProfesorComponent } from './dashboard-home-profesor/dashboard-home-profesor.component';
+import { ActualizarInformesComponent } from './actualizar-informes/actualizar-informes.component';
+import { ListarInformesMateriasComponent } from './listar-informes-materias/listar-informes-materias.component';
+
 
 
 @NgModule({
-  declarations: [DashboardHomeProfesorComponent, MisContenidosComponent, MisMateriasComponent],
+  declarations: [DashboardHomeProfesorComponent, MisContenidosComponent, MisMateriasComponent, ActualizarInformesComponent, ListarInformesMateriasComponent],
   imports: [
     CommonModule,
     DashboarProfesorRoutingModule,

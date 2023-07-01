@@ -1,0 +1,32 @@
+.cards {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap:  wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: flex-start;
+   
+}
+
+.card {
+    width: 150px;
+    margin-left: 15px;
+    margin: 0 auto;
+}
+.boton {
+   margin: 0 auto;
+}
+
+.but {
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.cursoAnio {
+
+  font-size: small;
+  font-weight: 100;
+  text-align: center;
+  
+}

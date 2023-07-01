@@ -142,7 +142,8 @@ export class MisMateriasComponent implements OnInit {
     if(this.isContenidos)
       {
         
-        this.router.navigate(["/contenidos/listar/", asignaturas.asignatura_id]);
+       // this.router.navigate(["/contenidos/listar/", asignaturas.asignatura_id]);
+       this.router.navigate(["/contenidos/contenidos/", asignaturas.asignatura_id]);
       }
     
     

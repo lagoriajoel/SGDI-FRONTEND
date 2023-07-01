@@ -1,0 +1,8 @@
+.column {
+    width: 100%;
+    justify-content: center;
+}
+
+mat-form-field{
+    width: 100%;
+}

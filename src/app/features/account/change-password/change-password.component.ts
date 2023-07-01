@@ -4,6 +4,7 @@ import { NGXLogger } from 'ngx-logger';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { SpinnerService } from 'src/app/core/services/spinner.service';
+import { changePasswordDto } from 'src/app/core/Entities/changePasswordDto';
 
 
 @Component({
@@ -54,22 +55,31 @@ export class ChangePasswordComponent implements OnInit {
   changePassword() {
 
     if (this.newPassword !== this.newPasswordConfirm) {
-      this.notificationService.openSnackBar('New passwords do not match.');
+      this.notificationService.openSnackBar('Las contraseñas no coinciden.');
       return;
     }
+    
 
-    //const email = this.authService.getCurrentUser().email;
 
-    // this.authService.changePassword(email, this.currentPassword, this.newPassword)
-    //   .subscribe(
-    //     data => {
-    //       this.logger.info(`User ${email} changed password.`);
-    //       this.form.reset();
-    //       this.notificationService.openSnackBar('Your password has been changed.');
-    //     },
-    //     error => {
-    //       this.notificationService.openSnackBar(error.error);
-    //     }
-    //   );
+    const nombreUsuario=this.authService.getUserName();
+    const changePassword: changePasswordDto ={
+        currentPassword: this.currentPassword,
+        newPassword: this.newPasswordConfirm
+    }
+   
+        console.log(changePassword);
+    this.authService.changePassword(changePassword, nombreUsuario)
+      .subscribe({
+     
+       next: data => {
+
+         this.notificationService.openSnackBar('Su contraseña ha sido actualizada correctamente.');
+         this.form.reset();
+        },
+
+      error:  error => {
+          this.notificationService.openSnackBar(error.error.Mensaje);
+        }
+  });
   }
 }

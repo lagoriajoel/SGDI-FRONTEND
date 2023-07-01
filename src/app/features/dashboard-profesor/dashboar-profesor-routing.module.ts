@@ -4,6 +4,8 @@ import { DashboardHomeProfesorComponent } from './dashboard-home-profesor/dashbo
 import { MisContenidosComponent } from './mis-contenidos/mis-contenidos.component';
 import { MisMateriasComponent } from './mis-materias/mis-materias.component';
 import { LayoutComponent } from 'src/app/shared/layout/layout.component';
+import { ActualizarInformesComponent } from './actualizar-informes/actualizar-informes.component';
+import { ListarInformesMateriasComponent } from './listar-informes-materias/listar-informes-materias.component';
 
 const routes: Routes = [
   
@@ -14,6 +16,8 @@ const routes: Routes = [
         { path: 'dashboard', component: DashboardHomeProfesorComponent },
         { path: 'misContenidos', component: MisContenidosComponent },
         { path: 'misMaterias', component: MisMateriasComponent },
+        { path: 'actualizar', component: ActualizarInformesComponent},
+        { path: 'listarInformesMaterias', component: ListarInformesMateriasComponent},
 
         { path:'**', redirectTo:'dashboard' }
       ]
