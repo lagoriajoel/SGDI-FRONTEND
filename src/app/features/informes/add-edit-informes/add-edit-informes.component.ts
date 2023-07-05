@@ -17,6 +17,10 @@ import { InformesService } from "src/app/core/services/informes.service";
 import { CursoInforme } from "src/app/core/Entities/cursoInforme";
 import { MateriaContenido } from "src/app/core/Entities/materiaContenido";
 import { AuthenticationService } from "src/app/core/services/auth.service";
+import { criterioService } from "src/app/core/services/criterio.service";
+import { estrategiaService } from "src/app/core/services/estrategia.service";
+import { criterioDto } from "src/app/core/Entities/criterioDTO";
+import { estrategiaDto } from "src/app/core/Entities/estrategiaDto";
 
 @Component({
   selector: "app-add-edit-informes",
@@ -24,7 +28,7 @@ import { AuthenticationService } from "src/app/core/services/auth.service";
   styleUrls: ["./add-edit-informes.component.css"],
 })
 export class AddEditInformesComponent implements OnInit {
-  form: FormGroup;
+ 
 
   //Array de contenidos adeudados por el Alumno
   contenidos: contenido[] = [];
@@ -35,6 +39,17 @@ export class AddEditInformesComponent implements OnInit {
   idCurso: number;
   idAsignatura: number;
   informeDesempeño!: Informes;
+  dni:String="";
+  nombres:String="";
+  apellidos:String="";
+  email:String="";
+  profesor:String="";
+  cicloLectivo:String="";
+  criterios: criterioDto[] = [];
+  estrategias: estrategiaDto[] = [];
+  cursoAnio: String="";
+  cursoDivision: String="";
+  rowHeight:number=0
 
   cursoInforme!: cursoAlumno;
 
@@ -51,6 +66,8 @@ export class AddEditInformesComponent implements OnInit {
       private _alumnoService: AlumnoService,
       private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: any,
+      private _criteriosService :criterioService,
+      private _estrategiaService :estrategiaService,
       private _cursoService: CursosService,
       private _contenidosService: ContenidosService,
       private _informesService: InformesService,
@@ -58,23 +75,24 @@ export class AddEditInformesComponent implements OnInit {
       private authService: AuthenticationService
     ) {
 
-    this.form = this.fb.group({
-      dni: ["", [Validators.required, Validators.maxLength(10)]],
-      nombres: ["", Validators.required],
-      apellido: ["", [Validators.required]],
-      email: ["", [Validators.required]],
-    });
-
     this.idAlumno = data.idAlumno;
     this.idCurso = data.idCurso;
     this.idAsignatura = data.idAsignatura;
-
-    console.log('id de alumno '+this.idAlumno);
-    console.log(this.idAsignatura);
-   
-
+    this.profesor=this.authService.getName()
     this.listarContenidos(this.idAsignatura);
+    this.listarCriteriosEstrategias(this.idAsignatura)
+    this.getCurso(this.idCurso)
+   
+    
   }
+   getCurso(id:number){
+       this._cursoService.detail(id).subscribe(data=>{
+           this.cicloLectivo = data.cicloLectivo;
+           this.cursoAnio=data.anio
+           this.cursoDivision=data.division;
+
+       }) 
+   }
 
     ngOnInit(): void {
       this.esEditar(this.idAlumno);
@@ -84,18 +102,19 @@ export class AddEditInformesComponent implements OnInit {
   esEditar(id: number | undefined) {
     if (id !== undefined) {
       this.operacion = "Editar ";
-      this.getCurso(id);
+      this.getAlumno(id);
     }
   }
 
-  getCurso(id: number) {
+  getAlumno(id: number) {
     this._alumnoService.detail(id).subscribe((data) => {
-      this.form.setValue({
-        dni: data.dni,
-        nombres: data.nombres,
-        apellido: data.apellido,
-        email: data.email,
-      });
+      
+       this.dni= data.dni.toString()
+        this.nombres=data.nombres
+        this.apellidos= data.apellido
+        this.email=data.email
+      
+   
     });
   }
   //metodo que lista todos los contenidos de la Asignatura
@@ -112,6 +131,24 @@ export class AddEditInformesComponent implements OnInit {
        
       });
   }
+  //metodo que carga los criterios y estrategias de la asignatura
+  listarCriteriosEstrategias(idAsignatura: number) {
+    
+    this._criteriosService.listarContenidoPorAsignatura(idAsignatura).subscribe({
+      next: data=>{ this.criterios=data; 
+        this.rowHeight= data.length*35     
+        console.log(this.criterios.length);},
+      error: error=>{}
+    });
+
+    this._estrategiaService.listarContenidoPorAsignatura(idAsignatura).subscribe({
+      next: data=>{this.estrategias=data; 
+          if(data.length>this.criterios.length)   this.rowHeight= data.length*35 
+      },
+      error: error=>{}
+    });
+    
+  }
 
   cancelar() {
     this.dialogRef.close(false);
@@ -124,10 +161,13 @@ export class AddEditInformesComponent implements OnInit {
    const materiaInf: MateriaContenido= {
          asignatura_id: this.idAsignatura
    }
+   
     
 
     const informeNuevo: Informes = {
-      criteriosEvaluacion: "",
+      id:0,
+      criteriosEvaluacion: this.criterios,
+      estrategiasEvaluacion: this.estrategias,
       profesorNombre:this.authService.getName(),
       asignatura: materiaInf,
       alumno: alumnoInf,

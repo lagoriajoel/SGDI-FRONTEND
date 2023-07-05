@@ -4,7 +4,7 @@ import { Informes } from './informe';
 
 export interface Alumno {
   id: number;
-  dni: number;
+  dni: string;
   nombres: string;
   apellido: string;
   email: string;

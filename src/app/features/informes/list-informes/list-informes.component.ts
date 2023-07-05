@@ -19,6 +19,7 @@ import { MostrarInformeComponent } from "../mostrar-informe/mostrar-informe.comp
 })
 export class ListInformesComponent implements OnInit {
   informes: Informes[] = [];
+ // informeAlumnos!: Informes;
   alumnos: Alumno[] = [];
   alumnosConInformes: Alumno[] = [];
   loading: boolean = true;
@@ -26,7 +27,7 @@ export class ListInformesComponent implements OnInit {
   idAsignatura!: number;
   fecha: string = "";
   isInforme!: number;
-  InformeAlumno: Informes[] = [];
+  InformeAlumno!: Informes;
   NombreAsignatura: string = "";
 
   displayedColumns: string[] = ["dni", "nombres", "apellido", "informes"];
@@ -75,6 +76,7 @@ export class ListInformesComponent implements OnInit {
   listarAlumnosConInformes(): void {
     this.alumnoService.listarCurso(Number(this.idCurso)).subscribe((data) => {
       data.forEach((alumno) => {
+        console.log(alumno);
         if (
           alumno.informeDesempenios.some(
             (x) =>
@@ -94,7 +96,7 @@ export class ListInformesComponent implements OnInit {
   // abre un modal para agregar los contenidos adeidados por el alumno
   generarInforme(idAlumno: number) {
     const dialogRef = this.dialog.open(AddEditInformesComponent, {
-      width: "700px",
+      width: "1000px",
       disableClose: true,
       data: {
         idAlumno: idAlumno,
@@ -108,6 +110,36 @@ export class ListInformesComponent implements OnInit {
         this.listarAlumnos();
       }
     });
+  }
+  // aactualizar el informe de desepeño
+  actualizarInforme(idAlumno: number){
+    if (this.isInforme != 0) {
+      const alumno=this.alumnosConInformes.find(alumno=>alumno.id == idAlumno)!
+      
+      
+       this.InformeAlumno = this.getInformeAlumno(alumno, this.idAsignatura);
+     
+ 
+      const dialogRef = this.dialog.open(MostrarInformeComponent, {
+        width: "1000px",
+        disableClose: true,
+        data: {
+          alumno: alumno,
+          informe: this.InformeAlumno,
+          NombreAlumno: alumno.nombres + " " + alumno.apellido,
+          dni: alumno.dni,
+          NombreAsignatura: this.NombreAsignatura,
+          idAsignatura: Number(this.idAsignatura),
+         
+        },
+      });
+ 
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.listarAlumnosConInformes();
+        }
+      });
+    }
   }
 
   ngAfterViewInit() {
@@ -124,40 +156,38 @@ export class ListInformesComponent implements OnInit {
     }
   }
 
-  //mostrar los informes de desempeño de los alumnos
+  
+  //mostrar el informe de desempeño
+  verInforme(idAlumno: number){
+    
+    const alumno=this.alumnosConInformes.find(alumno=>alumno.id == idAlumno)!
+      
+      
+    this.InformeAlumno = this.getInformeAlumno(alumno, this.idAsignatura);
 
-  SelectedRow(alumno: Alumno) {
-    if (this.isInforme != 0) {
-       this.InformeAlumno = this.getInformeAlumno(alumno, this.idAsignatura);
-      console.log(this.InformeAlumno);
+    let informeId = this.InformeAlumno.id;
 
-      const dialogRef = this.dialog.open(MostrarInformeComponent, {
-        width: "1000px",
-        disableClose: true,
-        data: {
-          alumno: alumno,
-          infome: this.InformeAlumno,
-          NombreAlumno: alumno.nombres + " " + alumno.apellido,
-          dni: alumno.dni,
-          NombreAsignatura: this.NombreAsignatura,
-        },
+    this.alumnoService
+      .generarPDF(informeId,alumno.dni )
+      .subscribe((data) => {
+        let donwloadURL = window.URL.createObjectURL(data);
+        // let link= document.createElement('a')
+        // link.href=donwloadURL
+        // link.download="informe.pdf"
+        // link.click()
+        console.log(data);
+
+        window.open(donwloadURL, "_blank");
       });
-
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.listarAlumnosConInformes();
-        }
-      });
-    }
   }
 
  // metodo que obtiene el informe de un alumno por asignatura
 
-  getInformeAlumno(alumno: Alumno, idAsignatura: number): Informes[] {
+  getInformeAlumno(alumno: Alumno, idAsignatura: number): Informes {
     const informe = alumno.informeDesempenios.filter(
       (inf) => inf.asignatura.asignatura_id === idAsignatura
     );
 
-    return informe;
+    return informe[0];
   }
 }

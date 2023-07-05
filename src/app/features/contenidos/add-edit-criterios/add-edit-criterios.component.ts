@@ -49,19 +49,19 @@ export class AddEditCriteriosComponent implements OnInit {
   esEditar(id: number | undefined) {
     if (id !== undefined) {
       this.operacion = "Editar ";
-      this.getContenidos(id);
+      this.getCriterios(id);
       
     }
   }
 
-  getContenidos(id: number) {
+  getCriterios(id: number) {
         
-   this.materiaService.detail(id).subscribe({ 
+   this.criteriosService.detail(id).subscribe({ 
     next: data=>{  
       console.log(data);
       this.form.setValue({
     
-      nombre: data.nombre,
+      criterio: data.criterio,
     
      
     

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Alumno } from 'src/app/core/Entities/alumno';
 import { AlumnoService } from 'src/app/core/services/alumno.service';
 import { InformesService } from 'src/app/core/services/informes.service';
@@ -24,8 +25,8 @@ export class ListarInformesMateriasComponent implements OnInit {
    
     private alumnoService: AlumnoService,
     public dialog: MatDialog,
-    private _informeService: InformesService
-  
+    private _informeService: InformesService,
+    private _router: Router
    
   ) {
     this.dataSource = new MatTableDataSource();
@@ -90,7 +91,7 @@ listarInformes(){
 
 
 actualizarInforme(id: number): void {
-
+    this._router.navigate(['/dashboardProfesor/formActualizar'])     
 }
 SelectedRow(alumno: Alumno) {
 

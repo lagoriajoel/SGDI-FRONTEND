@@ -1,96 +1,206 @@
+<div class="container">
+  <h2 mat-dialog-title>Informes de Desempeño de {{NombreCurso}} {{NombreDivision}}</h2>
 
+  <mat-divider></mat-divider>
 
-
-<mat-dialog-content class="mat-typography">
-  <mat-card>
-     
-  <div class="titulo">
-    <h2 mat-dialog-title>Informe de desempeño </h2>
-  </div>
-  <mat-divider> </mat-divider>
- 
-          <mat-grid-list class="header"cols="2" rowHeight="30px" >
-              
-                  <mat-grid-tile > 
-                      <div class="text-inside-grid">
-                        Alumno: {{NombreAlumno}}</div> 
-                  </mat-grid-tile>
-                  <mat-grid-tile > 
-                      <div class="text-inside-grid">Espacio Curricular : <span>{{NombreAsignatura}} </span></div>
-                  </mat-grid-tile>
-                  <mat-grid-tile > 
-                      <div class="text-inside-grid">Curso: <span> {{NombreCurso}}° Año  </span></div> 
-                  </mat-grid-tile>
-                  <mat-grid-tile > 
-                      <div class="text-inside-grid">Profesor:<span></span></div> 
-                  </mat-grid-tile>
-                  <mat-grid-tile > 
-                      <div class="text-inside-grid">Division: <span>{{NombreDivision}}</span></div> 
-                  </mat-grid-tile>
-                  <mat-grid-tile > 
-                      <div class="text-inside-grid">Ciclo Lectivo: <span>{{cicloLectivo}}</span></div> 
-                  </mat-grid-tile>
-                 
-                
-            </mat-grid-list>
-            <mat-divider> </mat-divider>
-            <mat-dialog-content class="mat-typography">
-                <mat-grid-list cols="2" rowHeight="150px">
-                  <mat-grid-tile > 
-                    <div >
-                      Criterios de Evaluacion:
-                       <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                         Alias dicta similique inventore eius commodi maxime accusamus, 
-                         dolor quae labore modi iure impedit vel recusandae consequuntur! 
-                         Eveniet aperiam quae dolores fugiat.</span>
-                      </div> 
-                </mat-grid-tile>
-                <mat-grid-tile > 
-                  <div >
-                    Estrategias de Evaluacion:
-                     <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                       Alias dicta similique inventore eius commodi maxime accusamus, 
-                       dolor quae labore modi iure impedit vel recusandae consequuntur! 
-                       Eveniet aperiam quae dolores fugiat.</span>
-                    </div> 
-              </mat-grid-tile>
-                </mat-grid-list>
-              </mat-dialog-content>
-            <table mat-table [dataSource]="dataSource" matSort>
-    
-             
-              <ng-container matColumnDef="contenido">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contenidos Adeudados </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
-              </ng-container>
-            
-           
-              <ng-container matColumnDef="descripcion">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
-                <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
-              </ng-container>
-            
-              
-              <ng-container matColumnDef="acciones">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
-                <td mat-cell *matCellDef="let element"> 
-                    
-                </td>
-             </ng-container>
-            
-            
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-  </mat-card>
-</mat-dialog-content>
-
-          
-        <mat-dialog-actions align="end">
-          <button mat-button mat-dialog-close>Cancelar</button>
-          <button mat-button   (click)="generarPDF()">descargar</button>
-        </mat-dialog-actions>
-
-
+  <mat-grid-list cols="4" rowHeight="100px">
    
+    <mat-grid-tile>
+     
+        <div class="mat-grid-tile-content">
+           
+          <div class="row">
+           
+            <mat-label>DNI</mat-label>  
+         
+         
+          </div>
+          <div class="row">
+            <mat-label>Nombres</mat-label> 
+         
+          </div>
+          <div class="row">
+            <mat-label>Profesor</mat-label> 
+         
+          </div>
+       
+       </div>
+
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="mat-grid-tile-content">
+           
+        <div >
+         
+           {{dniAlumno}}
+       
+       
+        </div>
+        <div>
+         {{NombreAlumno}}
+       
+        </div>
+        <div>
+          {{NombreProfesor}}
+        
+         </div>
+     
+     </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="mat-grid-tile-content">
+      <div class="row">
+          <mat-label>Apellido</mat-label>  
+         
+      </div>
+      <div class="row">
+        Email  
+    </div>
+    <div class="row">
+      Ciclo Lectivo  
+  </div>
+   </div>
+  </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="mat-grid-tile-content">
+        <div >
+             {{ApellidoAlumno}}
+           
+        </div>
+        <div >
+           {{email}}
+      </div>
+      <div >
+        {{cicloLectivo}}
+   </div>
+     </div>
+       
+    </mat-grid-tile>
+
+
+    
+  </mat-grid-list>
+ 
+
+  <mat-divider></mat-divider>
+
+  <mat-grid-list cols="2" rowHeight="45px">
+   
+    <mat-grid-tile>
+     
+      <div class="mat-grid-tile-content">
+        <h3>Criterios de Evaluación</h3>
+
+      </div>
+
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="mat-grid-tile-content">
+
+        <h3>Estrategias de Evaluación</h3>
+
+      </div>
+
+ 
+    </mat-grid-tile>
+    
+
+
+    
+</mat-grid-list>
+<mat-grid-list cols="2" rowHeight="{{rowHeight}}px">
+   
+    <mat-grid-tile>
+     
+        <div class="row2">
+         
+          
+          <div class="lista">
+            <mat-selection-list >
+              <mat-list-item class="mat-list-item" *ngFor="let criterio of criterios">
+                {{criterio.criterio}}
+              </mat-list-item>
+            </mat-selection-list>
+
+          </div>
+         
+         
+       
+       </div>
+
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="row2">
+
+           
+        <mat-selection-list  class="lista">
+          <mat-list-item *ngFor="let estrategia of estrategias">
+            {{estrategia.estrategias}}
+          </mat-list-item>
+        </mat-selection-list>
+     
+     </div>
+    </mat-grid-tile>
+    
+
+
+    
+</mat-grid-list>
+    
+  <mat-divider></mat-divider>
+ 
+
+  <table mat-table [dataSource]="dataSource" matSort>
+
+         
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contenido </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+      </ng-container>
+    
+   
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+      </ng-container>
+    
+      
+      <ng-container matColumnDef="diciembre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Diciembre</th>
+        <td mat-cell *matCellDef="let element"> 
+             
+            <mat-select  (selectionChange)="EvaluacionDiciembre($event, element.id)">
+            <mat-option *ngFor="let instancia of instancia"  [value]="instancia.value">
+              {{instancia.viewValue}}
+            </mat-option>
+            </mat-select>  
+                
+          </td>
+     </ng-container>
+     <ng-container matColumnDef="febrero">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Febrero</th>
+      <td mat-cell *matCellDef="let element" > 
+        
+        <mat-select  (selectionChange)="EvaluacionFebrero($event, element.id)" disabled="{{estado}}">
+          <mat-option *ngFor="let instancia of instancia" [value]="instancia.value">
+            {{instancia.viewValue}}
+          </mat-option>
+          </mat-select>  
+                  
+        </td>
+   </ng-container>
+    
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  <mat-dialog-actions align="end">
+    <button type="button" (click)="cancelar()" mat-button>Cancelar</button>
+    <button type="button" (click)="actualizarInforme()"mat-button cdkFocusInitial> Actualizar </button>
+  </mat-dialog-actions>
+  
+  </div>
+
+
 

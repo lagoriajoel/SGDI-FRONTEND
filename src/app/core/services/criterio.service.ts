@@ -17,8 +17,8 @@ export class criterioService {
     return this.httpClient.get<criterioDto[]>(this.ContenidoURL + 'list');
   }
 
-  public detail(id: number): Observable<criterioDto[]> {
-    return this.httpClient.get<criterioDto[]>(this.ContenidoURL + `list/${id}` );
+  public detail(id: number): Observable<criterioDto> {
+    return this.httpClient.get<criterioDto>(this.ContenidoURL + `list/${id}` );
   }
   public listarContenidoPorAsignatura(idAsignatura: number): Observable<criterioDto[]> {
     return this.httpClient.get<criterioDto[]>(this.ContenidoURL + `listOfAsignatura/${idAsignatura}` );

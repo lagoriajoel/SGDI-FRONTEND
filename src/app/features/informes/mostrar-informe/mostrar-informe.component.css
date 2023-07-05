@@ -1,27 +1,84 @@
-.text-inside-grid {
-    position: absolute;
-    left: 5px;
+.row {
+  
+  font-weight:bolder;
+  
+   
+}
+.column {
+    align-items: center;
+}
+
+.elemento {
+  
+    max-width: 80vw;
+    position: static;
   }
 
   table {
     width: 100%;
   }
 
-  mat-divider{
-    margin-top: 5px;
-    margin-bottom: 5px;
+  button:hover{
+    background-color: rgb(63,81,181);
+    color: aliceblue;
+    };
+
+    
+    .btnDelete {
+
+      color:brown
+  }
+  .btnDelete:hover {
+  
+      color :red
+      
   }
 
-  mat-grid-list {
-    margin-top: 10px;
-  }
+  .mat-grid-tile-content {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    display: grid;
+    align-items: flex-start;
+    justify-content: start;
+    height: 100%;
+   
+    flex-direction: row;
+    align-content: space-evenly;
+    flex-wrap: nowrap;
 
-  span {
-    margin-left: 20px;
-  }
-  h2 {
-    align-items: center;
-  }
- .header {
-  margin-top: 20px;
- }
+    flex-wrap: nowrap;
+}
+  
+.row2 {
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: grid;
+  align-items: flex-start;
+  justify-content: start;
+  height: 100%;
+
+  flex-direction: row;
+
+
+}
+
+h3 {
+  margin: 0%;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  left: 0;
+}
+
+.lista {
+  margin-top: 0%;
+}
+.mat-list-item{
+  height: 30px;
+}

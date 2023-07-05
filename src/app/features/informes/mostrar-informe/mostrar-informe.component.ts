@@ -1,10 +1,23 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSelectChange } from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { contenido } from 'src/app/core/Entities/Contenido';
+import { contenidoAdeudadoDto } from 'src/app/core/Entities/contenidoAdeudadoDto';
+import { criterioDto } from 'src/app/core/Entities/criterioDTO';
+import { estrategiaDto } from 'src/app/core/Entities/estrategiaDto';
+import { Informes } from 'src/app/core/Entities/informe';
 import { ContenidosService } from 'src/app/core/services/contenidos.service';
+import { criterioService } from 'src/app/core/services/criterio.service';
+import { estrategiaService } from 'src/app/core/services/estrategia.service';
+import { InformesService } from 'src/app/core/services/informes.service';
+
+interface instancia {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-mostrar-informe',
@@ -14,20 +27,39 @@ import { ContenidosService } from 'src/app/core/services/contenidos.service';
 export class MostrarInformeComponent implements OnInit {
   
   //Array de contenidos adeudados por el Alumno
-  contenidos: contenido[] = [];
+  contenidos: contenidoAdeudadoDto[] = [];
+  contenidoActualizar!:contenidoAdeudadoDto
+  contneidosActualizados:contenidoAdeudadoDto[] = [];
+  
   NombreAlumno: string =''
+  ApellidoAlumno: string =''
   NombreCurso: string =''
   NombreDivision: string =''
-
+  email: string =''
+  alumnoInforme!: Informes
+  estado:boolean = false;
+ 
 
   NombreProfesor: string =''
   NombreAsignatura: string =''
   dniAlumno: string =''
   cicloLectivo:string=''
 
+  criterios: criterioDto[] = [];
+  estrategias: estrategiaDto[] = [];
 
+  rowHeight:number=0
 
-displayedColumns: string[] = ["contenido", "descripcion", "acciones"];
+  instancia: instancia[] = [
+    {value: '-', viewValue: ''},
+    {value: 'aprobado', viewValue: 'APROBADO'},
+    {value: 'desaprobado', viewValue: 'DESAPROBADO'},
+    {value: 'ausente', viewValue: 'AUSENTE'},
+   
+  ];
+  instanciaSelect: string = ''
+
+displayedColumns: string[] = ["nombre", "descripcion", "diciembre", "febrero"];
   
 
 dataSource: any;
@@ -40,22 +72,47 @@ dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(public dialogRef: MatDialogRef<MostrarInformeComponent>,
     private _contenidosService: ContenidosService,
+    private _criteriosService :criterioService,
+    private _estrategiaService :estrategiaService,
+    private _informeService :InformesService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { 
    
-    this.contenidos=this.data.infome[0].contenidosAdeudados
+    this.contenidos=this.data.informe.contenidosAdeudados
   
     this.dataSource = new MatTableDataSource<contenido>(this.contenidos) 
-    console.log(data.alumno);
-    this.NombreAlumno=data.NombreAlumno
+   this.alumnoInforme=data.infome
+ 
+    this.NombreAlumno=data.alumno.nombres
+    this.ApellidoAlumno=data.alumno.apellido
+    this.email=data.alumno.email
     
     this.NombreAsignatura=data.NombreAsignatura
     this.NombreCurso=data.alumno.curso.anio
     this.dniAlumno=data.alumno.dni
     this.NombreDivision=data.alumno.curso.division
     this.cicloLectivo=data.alumno.curso.cicloLectivo
-    console.log(this.NombreCurso);
+   this.listarCriteriosEstrategias(data.idAsignatura)
+   console.log(this.contenidos);
   
+  }
+
+  listarCriteriosEstrategias(idAsignatura: number) {
+    
+    this._criteriosService.listarContenidoPorAsignatura(idAsignatura).subscribe({
+      next: data=>{ this.criterios=data; 
+        this.rowHeight= data.length*35     
+        },
+      error: error=>{}
+    });
+
+    this._estrategiaService.listarContenidoPorAsignatura(idAsignatura).subscribe({
+      next: data=>{this.estrategias=data; 
+          if(data.length>this.criterios.length)   this.rowHeight= data.length*35 
+      },
+      error: error=>{}
+    });
+    
   }
 
   ngOnInit(): void {
@@ -64,9 +121,79 @@ dataSource: any;
        
    
   }
-
-  generarPDF(){
+  cancelar() {
+    this.dialogRef.close(false);
+  }
+  EvaluacionDiciembre(ob: MatSelectChange, id: number): void {
+      
+    if(ob.value =="aprobado"){
+      this.contenidos.forEach(contenido=>{
+        if(contenido.id==id){
+          contenido.instanciaEvaluacion_diciembre="aprobado"
+          contenido.aprobado=true;
+        }
+      })
+     console.log(this.contenidos);
+    }
+    if(ob.value =="desaprobado"){
+      this.contenidos.forEach(contenido=>{
+        if(contenido.id==id){
+          contenido.instanciaEvaluacion_diciembre="desaprobado"
+          contenido.aprobado=false;
+        }
+      })
+      console.log(this.contenidos);
+   }
+   if(ob.value =="ausente"){
+    this.contenidos.forEach(contenido=>{
+      if(contenido.id==id){
+        contenido.instanciaEvaluacion_diciembre="ausente"
+        contenido.aprobado=false;
+      }
+    })
+    console.log(this.contenidos);
+ }
     
   }
+  EvaluacionFebrero(ob: MatSelectChange, id: number): void {
+  if(this.contenidos.some(contenido=>contenido.id==id&&contenido.aprobado==true)){
+      alert('CORREGIR CAMPOS')
+  }
+
+    if(ob.value =="aprobado"){
+      this.contenidos.forEach(contenido=>{
+        if(contenido.id==id){
+          contenido.instanciaEvaluacion_febrero="aprobado"
+          contenido.aprobado=true;
+        }
+      })
+     console.log(this.contenidos);
+    }
+    if(ob.value =="desaprobado"){
+      this.contenidos.forEach(contenido=>{
+        if(contenido.id==id){
+          contenido.instanciaEvaluacion_febrero="desaprobado"
+          contenido.aprobado=false;
+        }
+      })
+      console.log(this.contenidos);
+   }
+   if(ob.value =="ausente"){
+    this.contenidos.forEach(contenido=>{
+      if(contenido.id==id){
+        contenido.instanciaEvaluacion_febrero="ausente"
+        contenido.aprobado=false;
+      }
+    })
+    console.log(this.contenidos);
+}
   
+ 
+ 
+
+}
+  actualizarInforme(){
+   alert(this.instanciaSelect) 
+   console.log(this.contneidosActualizados);
+  }
 }

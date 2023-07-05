@@ -48,22 +48,19 @@ export class AddEditEstrategiasComponent implements OnInit {
   esEditar(id: number | undefined) {
     if (id !== undefined) {
       this.operacion = "Editar ";
-      this.getContenidos(id);
+      this.getEstrategias(id);
       
     }
   }
 
-  getContenidos(id: number) {
+  getEstrategias(id: number) {
         
-   this.materiaService.detail(id).subscribe({ 
+   this.estrategiasService.detail(id).subscribe({ 
     next: data=>{  
       console.log(data);
       this.form.setValue({
     
-      nombre: data.nombre,
-    
-     
-    
+        estrategias: data.estrategias
   
     })
   },

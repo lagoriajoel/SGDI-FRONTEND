@@ -118,6 +118,7 @@ export class DashboardAlumnosComponent implements OnInit {
         // link.href=donwloadURL
         // link.download="informe.pdf"
         // link.click()
+        console.log(data);
 
         window.open(donwloadURL, "_blank");
       });

@@ -1,7 +1,8 @@
 .row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  
+  font-weight:bolder;
+  
+   
 }
 .column {
     align-items: center;
@@ -32,4 +33,52 @@
       color :red
       
   }
+
+  .mat-grid-tile-content {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    display: grid;
+    align-items: flex-start;
+    justify-content: start;
+    height: 100%;
+   
+    flex-direction: row;
+    align-content: space-evenly;
+    flex-wrap: nowrap;
+
+    flex-wrap: nowrap;
+}
   
+.row2 {
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: grid;
+  align-items: flex-start;
+  justify-content: start;
+  height: 100%;
+
+  flex-direction: row;
+
+
+}
+
+h3 {
+  margin: 0%;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  left: 0;
+}
+
+.lista {
+  margin-top: 0%;
+}
+.mat-list-item{
+  height: 30px;
+}

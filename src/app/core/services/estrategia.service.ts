@@ -16,8 +16,8 @@ export class estrategiaService {
     return this.httpClient.get<estrategiaDto[]>(this.ContenidoURL + 'list');
   }
 
-  public detail(id: number): Observable<estrategiaDto[]> {
-    return this.httpClient.get<estrategiaDto[]>(this.ContenidoURL + `list/${id}` );
+  public detail(id: number): Observable<estrategiaDto> {
+    return this.httpClient.get<estrategiaDto>(this.ContenidoURL + `list/${id}` );
   }
   public listarContenidoPorAsignatura(idAsignatura: number): Observable<estrategiaDto[]> {
     return this.httpClient.get<estrategiaDto[]>(this.ContenidoURL + `listOfAsignatura/${idAsignatura}` );
