@@ -32,8 +32,11 @@ export class InformesService {
   public update(id: number, informe: Informes): Observable<any> {
     return this.httpClient.put<any>(this.informeURL + `update/${id}`, informe);
   }
-  public actualizarContenido(idInforme: number, contenidos: contenidoAdeudadoDto[]): Observable<any> {
-    return this.httpClient.put<any>(this.informeURL + `update/${idInforme}`, contenidos);
+  public actualizarContenidoDiciembre( contenidos: contenidoAdeudadoDto[]): Observable<any> {
+    return this.httpClient.put<any>(this.informeURL + `actualizarContenidoDiciembre/`, contenidos);
+  }
+  public actualizarContenidoFebrero( contenidos: contenidoAdeudadoDto[]): Observable<any> {
+    return this.httpClient.put<any>(this.informeURL + `actualizarContenidoFebrero/`, contenidos);
   }
 
 

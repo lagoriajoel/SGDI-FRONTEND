@@ -1,5 +1,4 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center none">
-    <div fxFlex="95%">
+
   
       <mat-card>
         
@@ -51,9 +50,13 @@
                  
                 <mat-icon *ngIf="isInforme===1"  class="btnEdit" (click)="verInforme(element.id)" matTooltip="Ver Informe">visibility</mat-icon>   
               
-                <button *ngIf="isInforme===1" mat-raised-button (click)="actualizarInforme(element.id)" >
+                <button *ngIf="isInforme===1" mat-raised-button (click)="actualizarInforme(element.id, true)" >
                   <mat-icon>add</mat-icon>
-                 Actualizar
+                 Diciembre
+                </button>
+                <button *ngIf="isInforme===1" mat-raised-button (click)="actualizarInformeFebrero(element.id, false)" >
+                  <mat-icon>add</mat-icon>
+                 Febrero
                 </button>
            </ng-container>
           
@@ -73,5 +76,4 @@
         </mat-card-content>
       </mat-card>
   
-    </div>
-  </div>
+    

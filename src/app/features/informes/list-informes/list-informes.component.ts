@@ -10,6 +10,8 @@ import { Informes } from "src/app/core/Entities/informe";
 import { AlumnoService } from "src/app/core/services/alumno.service";
 import { AddEditInformesComponent } from "../add-edit-informes/add-edit-informes.component";
 import { MostrarInformeComponent } from "../mostrar-informe/mostrar-informe.component";
+import { MateriasService } from "src/app/core/services/materias.service";
+import { MostrarIInformeFebreroComponent } from "../mostrar-i-informe-febrero/mostrar-i-informe-febrero.component";
 
 
 @Component({
@@ -40,6 +42,7 @@ export class ListInformesComponent implements OnInit {
   constructor(
     private titleService: Title,
     private alumnoService: AlumnoService,
+    private _materiaService: MateriasService,
     public dialog: MatDialog,
   
     private _routes: ActivatedRoute
@@ -47,12 +50,14 @@ export class ListInformesComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
 
     this._routes.queryParamMap.subscribe((params) => {
-      this.idCurso = params.get("curso")!;
+     this.idCurso = params.get("curso")!;
       this.idAsignatura = Number(params.get("asignatura"))!;
       this.isInforme = Number(params.get("informe"))!;
       this.NombreAsignatura = params.get("nombreAsignatura")!;
+     
 
     });
+
   }
 
   ngOnInit() {
@@ -112,7 +117,7 @@ export class ListInformesComponent implements OnInit {
     });
   }
   // aactualizar el informe de desepeño
-  actualizarInforme(idAlumno: number){
+  actualizarInforme(idAlumno: number, value: boolean): void {
     if (this.isInforme != 0) {
       const alumno=this.alumnosConInformes.find(alumno=>alumno.id == idAlumno)!
       
@@ -128,6 +133,7 @@ export class ListInformesComponent implements OnInit {
           informe: this.InformeAlumno,
           NombreAlumno: alumno.nombres + " " + alumno.apellido,
           dni: alumno.dni,
+          value: value,
           NombreAsignatura: this.NombreAsignatura,
           idAsignatura: Number(this.idAsignatura),
          
@@ -155,6 +161,38 @@ export class ListInformesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  // aactualizar el informe de desepeño febrero
+  actualizarInformeFebrero(idAlumno: number, value: boolean): void {
+    if (this.isInforme != 0) {
+      const alumno=this.alumnosConInformes.find(alumno=>alumno.id == idAlumno)!
+      
+      
+       this.InformeAlumno = this.getInformeAlumno(alumno, this.idAsignatura);
+     
+ 
+      const dialogRef = this.dialog.open(MostrarIInformeFebreroComponent, {
+        width: "1000px",
+        disableClose: true,
+        data: {
+          alumno: alumno,
+          informe: this.InformeAlumno,
+          NombreAlumno: alumno.nombres + " " + alumno.apellido,
+          dni: alumno.dni,
+          value: value,
+          NombreAsignatura: this.NombreAsignatura,
+          idAsignatura: Number(this.idAsignatura),
+         
+        },
+      });
+ 
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.listarAlumnosConInformes();
+        }
+      });
+    }
+  }
+
 
   
   //mostrar el informe de desempeño

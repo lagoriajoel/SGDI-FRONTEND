@@ -12,6 +12,7 @@ import { FormEditInformeComponent } from './form-edit-informe/form-edit-informe.
 
 
 
+
 @NgModule({
   declarations: [DashboardHomeProfesorComponent, MisContenidosComponent, MisMateriasComponent, ActualizarInformesComponent, ListarInformesMateriasComponent, FormEditInformeComponent],
   imports: [

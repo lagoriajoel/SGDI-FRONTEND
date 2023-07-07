@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 mat-dialog-title>Informes de Desempeño de {{NombreCurso}} {{NombreDivision}}</h2>
+  <h2 mat-dialog-title>Informes de Desempeño de {{NombreCurso}} {{NombreDivision}} - Actualización Diciembre</h2>
 
   <mat-divider></mat-divider>
 
@@ -177,18 +177,7 @@
                 
           </td>
      </ng-container>
-     <ng-container matColumnDef="febrero">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Febrero</th>
-      <td mat-cell *matCellDef="let element" > 
-        
-        <mat-select  (selectionChange)="EvaluacionFebrero($event, element.id)" disabled="{{estado}}">
-          <mat-option *ngFor="let instancia of instancia" [value]="instancia.value">
-            {{instancia.viewValue}}
-          </mat-option>
-          </mat-select>  
-                  
-        </td>
-   </ng-container>
+    
     
     
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

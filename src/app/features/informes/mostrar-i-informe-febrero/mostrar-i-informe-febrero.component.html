@@ -1,0 +1,200 @@
+<div class="container">
+    <h2 mat-dialog-title>Informes de Desempeño de {{NombreCurso}} {{NombreDivision}}- Actualizacion Febrero</h2>
+  
+    <mat-divider></mat-divider>
+  
+    <mat-grid-list cols="4" rowHeight="100px">
+     
+      <mat-grid-tile>
+       
+          <div class="mat-grid-tile-content">
+             
+            <div class="row">
+             
+              <mat-label>DNI</mat-label>  
+           
+           
+            </div>
+            <div class="row">
+              <mat-label>Nombres</mat-label> 
+           
+            </div>
+            <div class="row">
+              <mat-label>Profesor</mat-label> 
+           
+            </div>
+         
+         </div>
+  
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+             
+          <div >
+           
+             {{dniAlumno}}
+         
+         
+          </div>
+          <div>
+           {{NombreAlumno}}
+         
+          </div>
+          <div>
+            {{NombreProfesor}}
+          
+           </div>
+       
+       </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+        <div class="row">
+            <mat-label>Apellido</mat-label>  
+           
+        </div>
+        <div class="row">
+          Email  
+      </div>
+      <div class="row">
+        Ciclo Lectivo  
+    </div>
+     </div>
+    </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+          <div >
+               {{ApellidoAlumno}}
+             
+          </div>
+          <div >
+             {{email}}
+        </div>
+        <div >
+          {{cicloLectivo}}
+     </div>
+       </div>
+         
+      </mat-grid-tile>
+  
+  
+      
+    </mat-grid-list>
+   
+  
+    <mat-divider></mat-divider>
+  
+    <mat-grid-list cols="2" rowHeight="45px">
+     
+      <mat-grid-tile>
+       
+        <div class="mat-grid-tile-content">
+          <h3>Criterios de Evaluación</h3>
+  
+        </div>
+  
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+  
+          <h3>Estrategias de Evaluación</h3>
+  
+        </div>
+  
+   
+      </mat-grid-tile>
+      
+  
+  
+      
+  </mat-grid-list>
+  <mat-grid-list cols="2" rowHeight="{{rowHeight}}px">
+     
+      <mat-grid-tile>
+       
+          <div class="row2">
+           
+            
+            <div class="lista">
+              <mat-selection-list >
+                <mat-list-item class="mat-list-item" *ngFor="let criterio of criterios">
+                  {{criterio.criterio}}
+                </mat-list-item>
+              </mat-selection-list>
+  
+            </div>
+           
+           
+         
+         </div>
+  
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="row2">
+  
+             
+          <mat-selection-list  class="lista">
+            <mat-list-item *ngFor="let estrategia of estrategias">
+              {{estrategia.estrategias}}
+            </mat-list-item>
+          </mat-selection-list>
+       
+       </div>
+      </mat-grid-tile>
+      
+  
+  
+      
+  </mat-grid-list>
+      
+    <mat-divider></mat-divider>
+   
+  
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+           
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Contenido </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+        </ng-container>
+      
+     
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+          <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>
+        <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.instanciaEvaluacion_diciembre}} </td>
+          </ng-container>
+      
+        
+        <ng-container matColumnDef="febrero">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Febrero</th>
+          <td mat-cell *matCellDef="let element"> 
+               
+              <mat-select  (selectionChange)="EvaluacionFebrero($event, element.id)">
+              <mat-option *ngFor="let instancia of instancia"  [value]="instancia.value">
+                {{instancia.viewValue}}
+              </mat-option>
+              </mat-select>  
+                  
+            </td>
+       </ng-container>
+      
+      
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+    <mat-dialog-actions align="end">
+      <button type="button" (click)="cancelar()" mat-button>Cancelar</button>
+      <button type="button" (click)="actualizarInforme()"mat-button cdkFocusInitial> Actualizar </button>
+    </mat-dialog-actions>
+    
+    </div>
+  
+  
+  
+  

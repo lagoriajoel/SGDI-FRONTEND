@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { contenido } from 'src/app/core/Entities/Contenido';
 import { contenidoAdeudadoDto } from 'src/app/core/Entities/contenidoAdeudadoDto';
 import { criterioDto } from 'src/app/core/Entities/criterioDTO';
@@ -13,19 +13,17 @@ import { ContenidosService } from 'src/app/core/services/contenidos.service';
 import { criterioService } from 'src/app/core/services/criterio.service';
 import { estrategiaService } from 'src/app/core/services/estrategia.service';
 import { InformesService } from 'src/app/core/services/informes.service';
-
 interface instancia {
   value: string;
   viewValue: string;
 }
-
 @Component({
-  selector: 'app-mostrar-informe',
-  templateUrl: './mostrar-informe.component.html',
-  styleUrls: ['./mostrar-informe.component.css']
+  selector: 'app-mostrar-i-informe-febrero',
+  templateUrl: './mostrar-i-informe-febrero.component.html',
+  styleUrls: ['./mostrar-i-informe-febrero.component.css']
 })
-export class MostrarInformeComponent implements OnInit {
-  
+export class MostrarIInformeFebreroComponent implements OnInit {
+ 
   //Array de contenidos adeudados por el Alumno
   contenidos: contenidoAdeudadoDto[] = [];
   contenidoActualizar!:contenidoAdeudadoDto
@@ -62,7 +60,7 @@ export class MostrarInformeComponent implements OnInit {
   ];
   instanciaSelect: string = ''
 
-displayedColumns: string[] = ["nombre", "descripcion", "diciembre"];
+displayedColumns: string[] = ["nombre", "descripcion","estado", "febrero"];
   
 
 dataSource: any;
@@ -73,7 +71,7 @@ dataSource: any;
   @ViewChild(MatSort, { static: true })
   sort: MatSort = new MatSort();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(public dialogRef: MatDialogRef<MostrarInformeComponent>,
+  constructor(public dialogRef: MatDialogRef<MostrarIInformeFebreroComponent>,
     private _contenidosService: ContenidosService,
     private _criteriosService :criterioService,
     private _estrategiaService :estrategiaService,
@@ -130,12 +128,12 @@ dataSource: any;
   cancelar() {
     this.dialogRef.close(false);
   }
-  EvaluacionDiciembre(ob: MatSelectChange, id: number): void {
+  EvaluacionFebrero(ob: MatSelectChange, id: number): void {
       
     if(ob.value =="aprobado"){
       this.contenidos.forEach(contenido=>{
         if(contenido.id==id){
-          contenido.instanciaEvaluacion_diciembre="aprobado"
+          contenido.instanciaEvaluacion_febrero="aprobado"
           contenido.aprobado=true;
         }
       })
@@ -144,7 +142,7 @@ dataSource: any;
     if(ob.value =="desaprobado"){
       this.contenidos.forEach(contenido=>{
         if(contenido.id==id){
-          contenido.instanciaEvaluacion_diciembre="desaprobado"
+          contenido.instanciaEvaluacion_febrero="desaprobado"
           contenido.aprobado=false;
         }
       })
@@ -153,7 +151,7 @@ dataSource: any;
    if(ob.value =="ausente"){
     this.contenidos.forEach(contenido=>{
       if(contenido.id==id){
-        contenido.instanciaEvaluacion_diciembre="ausente"
+        contenido.instanciaEvaluacion_febrero="ausente"
         contenido.aprobado=false;
       }
     })
@@ -161,52 +159,16 @@ dataSource: any;
  }
     
   }
-  EvaluacionFebrero(ob: MatSelectChange, id: number): void {
-  if(this.contenidos.some(contenido=>contenido.id==id&&contenido.aprobado==true)){
-      alert('CORREGIR CAMPOS')
-  }
 
-    if(ob.value =="aprobado"){
-      this.contenidos.forEach(contenido=>{
-        if(contenido.id==id){
-          contenido.instanciaEvaluacion_febrero="aprobado"
-        
-        }
-      })
-     console.log(this.contenidos);
-    }
-    if(ob.value =="desaprobado"){
-      this.contenidos.forEach(contenido=>{
-        if(contenido.id==id){
-          contenido.instanciaEvaluacion_febrero="desaprobado"
-         
-        }
-      })
-      console.log(this.contenidos);
-   }
-   if(ob.value =="ausente"){
-    this.contenidos.forEach(contenido=>{
-      if(contenido.id==id){
-        contenido.instanciaEvaluacion_febrero="ausente"
-        
-      }
-    })
-    console.log(this.contenidos);
-}
-  
- 
- 
-
-}
   actualizarInforme(){
 
    
   
-   this._informeService.actualizarContenidoDiciembre(this.contenidos).subscribe({
+   this._informeService.actualizarContenidoFebrero(this.contenidos).subscribe({
     next: data=>{console.log(data);},
     error: (err)=>{console.log(err);},
-
+    
    })
-
+ this.dialogRef.close()
   }
 }
