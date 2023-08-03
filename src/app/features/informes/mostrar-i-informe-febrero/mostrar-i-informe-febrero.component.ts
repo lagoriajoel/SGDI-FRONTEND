@@ -13,6 +13,7 @@ import { ContenidosService } from 'src/app/core/services/contenidos.service';
 import { criterioService } from 'src/app/core/services/criterio.service';
 import { estrategiaService } from 'src/app/core/services/estrategia.service';
 import { InformesService } from 'src/app/core/services/informes.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 interface instancia {
   value: string;
   viewValue: string;
@@ -73,6 +74,7 @@ dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(public dialogRef: MatDialogRef<MostrarIInformeFebreroComponent>,
     private _contenidosService: ContenidosService,
+    private notificationService: NotificationService,
     private _criteriosService :criterioService,
     private _estrategiaService :estrategiaService,
     private _informeService :InformesService,
@@ -165,8 +167,12 @@ dataSource: any;
    
   
    this._informeService.actualizarContenidoFebrero(this.contenidos).subscribe({
-    next: data=>{console.log(data);},
-    error: (err)=>{console.log(err);},
+    next: data=>{
+      this.notificationService.openSnackBar("Informe Actualizado Correctamente")
+      console.log(data);},
+    error: (err)=>{
+      this.notificationService.openSnackBar(err.error.Mensaje)
+      console.log(err);},
     
    })
  this.dialogRef.close()

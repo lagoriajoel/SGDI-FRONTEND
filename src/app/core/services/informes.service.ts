@@ -17,7 +17,14 @@ export class InformesService {
   public lista(): Observable<Informes[]> {
     return this.httpClient.get<Informes[]>(this.informeURL + 'list');
   }
+  public listarPorMaterias(nombre:string, anio:string): Observable<Informes[]> {
+    return this.httpClient.get<Informes[]>(this.informeURL + `listOfNombreAsignatura/${nombre}/${anio}`);
+  }
 
+  public listarPorAnioCurso(anio:string): Observable<Informes[]> {
+    return this.httpClient.get<Informes[]>(this.informeURL + `listOfAnioCurso/${anio}`);
+  }
+  
  
 
   public detail(id: number): Observable<Informes> {
@@ -46,5 +53,8 @@ export class InformesService {
 
   public delete(id: number): Observable<any> {
     return this.httpClient.delete<any>(this.informeURL + `delete/${id}`);
+  }
+  public numInformesPorMateria(materia: string, anio:string): Observable<any> {
+    return this.httpClient.get<any>(this.informeURL + `numInformesMateria/${materia}/${anio}`);
   }
 }

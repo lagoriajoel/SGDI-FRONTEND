@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MostrarInformeComponent } from './mostrar-informe/mostrar-informe.component';
 import { ActualizarDiciembreFebreroComponent } from './actualizar-diciembre-febrero/actualizar-diciembre-febrero.component';
 import { MostrarIInformeFebreroComponent } from './mostrar-i-informe-febrero/mostrar-i-informe-febrero.component';
+import { GraficosComponent } from './graficos/graficos.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { MostrarIInformeFebreroComponent } from './mostrar-i-informe-febrero/mos
     AddEditInformesComponent,
     MostrarInformeComponent,
     ActualizarDiciembreFebreroComponent,
-    MostrarIInformeFebreroComponent
+    MostrarIInformeFebreroComponent,
+    GraficosComponent
   ],
   imports: [
     CommonModule,

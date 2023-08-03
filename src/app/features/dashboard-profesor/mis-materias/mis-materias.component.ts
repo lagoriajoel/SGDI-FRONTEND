@@ -150,16 +150,7 @@ export class MisMateriasComponent implements OnInit {
    else {
 
 
-    // this.router.navigate(["/informes/listar/"], { 
-    //   queryParams: {
-    //     curso:asignaturas.curso.idCurso,
-    //     asignatura:asignaturas.asignatura_id,
-    //     informe: this.isInformes,
-    //     nombreAsignatura:asignaturas.nombre
-    //   }});
-    // }
-
-    this.router.navigate(["/informes/actualizarInforme/"], { 
+    this.router.navigate(["/informes/listar/"], { 
       queryParams: {
         curso:asignaturas.curso.idCurso,
         asignatura:asignaturas.asignatura_id,
@@ -167,6 +158,15 @@ export class MisMateriasComponent implements OnInit {
         nombreAsignatura:asignaturas.nombre
       }});
     }
+
+    // this.router.navigate(["/informes/actualizarInforme/"], { 
+    //   queryParams: {
+    //     curso:asignaturas.curso.idCurso,
+    //     asignatura:asignaturas.asignatura_id,
+    //     informe: this.isInformes,
+    //     nombreAsignatura:asignaturas.nombre
+    //   }});
+    // }
    }
 
   

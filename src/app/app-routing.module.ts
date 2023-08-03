@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   {
     path: 'informes',
     loadChildren: () => import('./features/informes/informes.module').then(m => m.InformesModule),
-    canActivate: [AdminGuard], data: {expectedRol: ['admin', 'profesor']}
+    canActivate: [AdminGuard], data: {expectedRol: ['admin', 'profesor','directivo']}
   },
   {
     path: 'customers',
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule),
-    canActivate: [AdminGuard], data: {expectedRol: ['user', 'admin', 'profesor']}
+    canActivate: [AdminGuard], data: {expectedRol: ['user', 'admin', 'profesor','directivo']}
   },
   
   {
@@ -65,7 +65,7 @@ const appRoutes: Routes = [
   {
     path: 'cursos',
     loadChildren: () => import('./features/cursos/cursos.module').then(m => m.CursosModule),
-    canActivate:  [AdminGuard], data: {expectedRol: ['admin']}
+    canActivate:  [AdminGuard], data: {expectedRol: ['admin','directivo']}
   },
   {
     path: 'mesa',
@@ -83,7 +83,7 @@ const appRoutes: Routes = [
   {
     path: 'alumnos',
     loadChildren: () => import('./features/Alumno/alumnos.module').then(m => m.AlumnosModule),
-    canActivate:  [AdminGuard], data: {expectedRol: ['admin']}
+    canActivate:  [AdminGuard], data: {expectedRol: ['admin','directivo']}
   },
  
   {

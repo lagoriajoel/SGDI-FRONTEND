@@ -1,1 +1,187 @@
-<p>form-edit-informe works!</p>
+<div class="container">
+    <h2 mat-dialog-title>MESA DE EXÁMEN DE:  {{NombreCurso}} {{NombreDivision}} </h2>
+  
+    <mat-divider></mat-divider>
+    <h3>DATOS DEL INFORME</h3>
+    <mat-divider></mat-divider>
+  
+    <mat-grid-list cols="4" rowHeight="100px">
+     
+      <mat-grid-tile>
+       
+          <div class="mat-grid-tile-content">
+             
+            <div class="row">
+             
+              <mat-label>DNI</mat-label>  
+           
+           
+            </div>
+            <div class="row">
+              <mat-label>Nombres</mat-label> 
+           
+            </div>
+            <div class="row">
+              <mat-label>Profesor</mat-label> 
+           
+            </div>
+         
+         </div>
+  
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+             
+          <div >
+           
+             {{dniAlumno}}
+         
+         
+          </div>
+          <div>
+           {{NombreAlumno}}
+         
+          </div>
+          <div>
+            {{NombreProfesor}}
+          
+           </div>
+       
+       </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+        <div class="row">
+            <mat-label>Apellido</mat-label>  
+           
+        </div>
+        <div class="row">
+          Email  
+      </div>
+      <div class="row">
+        Ciclo Lectivo  
+    </div>
+     </div>
+    </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+          <div >
+               {{ApellidoAlumno}}
+             
+          </div>
+          <div >
+             {{email}}
+        </div>
+        <div >
+          {{cicloLectivo}}
+     </div>
+       </div>
+         
+      </mat-grid-tile>
+  
+  
+      
+    </mat-grid-list>
+   
+   
+    <mat-divider></mat-divider>
+  
+    <mat-grid-list cols="4" rowHeight="100px">
+     
+      <mat-grid-tile>
+       
+          <div class="mat-grid-tile-content">
+            <div class="row">
+              <mat-label>Presidente de Mesa </mat-label>    
+            </div>
+           
+         
+         </div>
+  
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+             
+          <div >
+           
+             {{presidenteMesa}}
+         
+         
+          </div>
+         
+       
+       </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+        <div class="row">
+            <mat-label>Fecha de Exámen</mat-label>  
+           
+        </div>
+        
+     </div>
+    </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="mat-grid-tile-content">
+          <div >
+           
+             
+              <input matInput [matDatepicker]="picker">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          
+             
+          </div>
+          
+       </div>
+         
+      </mat-grid-tile>
+  
+  
+      
+    </mat-grid-list>
+   
+  
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+           
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Contenido </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+        </ng-container>
+      
+     
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+          <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>
+      
+        
+        <ng-container matColumnDef="diciembre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Resultado</th>
+          <td mat-cell *matCellDef="let element"> 
+               
+              <mat-select  (selectionChange)="EvaluacionDiciembre($event, element.id)">
+              <mat-option *ngFor="let instancia of instancia"  [value]="instancia.value">
+                {{instancia.viewValue}}
+              </mat-option>
+              </mat-select>  
+                  
+            </td>
+       </ng-container>
+      
+      
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+    <mat-dialog-actions align="end">
+      <button type="button" (click)="cancelar()" mat-button>Cancelar</button>
+      <button type="button" (click)="actualizarInforme()"mat-button cdkFocusInitial> Actualizar </button>
+    </mat-dialog-actions>
+    
+    </div>
+  
+  

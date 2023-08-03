@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Alumno } from '../Entities/alumno';
 import { AlumnoDto } from '../Entities/AlumnoDto';
+import { AlumnoInformeDto } from '../Entities/AlumnoInformeDto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,9 @@ export class AlumnoService {
 
   public listarCurso(id: number): Observable<Alumno[]> {
     return this.httpClient.get<Alumno[]>(this.AlumnoURL + `listOfCurso/${id}` );
+  }
+  public listarAnioCurso(anio:string): Observable<AlumnoInformeDto[]> {
+    return this.httpClient.get<AlumnoInformeDto[]>(this.AlumnoURL + `listOfAnioCurso/${anio}` );
   }
 
   public listaPorDni(dni: string): Observable<Alumno> {

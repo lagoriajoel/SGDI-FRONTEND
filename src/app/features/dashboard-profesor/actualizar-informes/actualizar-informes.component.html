@@ -13,7 +13,7 @@
                 <mat-card-actions class="boton">
                   <div class="boton">
   
-                    <button mat-button class="but" (click)="mostrarMateria()">{{materia.nombre}}</button>
+                    <button mat-button class="but" (click)="mostrarMateria(materia.nombre, materia.anioCurso, materia.asignatura_id)">{{materia.nombre}}</button>
                     <p class="cursoAnio">{{materia.anioCurso}} Año {{materia.curso.division}}</p>
                   </div>
                 </mat-card-actions>

@@ -20,6 +20,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     userName: string = "";
     isAdmin: boolean = false;
     isProfesor: boolean = false; //
+    isDirectivo: boolean = false;
     usuario: string = "";
 
     private autoLogoutSubscription: Subscription = new Subscription;
@@ -46,12 +47,16 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isAdmin = this.authService.isAdmin();
         this.userName = this.authService.getName();
         this.isProfesor=this.authService.isProfesor();
+        this.isDirectivo=this.authService.isDirectivo();
         
         if(this.isAdmin){
             this.usuario= 'Administrador :';
         }
         else if(this.isProfesor){
             this.usuario='Profesor :';
+        }
+        else if(this.isDirectivo){
+            this.usuario='Director/a :';
         }
 
        

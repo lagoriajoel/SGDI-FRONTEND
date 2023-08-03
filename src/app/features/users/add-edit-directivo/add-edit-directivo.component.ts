@@ -2,16 +2,16 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Administrador } from 'src/app/core/Entities/administrador';
-import { AdministradorService } from 'src/app/core/services/administrador.service';
+import { Directivo } from 'src/app/core/Entities/Directivo';
+import { DirectivoService } from 'src/app/core/services/Directivo.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
-  selector: 'app-add-edit-admin',
-  templateUrl: './add-edit-admin.component.html',
-  styleUrls: ['./add-edit-admin.component.css']
+  selector: 'app-add-edit-directivo',
+  templateUrl: './add-edit-directivo.component.html',
+  styleUrls: ['./add-edit-directivo.component.css']
 })
-export class AddEditAdminComponent implements OnInit {
+export class AddEditDirectivoComponent implements OnInit {
   form: FormGroup;
   deshabilitado:boolean= true
   
@@ -22,8 +22,8 @@ export class AddEditAdminComponent implements OnInit {
   idCurso: number | undefined;
   
 
-  constructor(public dialogRef: MatDialogRef<AddEditAdminComponent>,
-    private fb: FormBuilder, private _adminService: AdministradorService,
+  constructor(public dialogRef: MatDialogRef<AddEditDirectivoComponent>,
+    private fb: FormBuilder, private _directivoService: DirectivoService,
     private _snackBar: MatSnackBar, @Inject(MAT_DIALOG_DATA) public data: any,
     private notificationService: NotificationService) {
       this.loading=false;
@@ -63,7 +63,7 @@ export class AddEditAdminComponent implements OnInit {
   }
 
   getProfesor(id: number) {
-    this._adminService.detail(id).subscribe(data => {
+    this._directivoService.detail(id).subscribe(data => {
       this.form.setValue({
         dni: data.dni,
         nombres: data.nombres,
@@ -87,7 +87,7 @@ export class AddEditAdminComponent implements OnInit {
     }
    
    
-    const profesor: Administrador = {
+    const directivo: Directivo = {
       id: 0,
       dni: this.form.value.dni,
       nombres: this.form.value.nombre,
@@ -105,7 +105,7 @@ export class AddEditAdminComponent implements OnInit {
     if (this.id == undefined) {
 
       // Es agregar
-      this._adminService.save(profesor).subscribe(
+      this._directivoService.save(directivo).subscribe(
         {
           next: data=>{
             console.log(data);
@@ -123,7 +123,7 @@ export class AddEditAdminComponent implements OnInit {
     } else {
 
       // Es editar
-      this._adminService.update(this.id, profesor).subscribe(data => {
+      this._directivoService.update(this.id, directivo).subscribe(data => {
         this.mensajeExito('actualizada');
         this.dialogRef.close(true)
 
@@ -136,7 +136,5 @@ export class AddEditAdminComponent implements OnInit {
       duration: 2000
     });
   }
-
-
 
 }

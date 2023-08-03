@@ -69,24 +69,27 @@
           </mat-icon>
           <p mat-line> Dashboard </p>
         </a>
-        <a *ngIf="!isAdmin&&!isProfesor" mat-list-item [routerLink]="['/dashboard/dashboardAlumno']" routerLinkActive="active">
+        <a *ngIf="!isAdmin&&!isProfesor&&!isDirectivo" mat-list-item [routerLink]="['/dashboard/dashboardAlumno']" routerLinkActive="active">
           <mat-icon mat-list-icon>
             description
           </mat-icon>
           <p mat-line> Mis Informes </p>
         </a>
-        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/cursos']" >
+        <a *ngIf="isDirectivo" mat-list-item [routerLink]="['/cursos']" >
           <mat-icon mat-list-icon>
-            dashboard
+           folder_open
           </mat-icon>
           <p mat-line> Informes Desempeño </p>
         </a>
-        <a *ngIf="isAdmin" mat-list-item [routerLink]="['/dashboard']" [queryParams]="{ mesa: 'true'}" routerLinkActive="active">
+        <a *ngIf="isDirectivo" mat-list-item [routerLink]="['/informes/graficos']" >
           <mat-icon mat-list-icon>
-            dashboard
+           
+              bar_charts
+            
           </mat-icon>
-          <p mat-line> Mesa de Examen </p>
+          <p mat-line> Graficos </p>
         </a>
+       
 
         <a *ngIf="isProfesor" mat-list-item [routerLink]="['/dashboardProfesor/misMaterias']"[queryParams]="{ materias: 'true'}" routerLinkActive="active">
           <mat-icon mat-list-icon>

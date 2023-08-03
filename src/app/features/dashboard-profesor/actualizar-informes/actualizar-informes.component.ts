@@ -39,7 +39,14 @@ export class ActualizarInformesComponent implements OnInit {
       console.log(data);
     });
   }
-  mostrarMateria(){
-       this._router.navigate(['/dashboardProfesor/listarInformesMaterias']) 
+  mostrarMateria(nombreMateria:String, anio: string, id: number) {
+       this._router.navigate(['/dashboardProfesor/listarInformesMaterias'], { 
+        queryParams: {
+          nombreMateria: nombreMateria,
+          anioMateria:anio,
+          idAsignatura: id
+
+                  }
+      }) 
   }
 }

@@ -1,41 +1,54 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Alumno } from 'src/app/core/Entities/alumno';
-import { AlumnoService } from 'src/app/core/services/alumno.service';
-import { InformesService } from 'src/app/core/services/informes.service';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AlumnoInformeDto } from "src/app/core/Entities/AlumnoInformeDto";
+import { Alumno } from "src/app/core/Entities/alumno";
+import { AlumnoService } from "src/app/core/services/alumno.service";
+import { InformesService } from "src/app/core/services/informes.service";
+import { FormEditInformeComponent } from "../form-edit-informe/form-edit-informe.component";
+import { Informes } from "src/app/core/Entities/informe";
+import { InformesAlumnoDto } from "src/app/core/Entities/InformeAlumnoDto";
 
 @Component({
-  selector: 'app-listar-informes-materias',
-  templateUrl: './listar-informes-materias.component.html',
-  styleUrls: ['./listar-informes-materias.component.css']
+  selector: "app-listar-informes-materias",
+  templateUrl: "./listar-informes-materias.component.html",
+  styleUrls: ["./listar-informes-materias.component.css"],
 })
 export class ListarInformesMateriasComponent implements OnInit {
-  alumnos: Alumno[] = [];
+  alumnos: AlumnoInformeDto[] = [];
   displayedColumns: string[] = ["dni", "nombres", "apellido", "informes"];
   dataSource = new MatTableDataSource(this.alumnos);
-
+  nombreMateria: string = "";
+  anioMateria: string = "";
+  idAsignatura!:number
+  InformeAlumno!: InformesAlumnoDto;
   @ViewChild(MatSort, { static: true })
   sort: MatSort = new MatSort();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(
-   
     private alumnoService: AlumnoService,
     public dialog: MatDialog,
     private _informeService: InformesService,
-    private _router: Router
-   
+    private _router: Router,
+    private route: ActivatedRoute
   ) {
     this.dataSource = new MatTableDataSource();
-   }
+
+    this.route.queryParamMap.subscribe((params) => {
+      this.nombreMateria = params.get("nombreMateria")!;
+      this.anioMateria = params.get("anioMateria")!;
+      this.idAsignatura =Number(params.get("idAsignatura"))!
+      
+    });
+  }
 
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
 
-   this.listarAlumnosConInformes()
+    this.listarAlumnosConInformes();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -51,49 +64,66 @@ export class ListarInformesMateriasComponent implements OnInit {
     }
   }
 
-// lista los alumnos que tiene informes de desempeño de la asignatura
-listarAlumnosConInformes(): void {
+  // lista los alumnos que tiene informes de desempeño de la asignatura
+  listarAlumnosConInformes(): void {
+    this.alumnoService.listarAnioCurso(this.anioMateria).subscribe({
+      next: (data) => {
+        console.log(data);
+        data.forEach((alumno) => {
+          if (
+            alumno.informeDesempenios.some(
+              (x) => x.asignatura.nombre == this.nombreMateria
+            )
+          )
+            this.alumnos.push(alumno);
+        });
 
-  this.alumnoService.lista().subscribe({
-    next: data=> {
-      console.log(data);
-      this.alumnos = data
-      this.dataSource.data = this.alumnos;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
-  })
-//   this.alumnoService.listarCurso(Number(this.idCurso)).subscribe((data) => {
-//     data.forEach((alumno) => {
-//       if (
-//         alumno.informeDesempenios.some(
-//           (x) =>
-//             x.asignatura.asignatura_id == this.idAsignatura &&
-//             x.asignatura.asignatura_id != null
-//         )
-//       )
-//         this.alumnos.push(alumno);
-//     });
+        this.dataSource.data = this.alumnos;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: (error) => {},
+    });
+  }
 
-//     this.dataSource.data = this.alumnos;
-//     this.dataSource.paginator = this.paginator;
-//     this.dataSource.sort = this.sort;
-//   });
-}
+  actualizarInforme(id: number): void {
+    const alumno=this.alumnos.find(alumno=>alumno.id == id)!
+      
+      
+    this.InformeAlumno = this.getInformeAlumno(alumno, this.nombreMateria);
+  
 
-listarInformes(){
-  this._informeService.lista().subscribe({
-    next: data=>{
-      console.log(data);
-    }
-  }); //
-}
+   const dialogRef = this.dialog.open(FormEditInformeComponent, {
+     width: "1000px",
+     disableClose: true,
+     data: {
+       alumno: alumno,
+       informe: this.InformeAlumno,
+       NombreAlumno: alumno.nombres + " " + alumno.apellido,
+       dni: alumno.dni,
+       NombreAsignatura: this.nombreMateria,
+       idAsignatura: Number(this.idAsignatura),
+      
+     },
+   });
 
+   dialogRef.afterClosed().subscribe((result) => {
+     if (result) {
+       this.listarAlumnosConInformes();
+     }
+   });
+ }
 
-actualizarInforme(id: number): void {
-    this._router.navigate(['/dashboardProfesor/formActualizar'])     
-}
-SelectedRow(alumno: Alumno) {
+  // metodo que obtiene el informe de un alumno por asignatura
 
-}
+  getInformeAlumno(alumno: AlumnoInformeDto, NombreMateria: string): InformesAlumnoDto {
+   console.log(alumno);
+    const informe = alumno.informeDesempenios.filter(
+      (inf) => inf.asignatura.nombre == NombreMateria
+    );
+console.log(informe);
+    return informe[0];
+  }
+  
+  SelectedRow(alumno: Alumno) {}
 }

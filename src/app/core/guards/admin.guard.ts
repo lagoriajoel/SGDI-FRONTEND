@@ -23,6 +23,9 @@ export class AdminGuard implements CanActivate {
          else if(this.authService.isAdmin()) {
           this.realRol = 'admin' 
          }
+         else if(this.authService.isDirectivo()) {
+          this.realRol = 'directivo' 
+         }
          else {
           this.realRol='user'
          }

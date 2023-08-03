@@ -7,6 +7,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ListarProfesoresComponent } from '../profesor/listar-profesores/listar-profesores.component';
 import { ProfesorUserComponent } from './profesor-user/profesor-user.component';
 import { AdminUserComponent } from './admin-user/admin-user.component';
+import { DirectivoUserComponent } from './directivo-user/directivo-user.component';
+import { AddEditDirectivoComponent } from './add-edit-directivo/add-edit-directivo.component';
 
 @NgModule({
   imports: [
@@ -14,6 +16,6 @@ import { AdminUserComponent } from './admin-user/admin-user.component';
     SharedModule,
     UsersRoutingModule
   ],
-  declarations: [UserListComponent, ProfesorUserComponent, AdminUserComponent]
+  declarations: [UserListComponent, ProfesorUserComponent, AdminUserComponent, DirectivoUserComponent, AddEditDirectivoComponent]
 })
 export class UsersModule { }

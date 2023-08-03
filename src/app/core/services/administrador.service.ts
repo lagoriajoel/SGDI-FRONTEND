@@ -1,9 +1,6 @@
-import { AboutModule } from './../../features/about/about.module';
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Alumno } from '../Entities/alumno';
 import { Administrador } from '../Entities/administrador';
 
 @Injectable({
