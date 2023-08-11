@@ -15,8 +15,8 @@ export class MateriasService {
     return this.httpClient.get<MateriasDto[]>(this.materiasURL + 'list');
   }
 
-  public listarCurso(id: number): Observable<MateriasDto[]> {
-    return this.httpClient.get<MateriasDto[]>(this.materiasURL + `listOfCurso/${id}` );
+  public listarCurso(idCurso: number): Observable<MateriasDto[]> {
+    return this.httpClient.get<MateriasDto[]>(this.materiasURL + `listOfCurso/${idCurso}` );
   }
   public listarPorProfesor(id: number): Observable<MateriasDto[]> {
     return this.httpClient.get<MateriasDto[]>(this.materiasURL + `listOfProfesor/${id}` );

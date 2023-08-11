@@ -85,6 +85,11 @@ const appRoutes: Routes = [
     loadChildren: () => import('./features/Alumno/alumnos.module').then(m => m.AlumnosModule),
     canActivate:  [AdminGuard], data: {expectedRol: ['admin','directivo']}
   },
+  {
+    path: 'directivo',
+    loadChildren: () => import('./features/dashboard-directivo/dashboard-directivo.module').then(m => m.DashboardDirectivoModule),
+    canActivate:  [AdminGuard], data: {expectedRol: ['directivo']}
+  },
  
   {
     path: '**',

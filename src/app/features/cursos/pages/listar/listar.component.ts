@@ -43,9 +43,12 @@ export class ListarComponent implements OnInit {
   isContenidos: number = 0;
   isAlumno: boolean = false;
   isInforme: boolean = false;
+  isInformeDesempenio: boolean = false;
+
   isCurso: boolean = false;
   color:string=""
   informesPorAsignatura:number = 0;
+
 
 
   anio: string[]=['Todos','1','2','3','4','5','6'];
@@ -98,6 +101,8 @@ export class ListarComponent implements OnInit {
       params.get("alumnos") ? (this.isAlumno = true) : (this.isAlumno = false);
       params.get("informes") ? (this.isInforme = true) : (this.isInforme = false);
       params.get("curso") ? (this.isCurso = true) : (this.isCurso = false);
+      params.get("informesDesempenio") ? (this.isInformeDesempenio = true) : (this.isInformeDesempenio = false);
+
 
     });
 
@@ -257,7 +262,17 @@ mostrarFila( curso1: CursoDto){
                    }
                  });
           }
-this.router.navigate(["/alumnos/listar/", this.idCurso]);
+  else if(this.isInformeDesempenio){
+            this.router.navigate(["/directivo/listar/"], { 
+              queryParams: {
+                curso:this.idCurso, 
+                anioCurso:this.añoCurso,
+              
+              
+                   }
+                 });
+          }
+else{this.router.navigate(["/alumnos/listar/", this.idCurso]);}
 }
 
 

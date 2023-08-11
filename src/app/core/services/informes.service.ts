@@ -57,4 +57,7 @@ export class InformesService {
   public numInformesPorMateria(materia: string, anio:string): Observable<any> {
     return this.httpClient.get<any>(this.informeURL + `numInformesMateria/${materia}/${anio}`);
   }
+  public numAlumnosConInformesAnio( anio:string): Observable<any> {
+    return this.httpClient.get<any>(this.informeURL + `numAlumnosConInformePorAnio/${anio}`);
+  }
 }

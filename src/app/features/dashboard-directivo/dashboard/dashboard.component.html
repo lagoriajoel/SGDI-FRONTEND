@@ -1,0 +1,92 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="95%">
+      <mat-card>
+        <form [formGroup]="form">
+
+    
+
+            
+            
+                  <mat-card-title>Buscar Informe de Desempeño </mat-card-title>
+                  <mat-card-subtitle>Ingrese el DNI del Alumno/a</mat-card-subtitle>
+                  <mat-card-content>
+      
+                      <mat-form-field >
+                          <input id="userInput" matInput placeholder="DNI" formControlName="dni" autocomplete="off"
+                              type="number">
+      
+                        
+                          <mat-error *ngIf="this.form.get('dni')?.errors?.['required']">
+                              El DNI del Alumno/a es 
+                              <strong>requirido</strong>
+                          </mat-error>
+      
+                      </mat-form-field>
+      
+                      <button mat-raised-button id="login" color="primary" [disabled]="form.invalid"
+                          (click)="buscar()"> Buscar</button>
+      
+                  </mat-card-content>
+      
+                  <mat-card-actions class="login-actions">
+                    
+                  </mat-card-actions>
+      
+             
+      
+             
+          
+          </form>
+
+
+
+
+        <div>
+          <h3>Alumno/a:</h3> {{nombreAlumno}} {{apellidoAlumno}} 
+        </div>
+
+      
+        <table mat-table [dataSource]="dataSource" matSort>
+  
+           
+          <ng-container matColumnDef="Asignatura">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Asignatura </th>
+            <td mat-cell *matCellDef="let element"> {{element.asignatura.nombre}} </td>
+          </ng-container>
+        
+       
+          <ng-container matColumnDef="Curso">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso </th>
+            <td mat-cell *matCellDef="let element">  {{element.asignatura.anioCurso}} Año </td>
+          </ng-container>
+        
+      
+          
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones</th>
+            <td mat-cell *matCellDef="let element"> 
+              <!-- capturamos el id del informe  -->
+              <button mat-raised-button (click)="generarPDF(element.id)">
+                <mat-icon  class="btnVer"  matTooltip="Ver">visibility</mat-icon> Ver </button>  
+              </td>
+         </ng-container>
+        
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        
+          <mat-paginator [pageSizeOptions]="[10, 20]"
+          showFirstLastButtons
+          >
+        </mat-paginator>
+          
+        
+      
+      </mat-card>
+  
+      
+  
+    </div>
+  </div>

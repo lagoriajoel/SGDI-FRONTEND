@@ -38,6 +38,7 @@ export class ListInformesComponent implements OnInit {
   @ViewChild(MatSort, { static: true })
   sort: MatSort = new MatSort();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  isDirectivo: boolean=false;
 
   constructor(
     private titleService: Title,
@@ -54,7 +55,9 @@ export class ListInformesComponent implements OnInit {
       this.idAsignatura = Number(params.get("asignatura"))!;
       this.isInforme = Number(params.get("informe"))!;
       this.NombreAsignatura = params.get("nombreAsignatura")!;
-     
+       params.get("directivo") ? this.isDirectivo=true : this.isDirectivo=false;
+
+     console.log(this.isDirectivo);
 
     });
 

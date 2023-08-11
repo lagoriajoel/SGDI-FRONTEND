@@ -69,13 +69,21 @@
           </mat-icon>
           <p mat-line> Dashboard </p>
         </a>
+        <a *ngIf="isDirectivo" mat-list-item [routerLink]="['/directivo/search']" >
+          <mat-icon mat-list-icon>
+           
+              search
+            
+          </mat-icon>
+          <p mat-line> Buscar Informe </p>
+        </a>
         <a *ngIf="!isAdmin&&!isProfesor&&!isDirectivo" mat-list-item [routerLink]="['/dashboard/dashboardAlumno']" routerLinkActive="active">
           <mat-icon mat-list-icon>
             description
           </mat-icon>
           <p mat-line> Mis Informes </p>
         </a>
-        <a *ngIf="isDirectivo" mat-list-item [routerLink]="['/cursos']" >
+        <a *ngIf="isDirectivo" mat-list-item [routerLink]="['/cursos']" [queryParams]="{ informesDesempenio: 'true'}" routerLinkActive="active" >
           <mat-icon mat-list-icon>
            folder_open
           </mat-icon>
@@ -87,9 +95,8 @@
               bar_charts
             
           </mat-icon>
-          <p mat-line> Graficos </p>
+          <p mat-line> Estadística </p>
         </a>
-       
 
         <a *ngIf="isProfesor" mat-list-item [routerLink]="['/dashboardProfesor/misMaterias']"[queryParams]="{ materias: 'true'}" routerLinkActive="active">
           <mat-icon mat-list-icon>
@@ -141,13 +148,13 @@
 
         <a mat-list-item [routerLink]="['/account/profile']">
           <mat-icon mat-list-icon>person</mat-icon>
-          <p mat-line> Account </p>
+          <p mat-line> Mi Cuenta </p>
         </a>
       
 
         <a mat-list-item [routerLink]="['/auth/login']">
           <mat-icon mat-list-icon>exit_to_app</mat-icon>
-          <p mat-line> Log out </p>
+          <p mat-line> Salir </p>
         </a>
 
         <mat-divider></mat-divider>

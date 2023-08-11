@@ -5,8 +5,9 @@
       
       <mat-card-content>
         <h2 *ngIf="isAlumno"> Alumnos</h2>
-        <h2 *ngIf="isCurso"> Cursos</h2>
-        <h2 *ngIf="isInforme"> Informes de Desempeño</h2>
+        <h2 *ngIf="isCurso || isInformeDesempenio"> Cursos</h2>
+        
+      
 
 
         <div class="serch">

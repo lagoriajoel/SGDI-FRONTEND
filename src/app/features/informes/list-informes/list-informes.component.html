@@ -50,11 +50,11 @@
                  
                 <mat-icon *ngIf="isInforme===1"  class="btnEdit" (click)="verInforme(element.id)" matTooltip="Ver Informe">visibility</mat-icon>   
               
-                <button *ngIf="isInforme===1" mat-raised-button (click)="actualizarInforme(element.id, true)" >
+                <button *ngIf="isInforme===1&&!isDirectivo" mat-raised-button (click)="actualizarInforme(element.id, true)" >
                   <mat-icon>add</mat-icon>
                  Diciembre
                 </button>
-                <button *ngIf="isInforme===1" mat-raised-button (click)="actualizarInformeFebrero(element.id, false)" >
+                <button *ngIf="isInforme===1&&!isDirectivo" mat-raised-button (click)="actualizarInformeFebrero(element.id, false)" >
                   <mat-icon>add</mat-icon>
                  Febrero
                 </button>

@@ -9,6 +9,8 @@ import { MostrarInformeComponent } from './mostrar-informe/mostrar-informe.compo
 import { ActualizarDiciembreFebreroComponent } from './actualizar-diciembre-febrero/actualizar-diciembre-febrero.component';
 import { MostrarIInformeFebreroComponent } from './mostrar-i-informe-febrero/mostrar-i-informe-febrero.component';
 import { GraficosComponent } from './graficos/graficos.component';
+import { Grafico2Component } from './estadisticas/grafico2/grafico2.component';
+import { EstadisticasComponent } from './estadisticas/estadisticas/estadisticas.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { GraficosComponent } from './graficos/graficos.component';
     MostrarInformeComponent,
     ActualizarDiciembreFebreroComponent,
     MostrarIInformeFebreroComponent,
-    GraficosComponent
+    GraficosComponent,
+    Grafico2Component,
+    EstadisticasComponent
   ],
   imports: [
     CommonModule,
