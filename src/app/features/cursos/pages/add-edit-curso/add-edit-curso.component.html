@@ -47,6 +47,22 @@
         </span>
       </div>
     </div>
+
+    <div class="column">
+      <mat-form-field appearance="fill">
+        <mat-label>tecnicatura</mat-label>
+        <mat-select formControlName="tecnicatura">
+          <mat-option *ngFor="let tec of tecnicaturas" [value]="tec.value">
+            {{tec.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="error">
+        <span *ngIf="form.get('tecnicatura')?.hasError('required') && form.get('tecnicatura')?.touched">
+          La tecnicatura del curso es un campo <strong>requerido</strong>  
+        </span>
+      </div>
+    </div>
  
   
     <div class="row">

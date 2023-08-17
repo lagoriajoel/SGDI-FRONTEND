@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { Informes } from '../Entities/informe';
 import { Observable } from 'rxjs';
 import { contenidoAdeudadoDto } from '../Entities/contenidoAdeudadoDto';
+import { InformeContenidoDto } from '../Entities/informeContenidosDto';
+import { contenidoInformeDto } from '../Entities/contenidoInformeDto';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +47,13 @@ export class InformesService {
   public actualizarContenidoFebrero( contenidos: contenidoAdeudadoDto[]): Observable<any> {
     return this.httpClient.put<any>(this.informeURL + `actualizarContenidoFebrero/`, contenidos);
   }
+  public actualizarContenidoExamen( contenidos: contenidoInformeDto[]): Observable<any> {
+    return this.httpClient.put<any>(this.informeURL + `actualizarContenidoExamen/`, contenidos);
+  }
 
+  public actualizarInformeMesa( informe: InformeContenidoDto, idInforme: number): Observable<any> {
+    return this.httpClient.put<any>(this.informeURL + `actualizarInformeMesa/${idInforme}`, informe);
+  }
 
   public asignarContenido(id: number, contenidoId: number): Observable<any> {
     return this.httpClient.put<any>(this.informeURL + `list/${id}/contenido/${contenidoId}`, null);

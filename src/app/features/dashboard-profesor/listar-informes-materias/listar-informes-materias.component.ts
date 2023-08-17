@@ -5,11 +5,9 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AlumnoInformeDto } from "src/app/core/Entities/AlumnoInformeDto";
-import { Alumno } from "src/app/core/Entities/alumno";
 import { AlumnoService } from "src/app/core/services/alumno.service";
 import { InformesService } from "src/app/core/services/informes.service";
 import { FormEditInformeComponent } from "../form-edit-informe/form-edit-informe.component";
-import { Informes } from "src/app/core/Entities/informe";
 import { InformesAlumnoDto } from "src/app/core/Entities/InformeAlumnoDto";
 
 @Component({
@@ -124,6 +122,31 @@ export class ListarInformesMateriasComponent implements OnInit {
 console.log(informe);
     return informe[0];
   }
+
   
-  SelectedRow(alumno: Alumno) {}
+  
+ 
+
+  verInforme(idAlumno: number){
+    
+    const alumno=this.alumnos.find(alumno=>alumno.id == idAlumno)!
+      
+      
+    this.InformeAlumno = this.getInformeAlumno(alumno, this.nombreMateria);
+
+    let informeId = this.InformeAlumno.id;
+
+    this.alumnoService
+      .generarPDF(informeId, alumno.dni )
+      .subscribe((data) => {
+        let donwloadURL = window.URL.createObjectURL(data);
+        // let link= document.createElement('a')
+        // link.href=donwloadURL
+        // link.download="informe.pdf"
+        // link.click()
+        console.log(data);
+
+        window.open(donwloadURL, "_blank");
+      });
+  }
 }

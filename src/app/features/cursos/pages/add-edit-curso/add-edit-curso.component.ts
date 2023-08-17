@@ -34,6 +34,14 @@ export class AddEditCursoComponent implements OnInit {
     {value: '5', viewValue: '5°'},
     {value: '6', viewValue: '6°'},
   ];
+
+  tecnicaturas: turno[] = [
+    {value: 'EIE', viewValue: 'E.I.E'},
+    {value: 'MMO', viewValue: 'M.M.O'},
+    {value: 'IP', viewValue: 'I.P'},
+    {value: 'IPP', viewValue: 'I.P.P'},
+   
+  ];
   divisiones: turno[] = [
     {value: 'A', viewValue: 'A'},
     {value: 'B', viewValue: 'B'},
@@ -60,6 +68,7 @@ export class AddEditCursoComponent implements OnInit {
     this.form = this.fb.group({
       anio: ['', Validators.required],
       division: ['', Validators.required],
+      tecnicatura:['', Validators.required],
       turno:['', Validators.required],
       cicloLectivo: ['', [Validators.required]],
       
@@ -67,6 +76,8 @@ export class AddEditCursoComponent implements OnInit {
     this.id = data.id;
 
   }
+
+
 
   ngOnInit(): void {
     this.esEditar(this.id);
@@ -89,6 +100,7 @@ export class AddEditCursoComponent implements OnInit {
       this.form.setValue({
         anio: data.anio,
         division: data.division,
+        tecnicatura: data.tecnicatura,
         turno: data.turno,
         cicloLectivo: data.cicloLectivo
        
@@ -100,8 +112,7 @@ export class AddEditCursoComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-
-
+   
   addEditCurso() {
 
     if (this.form.invalid) {
@@ -112,6 +123,7 @@ export class AddEditCursoComponent implements OnInit {
       idCurso: 0,
       anio: this.form.value.anio,
       division: this.form.value.division,
+      tecnicatura: this.form.value.tecnicatura,
       turno: this.form.value.turno,
       cicloLectivo: this.form.value.cicloLectivo
     }

@@ -64,6 +64,7 @@ export class ListarComponent implements OnInit {
 
   displayedColumns: string[] = ["anio",
   "Division",
+  "Tecnicatura",
   "turno",
   "Ciclo Lectivo",
   "acciones",

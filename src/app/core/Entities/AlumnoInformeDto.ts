@@ -5,7 +5,7 @@ import { Informes } from "./informe";
 
 export interface AlumnoInformeDto {
    id: number;
-    dni: number;
+    dni: string;
     nombres: string;
     apellido: string;
     email: string;

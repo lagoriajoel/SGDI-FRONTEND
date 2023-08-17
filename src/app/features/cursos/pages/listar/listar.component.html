@@ -44,6 +44,10 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Division </th>
             <td mat-cell *matCellDef="let element"> {{element.division}} </td>
           </ng-container>
+          <ng-container matColumnDef="Tecnicatura">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Técnicatura </th>
+            <td mat-cell *matCellDef="let element"> {{element.tecnicatura}} </td>
+          </ng-container>
 
           <ng-container matColumnDef="turno">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Turno </th>

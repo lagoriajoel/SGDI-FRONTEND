@@ -50,6 +50,7 @@
                   Actualizar
                 </button>
                  
+                <mat-icon   class="btnEdit" (click)="verInforme(element.id)" matTooltip="Ver Informe">visibility</mat-icon>   
              
               
                 
@@ -59,7 +60,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr 
           mat-row
-          (click)="SelectedRow(row)"
+        
          
           mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           
