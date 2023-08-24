@@ -9,6 +9,8 @@ import { MostrarMateriasComponent } from './mostrar-materias/mostrar-materias.co
 import { AsignarProfesorComponent } from './asignar-profesor/asignar-profesor.component';
 import { DetalleMateriaComponent } from './detalle-materia/detalle-materia.component';
 import { DashboardMateriasComponent } from './dashboard-materias/dashboard-materias.component';
+import { ListarMateriasCursoComponent } from './listar-materias-curso/listar-materias-curso.component';
+import { AgregarMateriasCursoComponent } from './agregar-materias-curso/agregar-materias-curso.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { DashboardMateriasComponent } from './dashboard-materias/dashboard-mater
     MostrarMateriasComponent,
     AsignarProfesorComponent,
     DetalleMateriaComponent,
-    DashboardMateriasComponent
+    DashboardMateriasComponent,
+    ListarMateriasCursoComponent,
+    AgregarMateriasCursoComponent
   ],
   imports: [
     CommonModule,

@@ -65,9 +65,10 @@ export class AddEditProfesoresComponent implements OnInit {
 
   getProfesor(id: number) {
     this._profesorService.detail(id).subscribe(data => {
+      console.log(data);
       this.form.setValue({
         dni: data.dni,
-        nombres: data.nombre,
+        nombre: data.nombre,
         apellido: data.apellido,
         email: data.email,
               

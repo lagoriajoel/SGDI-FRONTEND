@@ -4,13 +4,28 @@
 
 .navbar {
   z-index: 2;
+  background-color:#3EB0D5;
+  background: linear-gradient(to bottom right,#9ed0f1, #7cbfec)
+}
+span {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
 }
 
 .navbar-brand {
   text-decoration: none;
-  color: white;
+  color:#ffff00;
+ 
 }
-
+.titulo {
+  font-size:x-large;
+  font-family: 'Bebas Neue', sans-serif;
+  color:#ffff00;
+  font-weight: 400;
+}
+mat-icon {
+  color:#4a4a4b;
+}
 .navbar-container {
   display: flex;
   flex-direction: column;
@@ -51,7 +66,7 @@ mat-sidenav {
 /* Set height of wrapper to stop content from moving up & down */
 
 .progress-bar-container {
-  height: 5px;
+  height: 0px;
 }
 
 a.mat-list-item.active {

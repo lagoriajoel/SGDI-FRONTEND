@@ -3,7 +3,7 @@
           <div class="serch">
   
          
-          <mat-form-field appearance="fill" *ngFor="let empfilter of empFilters">
+          <mat-form-field appearance="standard" *ngFor="let empfilter of empFilters">
             <mat-label>{{ empfilter.name }}</mat-label>
             <mat-select
               [(value)]="empfilter.defaultValue"
@@ -15,7 +15,8 @@
             </mat-select>
           </mat-form-field>
   
-          
+          <button mat-raised-button (click)="irAlistarMaterias()">Agregar Espacio Curricular</button>
+
           </div>
   
           <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">

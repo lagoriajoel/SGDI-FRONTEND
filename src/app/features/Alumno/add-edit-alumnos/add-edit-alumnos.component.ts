@@ -93,7 +93,6 @@ export class AddEditAlumnosComponent implements OnInit {
 
   addEditAlumno() {
     
-    console.log(this.loading+"aca")
 
     if (this.form.invalid) {
       return;

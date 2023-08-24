@@ -55,8 +55,6 @@ export class ProfesorUserComponent implements OnInit {
      
      this.profesorService.lista().subscribe(data => {
        this.dataSource.data = data;
-       console.log("profesores");
-       console.log(data);
        this.dataSource.paginator = this.paginator;
        this.dataSource.sort = this.sort;
       

@@ -1,12 +1,12 @@
 <div class="container" fxLayout="row" fxLayoutAlign="center none">
   <div fxFlex="95%">
 
+    <h2 *ngIf="isAlumno"> Alumnos</h2>
+    <h2 *ngIf="isCurso || isInformeDesempenio"> Cursos</h2>
+    
     <mat-card>
       
       <mat-card-content>
-        <h2 *ngIf="isAlumno"> Alumnos</h2>
-        <h2 *ngIf="isCurso || isInformeDesempenio"> Cursos</h2>
-        
       
 
 

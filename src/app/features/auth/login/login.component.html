@@ -1,8 +1,8 @@
 <div class="container login-container" fxLayout="row" fxLayoutAlign="center center">
     <form [formGroup]="loginForm" fxFlex="30%" fxFlex.sm="50%" fxFlex.xs="90%">
         <mat-card>
-            <mat-card-title>SiGeID</mat-card-title>
-            <mat-card-subtitle>Ingrese con su cuenta</mat-card-subtitle>
+            <h2 class="titulo">SIGEID</h2>
+           <h4 class="subtitulo">Ingrese con su cuenta</h4>
             <mat-card-content>
 
                 <mat-form-field class="full-width">
@@ -31,7 +31,7 @@
             </mat-card-content>
 
             <mat-card-actions class="login-actions">
-                <button mat-raised-button id="login" color="primary" [disabled]="loginForm.invalid || loading"
+                <button mat-raised-button id="login"  [disabled]="loginForm.invalid || loading"
                     (click)="login()">Login</button>
                 <button mat-button id="resetPassword" (click)="resetPassword()" type="button">Recuperar Contraseña</button>
             </mat-card-actions>

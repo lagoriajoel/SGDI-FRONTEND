@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   font-size: 14px;
 }
 
@@ -105,7 +105,13 @@ p .mat-icon {
   margin-top: 15px;
   margin-bottom: 15px;
 }
-
+button {
+  font-family: 'Bebas Neue', sans-serif ; 
+}
+button:hover{
+  background-color:#8ac6ee;
+  color: aliceblue;
+  };
 .mat-tooltip {
   font-size: 14px;
 }
@@ -115,7 +121,9 @@ p .mat-icon {
   right: 2%;
   bottom: 3%;
 }
-
+mat-icon:hover {
+  color: #8ac6ee;
+}
 /* Highlight on hover */
 .submitted-timesheet-day:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected),
 /* Highlight */

@@ -1,23 +1,23 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatSort } from "@angular/material/sort";
-import { MatTableDataSource } from "@angular/material/table";
-import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
-import { MateriasDto } from "src/app/core/Entities/materias";
-import { AuthenticationService } from "src/app/core/services/auth.service";
-import { MateriasService } from "src/app/core/services/materias.service";
-import { ProfesorService } from "src/app/core/services/profesor.service";
-import { AddEditMateriasComponent } from "../../materias/add-edit-materias/add-edit-materias.component";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MateriasDto } from 'src/app/core/Entities/materias';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
+import { MateriasService } from 'src/app/core/services/materias.service';
+import { AgregarMateriasCursoComponent } from '../agregar-materias-curso/agregar-materias-curso.component';
 
 @Component({
-  selector: "app-listar-materias",
-  templateUrl: "./listar-materias.component.html",
-  styleUrls: ["./listar-materias.component.css"],
+  selector: 'app-listar-materias-curso',
+  templateUrl: './listar-materias-curso.component.html',
+  styleUrls: ['./listar-materias-curso.component.css']
 })
-export class ListarMateriasComponent implements OnInit {
+export class ListarMateriasCursoComponent implements OnInit {
+
   materias: MateriasDto[] = [];
   loading: boolean = false;
   idCurso!:number;
@@ -39,7 +39,7 @@ export class ListarMateriasComponent implements OnInit {
 
   constructor(
     private titleService: Title,
-    private profesorService: ProfesorService,
+   
     private materiaService: MateriasService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
@@ -57,7 +57,7 @@ export class ListarMateriasComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.route.queryParamMap.subscribe((params) => {
      this.idCurso= Number(params.get("curso")); 
-     //params.get("isAdministrador") ? this.isAdministrador= true : false;
+    console.log(this.idCurso);
      this.authService.isAdmin()? this.isAdministrador=true: false;
      console.log(this.isAdministrador);
   
@@ -122,7 +122,7 @@ export class ListarMateriasComponent implements OnInit {
 
   agregarEspacio(){
 
-    const dialogRef = this.dialog.open(AddEditMateriasComponent, {
+    const dialogRef = this.dialog.open(AgregarMateriasCursoComponent, {
       width: "550px",
       disableClose: true,
       data: { idCurso: this.idCurso },

@@ -1,0 +1,20 @@
+.container {
+    height: 670px !important;
+    background-image: url("/assets/images/unsplash.jpg");
+    background-size: 1550px 670px;
+    background-repeat: no-repeat !important;
+     
+  
+   
+  }
+
+  .titulo {
+    font-size:80px;
+    font-family: 'Bebas Neue', sans-serif;
+    color:#ffff00;
+    font-weight: 400;
+    margin: 0%;
+  }
+  .subtitulo {
+    font-family: 'Bebas Neue', sans-serif;
+  }

@@ -1,14 +1,16 @@
-.row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+
+input {
+    margin-top: 5px;
+    width: 500px;
 }
-.column {
-    align-items: center;
+.profile-card {
+    text-align: center;
+    
+}
+img {
+    margin-top: 30%;
 }
 
-.elemento {
-  
-    max-width: 80vw;
-    position: static;
-  }
+mat-form-field {
+    width: 100% !important;
+}

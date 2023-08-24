@@ -2,6 +2,7 @@ import { MateriasDto } from './../Entities/materias';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MateriasCursoDto } from '../Entities/materiaCursoDto';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class MateriasService {
     return this.httpClient.put<any>(this.materiasURL + `asignar/${idProfesor}/Asignatura/${idAsignatura}`, null);
   }
  
-  public save(materias: MateriasDto): Observable<any> {
+  public save(materias: MateriasCursoDto): Observable<any> {
     return this.httpClient.post<any>(this.materiasURL + 'save', materias);
   }
 

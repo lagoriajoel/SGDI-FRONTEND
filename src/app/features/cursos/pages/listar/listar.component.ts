@@ -17,6 +17,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { CursoDto } from "src/app/core/Entities/CursoDto";
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSelectChange } from '@angular/material/select';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
 
 export interface EmpFilter {
   name:string;
@@ -44,6 +45,7 @@ export class ListarComponent implements OnInit {
   isAlumno: boolean = false;
   isInforme: boolean = false;
   isInformeDesempenio: boolean = false;
+  isMaterias: boolean = false; //
 
   isCurso: boolean = false;
   color:string=""
@@ -55,6 +57,7 @@ export class ListarComponent implements OnInit {
   division: string[]=['Todos','A','B','C','D','F','G','H','I'];
   cicloLectivo: string[]=['Todos','2021','2022','2023','2024','2025','2026'];
   empFilters: EmpFilter[]=[];
+  isAdmin: boolean = false;
   
   defaultValue = "Todos";
 
@@ -86,10 +89,12 @@ export class ListarComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private router: Router,
     private _liveAnnouncer: LiveAnnouncer,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private auth: AuthenticationService
 
   ) {
     this.dataSource = new MatTableDataSource();
+    this.auth.isAdmin() ? this.isAdmin = true : this.isAdmin = false;
   }
 
   ngOnInit() {
@@ -103,6 +108,9 @@ export class ListarComponent implements OnInit {
       params.get("informes") ? (this.isInforme = true) : (this.isInforme = false);
       params.get("curso") ? (this.isCurso = true) : (this.isCurso = false);
       params.get("informesDesempenio") ? (this.isInformeDesempenio = true) : (this.isInformeDesempenio = false);
+      params.get("materias") ? (this.isMaterias = true) : (this.isMaterias = false);
+      console.log(this,this.isMaterias);
+
 
 
     });
@@ -176,14 +184,7 @@ export class ListarComponent implements OnInit {
     });
   }
 
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
+  
 
   deleteCurso(id: number) {
     
@@ -273,6 +274,17 @@ mostrarFila( curso1: CursoDto){
                    }
                  });
           }
+  else if(this.isMaterias){
+            this.router.navigate(["/materias/listarMaterias/"], { 
+              queryParams: {
+                curso:this.idCurso, 
+                anioCurso:this.añoCurso,
+              
+              
+                   }
+                 });
+          }
+  
 else{this.router.navigate(["/alumnos/listar/", this.idCurso]);}
 }
 

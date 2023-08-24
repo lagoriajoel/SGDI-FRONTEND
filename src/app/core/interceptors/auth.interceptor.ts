@@ -38,8 +38,8 @@ export class AuthInterceptor implements HttpInterceptor {
                                         if (err.status === 401) {
 
 
-                                            this.notification.success('Sesion Expirada - Ingrese Nuevamente') 
-                                                console.log("sesion expirada");
+                                            //this.notification.openSnackBar("Invalid credentials") 
+                                                console.log("sesion expiradaaaaaaaaaaaaaa");
                                                 this.dialog.closeAll();
                                                 this.router.navigate(['/auth/login']);
                                             }

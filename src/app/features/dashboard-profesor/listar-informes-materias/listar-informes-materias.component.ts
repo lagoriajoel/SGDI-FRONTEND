@@ -9,6 +9,7 @@ import { AlumnoService } from "src/app/core/services/alumno.service";
 import { InformesService } from "src/app/core/services/informes.service";
 import { FormEditInformeComponent } from "../form-edit-informe/form-edit-informe.component";
 import { InformesAlumnoDto } from "src/app/core/Entities/InformeAlumnoDto";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "app-listar-informes-materias",
@@ -29,6 +30,7 @@ export class ListarInformesMateriasComponent implements OnInit {
   constructor(
     private alumnoService: AlumnoService,
     public dialog: MatDialog,
+    private title: Title,
     private _informeService: InformesService,
     private _router: Router,
     private route: ActivatedRoute
@@ -45,7 +47,7 @@ export class ListarInformesMateriasComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.sort = this.sort;
-
+this.title.setTitle("SIGEID - INFORMES")
     this.listarAlumnosConInformes();
   }
   ngAfterViewInit() {

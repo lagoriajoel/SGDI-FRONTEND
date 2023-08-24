@@ -66,7 +66,7 @@ export class AddEditDirectivoComponent implements OnInit {
     this._directivoService.detail(id).subscribe(data => {
       this.form.setValue({
         dni: data.dni,
-        nombres: data.nombres,
+        nombre: data.nombres,
         apellido: data.apellido,
         email: data.email,
               

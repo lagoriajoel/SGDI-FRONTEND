@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/']);
                 },
                error: error => {
-                    this.notificationService.openSnackBar(error.error);
+                    this.notificationService.openSnackBar("Credenciales Invalidas - intente Nuevamente");
                     this.loading = false;
                 }
             }

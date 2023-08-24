@@ -147,7 +147,13 @@ export class MostrarMateriasComponent implements OnInit {
          })
     
   }
-
+  irAlistarMaterias(){
+    this.router.navigate(['cursos/listar'], {
+      queryParams: {
+        materias: true
+      }
+    });
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

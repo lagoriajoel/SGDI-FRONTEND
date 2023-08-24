@@ -86,7 +86,8 @@ export class ListarAlumnosComponent implements OnInit {
   addEditAlumno(id?: number, idCurso?: number) {
 
     const dialogRef = this.dialog.open(AddEditAlumnosComponent, {
-      width: "500px",
+      width: "600px",
+      height: "500px",
       disableClose: true,
       data: { id: id, idCurso: this.idCurso},
     });
@@ -109,7 +110,7 @@ export class ListarAlumnosComponent implements OnInit {
 
   deleteAlumno(id: number) {
 
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+     this.dialog.open(ConfirmDialogComponent, {
       width: "500px",
       disableClose: true,
    data: {
@@ -126,15 +127,13 @@ export class ListarAlumnosComponent implements OnInit {
         this.mensajeExito();
       },
       error => {
-        this.notificationService.openSnackBar(error.error);
+        this.notificationService.openSnackBar(error.error.Mensaje);
       })
      }
 
     });
 
-    let idAlumnno=id
-
-    console.log(idAlumnno);
+    
     this.loading = true;
   }
 

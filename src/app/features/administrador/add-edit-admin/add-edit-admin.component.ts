@@ -66,7 +66,7 @@ export class AddEditAdminComponent implements OnInit {
     this._adminService.detail(id).subscribe(data => {
       this.form.setValue({
         dni: data.dni,
-        nombres: data.nombres,
+        nombre: data.nombres,
         apellido: data.apellido,
         email: data.email,
               

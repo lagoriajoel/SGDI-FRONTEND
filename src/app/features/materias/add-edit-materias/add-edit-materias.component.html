@@ -1,12 +1,100 @@
 
- 
+<!--  
+  <div class="container">
+    <h2 mat-dialog-title> Agregar Espacio Curricular</h2>
+  
+  
+  <form [formGroup]="form" (ngSubmit)="addEditMateria()">
   
     <mat-dialog-content >
-      
-      
-      
-    </mat-dialog-content>
-    
-    
 
-  
+
+
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+
+        <div fxFlex="50%" fxFlex.sm="95%" fxFlex.xs="950%">
+
+
+          <mat-tab-group>
+            <mat-tab label="Nuevo Espacio">
+            
+                  <mat-form-field appearance="fill">
+                    <mat-label>DNI</mat-label>
+                    <input formControlName="dni" matInput placeholder="Ingrese su DNI" autocomplete="off">
+                  </mat-form-field>
+                  <div class="error">
+                    <span *ngIf="form.get('dni')?.hasError('required') && form.get('dni')?.touched">
+                      Ingrese el DNI del alumno
+                    </span>
+                    <span *ngIf="form.get('dni')?.hasError('maxlength')">
+                      El DNI debe tener como maximo <strong>11 caracteres</strong> 
+                    </span>
+                  </div>
+            
+               
+                  <mat-form-field appearance="fill">
+                    <mat-label>Nombres</mat-label>
+                    <input formControlName="nombres" matInput placeholder="Ingrese Su Nombre" autocomplete="off">
+                  </mat-form-field>
+                  <div class="error">
+                    <span *ngIf="form.get('nombres')?.hasError('required') && form.get('nombres')?.touched">
+                     Ingrese el/los Nombre/s del alumno  
+                    </span>
+                  </div>
+                
+           
+            
+              
+                  <mat-form-field appearance="fill">
+                    <mat-label>Apellido</mat-label>
+                    <input formControlName="apellido" matInput placeholder="Ingrese su Apellido" autocomplete="off">
+                  </mat-form-field>
+                  <div class="error">
+                    <span *ngIf="form.get('apellido')?.hasError('required') && form.get('apellido')?.touched">
+                      Ingrese el/los apellido/s del alumno  
+                    </span>
+                
+                  </div>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Email</mat-label>
+                      <input formControlName="email" matInput placeholder="Ingrese su Email" autocomplete="off">
+                    </mat-form-field>
+                    <div class="error">
+                      <span *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+                        El Email  es un campo <strong>requerido</strong>  
+                      </span>
+                      <span *ngIf="form.get('email')?.hasError('email')">
+                        El Email es <strong>invalido</strong>
+                      </span>
+                    </div>
+                 
+          
+            </mat-tab>
+            
+          </mat-tab-group>
+
+
+        </div>
+        <div fxFlex="50%" fxFlex.sm="95%" fxFlex.xs="95%">
+          <div class="profile-card">
+            <img src="assets/images/user.png">
+          
+           
+          </div>
+        </div>
+
+        <div fxFlex></div>
+
+
+      </div>
+
+    
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button type="button" (click)="cancelar()" mat-button>Cancelar</button>
+      <button type="submit" mat-button cdkFocusInitial>Aceptar</button>
+    </mat-dialog-actions>
+    
+  </form>
+</div> -->

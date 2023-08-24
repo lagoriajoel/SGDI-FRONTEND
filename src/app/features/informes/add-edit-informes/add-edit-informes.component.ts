@@ -155,6 +155,9 @@ export class AddEditInformesComponent implements OnInit {
   }
   //metodo que genera un informe de desempeño y lo actualiza con los contenidos
   generarInforme() {
+
+
+    
     const alumnoInf: AlumnoInforme = {
       id: this.idAlumno,
     };

@@ -30,11 +30,10 @@ interface instancia {
   styleUrls: ["./form-edit-informe.component.css"],
 })
 export class FormEditInformeComponent implements OnInit {
-  //Array de ctrue
   contenidos: contenidoAdeudadoDto[] = [];
   contenidoActualizar!: contenidoAdeudadoDto;
   contenidosDesaprobados: contenidoAdeudadoDto[] = [];
- form: FormGroup
+  form: FormGroup;
   NombreAlumno: string = "";
   ApellidoAlumno: string = "";
   NombreCurso: string = "";
@@ -46,7 +45,7 @@ export class FormEditInformeComponent implements OnInit {
   informeActualizado!: InformeContenidoDto;
   presidenteMesa: string = "";
   fechaMesa!: Date;
-  contenidosInforme: contenidoInformeDto[]=[];
+  contenidosInforme: contenidoInformeDto[] = [];
 
   NombreProfesor: string = "";
   NombreAsignatura: string = "";
@@ -67,7 +66,7 @@ export class FormEditInformeComponent implements OnInit {
   ];
   instanciaSelect: string = "";
 
-  displayedColumns: string[] = ["nombre",  "InstanciaEvaluacion"];
+  displayedColumns: string[] = ["nombre", "InstanciaEvaluacion"];
 
   dataSource: any;
 
@@ -78,7 +77,6 @@ export class FormEditInformeComponent implements OnInit {
     public datepipe: DatePipe,
     public dialogRef: MatDialogRef<FormEditInformeComponent>,
     private fb: FormBuilder,
-    private _contenidosService: ContenidosService,
     private _criteriosService: criterioService,
     private notificationService: NotificationService,
     private _estrategiaService: estrategiaService,
@@ -86,14 +84,9 @@ export class FormEditInformeComponent implements OnInit {
     private auth: AuthenticationService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    
     this.form = this.fb.group({
-      Fecha: ['', [Validators.required]],
-    
-      
-    })
-
-   
+      Fecha: ["", [Validators.required]],
+    });
 
     this.contenidos = this.data.informe.contenidosAdeudados;
     this.getContenidosDesaprobados(this.data.informe.contenidosAdeudados);
@@ -109,31 +102,26 @@ export class FormEditInformeComponent implements OnInit {
     this.NombreAlumno = data.alumno.nombres;
     this.ApellidoAlumno = data.alumno.apellido;
     this.email = data.alumno.email;
-
     this.NombreAsignatura = data.NombreAsignatura;
     this.NombreCurso = data.alumno.curso.anio;
     this.dniAlumno = data.alumno.dni;
     this.NombreDivision = data.alumno.curso.division;
     this.cicloLectivo = data.alumno.curso.cicloLectivo;
     this.listarCriteriosEstrategias(data.idAsignatura);
-    console.log(this.contenidos);
-    this.getContenidosInformeMesaDto(this.contenidos)
-    console.log(this.contenidosInforme);
+
+    this.getContenidosInformeMesaDto(this.contenidos);
   }
 
   //metodo para instanciar los contenidosDTO para enviar al back
   getContenidosInformeMesaDto(contenidos: contenidoAdeudadoDto[]): void {
-
-    
-    contenidos.forEach(contenido=>{
-                const contenidoInf: contenidoInformeDto = {
-                  id: contenido.id,
-                  instanciaEvaluacion: "",
-                  aprobado: contenido.aprobado
-                }
-                this.contenidosInforme.push(contenidoInf); 
-    })
-   
+    contenidos.forEach((contenido) => {
+      const contenidoInf: contenidoInformeDto = {
+        id: contenido.id,
+        instanciaEvaluacion: "",
+        aprobado: contenido.aprobado,
+      };
+      this.contenidosInforme.push(contenidoInf);
+    });
   }
   getContenidosDesaprobados(contenidos: contenidoAdeudadoDto[]): any {
     contenidos.forEach((cont) => {
@@ -141,8 +129,6 @@ export class FormEditInformeComponent implements OnInit {
         this.contenidosDesaprobados.push(cont);
       }
     });
-
-    console.log(this.contenidosDesaprobados);
   }
 
   listarCriteriosEstrategias(idAsignatura: number) {
@@ -168,47 +154,40 @@ export class FormEditInformeComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-
-   
-  }
+  ngOnInit(): void {}
   cancelar() {
     this.dialogRef.close(false);
   }
 
-  //evaluar instancias de evaluacion 
+  //evaluar instancias de evaluacion
   EvaluacionMesa(ob: MatSelectChange, id: number): void {
-      
-     
-
-    if(ob.value =="aprobado"){
-      this.contenidosInforme.forEach(contenido=>{
-        if(contenido.id==id){
-          contenido.instanciaEvaluacion="aprobado"
-          contenido.aprobado=true;
+    if (ob.value == "aprobado") {
+      this.contenidosInforme.forEach((contenido) => {
+        if (contenido.id == id) {
+          contenido.instanciaEvaluacion = "aprobado";
+          contenido.aprobado = true;
         }
-      })
-     console.log(this.contenidosInforme);
-    }
-    if(ob.value =="desaprobado"){
-      this.contenidosInforme.forEach(contenido=>{
-        if(contenido.id==id){
-          contenido.instanciaEvaluacion="desaprobado"
-          contenido.aprobado=false;
-        }
-      })
+      });
       console.log(this.contenidosInforme);
-   }
-   if(ob.value =="ausente"){
-    this.contenidosInforme.forEach(contenido=>{
-      if(contenido.id==id){
-        contenido.instanciaEvaluacion="ausente"
-        contenido.aprobado=false;
-      }
-    })
-    console.log(this.contenidos);
- }
-    
+    }
+    if (ob.value == "desaprobado") {
+      this.contenidosInforme.forEach((contenido) => {
+        if (contenido.id == id) {
+          contenido.instanciaEvaluacion = "desaprobado";
+          contenido.aprobado = false;
+        }
+      });
+      console.log(this.contenidosInforme);
+    }
+    if (ob.value == "ausente") {
+      this.contenidosInforme.forEach((contenido) => {
+        if (contenido.id == id) {
+          contenido.instanciaEvaluacion = "ausente";
+          contenido.aprobado = false;
+        }
+      });
+      console.log(this.contenidos);
+    }
   }
 
   actualizarInforme() {
@@ -218,39 +197,35 @@ export class FormEditInformeComponent implements OnInit {
     }
     const informe: InformeContenidoDto = {
       id: this.alumnoInforme.id,
-      fecha_instancia: this.datepipe.transform(this.form.value.Fecha, 'dd/MM/yyyy')!,
+      fecha_instancia: this.datepipe.transform(
+        this.form.value.Fecha,
+        "dd/MM/yyyy"
+      )!,
       presidente_mesa_instancia: this.presidenteMesa,
     };
 
-   console.log(this.contenidosInforme);
+    console.log(this.contenidosInforme);
 
-    this._informeService.actualizarContenidoExamen(this.contenidosInforme).subscribe({
-      next: (data) => {
-        this._informeService
-        .actualizarInformeMesa(informe, this.alumnoInforme.id)
-        .subscribe({
-          next: (data) => {
-            this.notificationService.openSnackBar(
-              "Informe Actualizado Correctamente"
-            );
-            console.log(data);
-          },
-        });
-       
-      },
-      error: (err) => {
-        this.notificationService.openSnackBar(err.error.Mensaje);
-        console.log(err);
-      },
-    });
+    this._informeService
+      .actualizarInformeMesa(informe, this.alumnoInforme.id)
+      .subscribe({
+        next: (data) => {
+          this._informeService
+            .actualizarContenidoExamen(this.contenidosInforme)
+            .subscribe({
+              next: (data) => {
+                this.notificationService.openSnackBar(
+                  "Informe Actualizado Correctamente"
+                );
+                
+              },
+            });
+        },
+        error: (err) => {
+          this.notificationService.openSnackBar(err.error.Mensaje);
+          console.log(err);
+        },
+      });
     this.dialogRef.close();
-  }
-
-
-  mostrarFecha(){
-    
-    this.datepipe.transform(this.form.value.Fecha, 'dd/MM/yyyy')
-
-    console.log(this.datepipe.transform(this.form.value.Fecha, 'dd/MM/yyyy'));
   }
 }

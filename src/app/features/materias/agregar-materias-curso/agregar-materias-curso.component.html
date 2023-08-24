@@ -1,0 +1,78 @@
+<div class="container">
+    <h2 mat-dialog-title>Agregar Espacio Curricular</h2>
+    <mat-spinner *ngIf="loading" [diameter]="30"></mat-spinner>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="addEditAlumno()">
+  
+    <mat-dialog-content >
+
+
+
+      <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+
+        <div fxFlex="50%" fxFlex.sm="95%" fxFlex.xs="950%">
+
+         
+          <mat-tab-group>
+            <mat-tab label="Nuevo Espacio Curricular">
+              
+             <div class="detalle">
+              Curso : {{anioCurso}}
+             </div> 
+             <div class="detalle">
+              División : {{divisionCurso}}
+             </div>
+             <div class="detalle">
+              Tecnicatura : {{tecnicaturaCurso}}
+             </div>
+              
+
+
+            
+                  <mat-form-field appearance="standard">
+                    <mat-label>Nombre Espacio Curricular</mat-label>
+                    <input formControlName="nombre" matInput placeholder="" autocomplete="off">
+                  </mat-form-field>
+                  <div class="error">
+                    <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched">
+                      Ingrese el Nombre del Espacio Curricular
+                    </span>
+                    <span *ngIf="form.get('nombre')?.hasError('maxlength')">
+                      El Nombre debe tener como maximo <strong>50 caracteres</strong> 
+                    </span>
+                  </div>
+            
+               
+                 
+                
+           
+            
+              
+                
+                  
+                 
+          
+            </mat-tab>
+            
+          </mat-tab-group>
+
+
+        </div>
+       
+
+       
+
+
+      </div>
+
+    
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button type="button" (click)="cancelar()" mat-button>Cancelar</button>
+      <button type="submit" mat-button cdkFocusInitial>Aceptar</button>
+    </mat-dialog-actions>
+    
+  </form>
+
+  

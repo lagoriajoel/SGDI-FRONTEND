@@ -6,6 +6,8 @@ import { MostrarInformeComponent } from '../informes/mostrar-informe/mostrar-inf
 import { MostrarMateriasComponent } from './mostrar-materias/mostrar-materias.component';
 import { DetalleMateriaComponent } from './detalle-materia/detalle-materia.component';
 import { DashboardMateriasComponent } from './dashboard-materias/dashboard-materias.component';
+import { AddEditMateriasComponent } from './add-edit-materias/add-edit-materias.component';
+import { ListarMateriasCursoComponent } from './listar-materias-curso/listar-materias-curso.component';
 
 const routes: Routes = [
   {path: '', component:LayoutComponent,
@@ -13,6 +15,11 @@ const routes: Routes = [
     { path:'listar', component: ListarMateriasComponent },
     {path:'mostrar', component: DashboardMateriasComponent},
     {path:'detalles/:id', component: DetalleMateriaComponent},
+    {path:'addeditmaterias', component: AddEditMateriasComponent},
+    {path:'listarMaterias', component: ListarMateriasCursoComponent},
+
+
+
 
   
     { path:'**', redirectTo:'listar' }
