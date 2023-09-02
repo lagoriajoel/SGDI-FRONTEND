@@ -5,35 +5,42 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Profesor } from 'src/app/core/Entities/profesor';
+import { Alumno } from 'src/app/core/Entities/alumno';
+import { AlumnoService } from 'src/app/core/services/alumno.service';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ProfesorService } from 'src/app/core/services/profesor.service';
 import { AddEditProfesoresComponent } from '../../profesor/add-edit-profesores/add-edit-profesores.component';
-import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { changePasswordDto } from 'src/app/core/Entities/changePasswordDto';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'app-profesor-user',
-  templateUrl: './profesor-user.component.html',
-  styleUrls: ['./profesor-user.component.css']
+  selector: 'app-alumno-user',
+  templateUrl: './alumno-user.component.html',
+  styleUrls: ['./alumno-user.component.css']
 })
-export class ProfesorUserComponent implements OnInit {
+export class AlumnoUserComponent implements OnInit {
   loading: boolean=false
-  profesores:Profesor[]=[];
+  alumnos:Alumno[]=[];
  
    displayedColumns: string[] = ["dni","nombre","apellido","email","acciones"];
-   dataSource = new MatTableDataSource(this.profesores);
+   dataSource = new MatTableDataSource(this.alumnos);
   
    @ViewChild(MatSort, { static: true })
    sort: MatSort = new MatSort();
-   @ViewChild(MatPaginator) paginator!: MatPaginator;
+   @ViewChild(MatPaginator)
+  private _paginator!: MatPaginator;
+  public get paginator(): MatPaginator {
+    return this._paginator;
+  }
+  public set paginator(value: MatPaginator) {
+    this._paginator = value;
+  }
    constructor(
     
      private notificationService: NotificationService,
      private titleService: Title,
-     private profesorService: ProfesorService,
+    private alumnosService: AlumnoService,
      public dialog: MatDialog,
      private _snackBar: MatSnackBar,
      private authService: AuthenticationService
@@ -57,7 +64,7 @@ export class ProfesorUserComponent implements OnInit {
    }
    cargarProfesores(): void {
      
-     this.profesorService.lista().subscribe(data => {
+     this.alumnosService.lista().subscribe(data => {
        this.dataSource.data = data;
        this.dataSource.paginator = this.paginator;
        this.dataSource.sort = this.sort;
@@ -144,7 +151,7 @@ export class ProfesorUserComponent implements OnInit {
 
      if(res){
       
-      this.profesorService.delete(id).subscribe(() => {
+      this.alumnosService.delete(id).subscribe(() => {
         this.cargarProfesores();
         this.mensajeExito();
       })

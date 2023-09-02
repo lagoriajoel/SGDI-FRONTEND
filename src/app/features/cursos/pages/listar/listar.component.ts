@@ -198,7 +198,7 @@ export class ListarComponent implements OnInit {
     }, 1000);
   }
   mensajeExito() {
-    this._snackBar.open('La persona fue eliminada con exito', '', {
+    this._snackBar.open('El curso fue eliminada con exito', '', {
       duration: 2000
     });
   }

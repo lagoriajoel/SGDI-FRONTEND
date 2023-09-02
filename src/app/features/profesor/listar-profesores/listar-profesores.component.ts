@@ -114,7 +114,9 @@ export class ListarProfesoresComponent implements OnInit {
   }
 
   
+  changePassword(id: number) {
 
+  }
 
 
 announceSortChange(sortState: Sort) {

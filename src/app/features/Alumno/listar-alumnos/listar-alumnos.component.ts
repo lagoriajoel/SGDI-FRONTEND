@@ -69,6 +69,7 @@ export class ListarAlumnosComponent implements OnInit {
 
     this.alumnoService.listarCurso(this._routes.snapshot.params['id']).subscribe(data => {
       this.dataSource.data = data;
+      console.log(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
      

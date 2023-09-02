@@ -18,3 +18,8 @@
   .subtitulo {
     font-family: 'Bebas Neue', sans-serif;
   }
+  .mat-icon {
+    font-size: 150%;
+    line-height: 1.6;
+    background-color: transparent !important;
+}

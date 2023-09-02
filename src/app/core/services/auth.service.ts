@@ -5,6 +5,7 @@ import { of, Observable } from 'rxjs';
 import { JwtDTO } from '../Entities/JwtDTO';
 import { Router } from '@angular/router';
 import { changePasswordDto } from '../Entities/changePasswordDto';
+import { usuario } from '../Entities/usuario';
 const TOKEN_KEY = 'token';
 
 @Injectable({
@@ -32,6 +33,12 @@ export class AuthenticationService {
       public changePassword(passwordDto: changePasswordDto, nombreUsuario: string): Observable<any> {
            return this.http.put<any>(this.authURL + `changePassword/${nombreUsuario}`, passwordDto);
        }
+       public blanquearPassword(passwordDto: changePasswordDto, nombreUsuario: string): Observable<any> {
+        return this.http.put<any>(this.authURL + `blanquearPassword/${nombreUsuario}`, passwordDto);
+    }
+       public listByUsername(nombreUsuario: string): Observable<usuario> {
+        return this.http.get<usuario>(this.authURL + `list/${nombreUsuario}`);
+    }
     
    
 

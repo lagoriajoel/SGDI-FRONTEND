@@ -133,7 +133,7 @@ export class AddEditCursoComponent implements OnInit {
 
       // Es agregar
       this._cursoService.save(curso).subscribe(() => {
-        this.mensajeExito('agregada');
+        this.mensajeExito('agregado');
         this.dialogRef.close(true)
       })
 
@@ -141,7 +141,7 @@ export class AddEditCursoComponent implements OnInit {
 
       // Es editar
       this._cursoService.update(this.id, curso).subscribe(data => {
-        this.mensajeExito('actualizada');
+        this.mensajeExito('actualizado');
         this.dialogRef.close(true)
 
       })
@@ -149,7 +149,7 @@ export class AddEditCursoComponent implements OnInit {
   }
 
   mensajeExito(operacion: string) {
-    this._snackBar.open(`La persona fue ${operacion} con exito`, '', {
+    this._snackBar.open(`El curso fue ${operacion} con exito`, '', {
       duration: 2000
     });
   }

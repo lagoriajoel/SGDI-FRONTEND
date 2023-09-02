@@ -11,6 +11,9 @@ import { DirectivoService } from 'src/app/core/services/Directivo.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { AddEditAdminComponent } from '../../administrador/add-edit-admin/add-edit-admin.component';
 import { AddEditDirectivoComponent } from '../add-edit-directivo/add-edit-directivo.component';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
+import { changePasswordDto } from 'src/app/core/Entities/changePasswordDto';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-directivo-user',
@@ -34,6 +37,7 @@ export class DirectivoUserComponent implements OnInit {
      private _directService: DirectivoService,
      public dialog: MatDialog,
      private _snackBar: MatSnackBar,
+     private authService: AuthenticationService,
    
      private _liveAnnouncer: LiveAnnouncer,
     
@@ -45,7 +49,7 @@ export class DirectivoUserComponent implements OnInit {
    ngOnInit() {
      this.titleService.setTitle("Gestion de Informes - Profesores");
     
-     this.notificationService.openSnackBar("profesores cargados");
+     
      this.dataSource.sort = this.sort;
      this.cargarProfesores();
     
@@ -94,36 +98,72 @@ applyFilter(event: Event) {
   }
 }
 
-deleteProfesor(id: number) {
-  
-  
+changePassword(dni: string) {
 
-  setTimeout(() => {
+   
+  this.authService.listByUsername(dni).subscribe({
+    next: data=>{
+      console.log(data);
+     
+
+      const changePassword: changePasswordDto ={
+        currentPassword: "",
+        newPassword: data.nombreUsuario!
+    }
+   
+    this.authService.blanquearPassword(changePassword, data.nombreUsuario!)
+      .subscribe({
+     
+       next: data => {
+
+         this.notificationService.openSnackBar('Su contraseña ha sido actualizada correctamente.');
+        
+        },
+
+      error:  error => {
+          this.notificationService.openSnackBar(error.error.Mensaje);
+        }
+  });
+
+
+
+    }
+  } );
+
+ }
+
+ deleteProfesor(id: number) {
+   
+  this.dialog.open(ConfirmDialogComponent, {
+    width: "500px",
+    disableClose: true,
+ data: {
+  title:"Eliminar Directivo",
+  message:"¿Esta seguro de eliminar el usuario?"
+ }
+ 
+
+  }).afterClosed().subscribe((res) => {
+
+   if(res){
+    
     this._directService.delete(id).subscribe(() => {
       this.cargarProfesores();
       this.mensajeExito();
     })
-  }, 1000);
-}
-mensajeExito() {
-  this._snackBar.open('La persona fue eliminada con exito', '', {
-    duration: 2000
+
+   }
+
   });
-}
 
+  
 
+ 
+ }
+ mensajeExito() {
+   this._snackBar.open('El usuario fue eliminado con exito', '', {
+     duration: 2000
+   });
 
-
-
-announceSortChange(sortState: Sort) {
-// This example uses English messages. If your application supports
-// multiple language, you would internationalize these strings.
-// Furthermore, you can customize the message to add additional
-// details about the values being sorted.
-if (sortState.direction) {
-  this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-} else {
-  this._liveAnnouncer.announce("Sorting cleared");
-}
 }
 }

@@ -6,15 +6,8 @@ th.mat-sort-header-sorted {
     color: black;
 }
 
-.btnDelete {
 
-    color:brown
-}
-.btnDelete:hover {
 
-    color :red
-    
-}
 .serch {
 
   align-items: center;
@@ -22,4 +15,7 @@ th.mat-sort-header-sorted {
 
 mat-form-field {
    margin-left: 20px;
+}
+mat-icon {
+    margin-left: 10px;
 }

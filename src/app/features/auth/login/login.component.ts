@@ -14,11 +14,13 @@ export class LoginComponent implements OnInit {
 
     loginForm!: FormGroup;
     loading!: boolean;
+    hideNewPassword: boolean;
 
     constructor(private router: Router,
         private titleService: Title,
         private notificationService: NotificationService,
         private authenticationService: AuthenticationService) {
+            this.hideNewPassword = true;
     }
 
     ngOnInit() {

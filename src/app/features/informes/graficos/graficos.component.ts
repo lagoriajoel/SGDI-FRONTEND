@@ -40,7 +40,7 @@ export class GraficosComponent implements OnInit {
     {value: '2027'},
 
   ]
-  materiasPrimeroSegundo:any[] =['MATEMÁTICA', 'FÍSICA', 'QUÍMICA', 'LENGUA','HISTORIA', 'GEOGRAFÍA', 'FEC', 'INGLES','BIOLOGÍA','DIBUJO TEC'];
+  materiasPrimeroSegundo:any[] =['MATEMÁTICA', 'FÍSICA', 'QUÍMICA', 'LENGUA','HISTORIA', 'GEOGRAFÍA', 'FEC', 'INGLES','BIOLOGÍA','DIBUJO TECNICO'];
   materiasTercero:any[] =['MATEMÁTICA', 'FÍSICA APLICADA', 'QUÍMICA APLICADA', 'SEGURIDAD E HIGIENE','HISTORIA', 'GEOGRAFÍA', 'FEC', 'INGLES','DIBUJO TEC'];
   
   numInformes:number[] =[];
@@ -73,8 +73,6 @@ export class GraficosComponent implements OnInit {
   this.cargarDatos('1',this.materiasInformes1, this.materiasPrimeroSegundo)
   this.cargarDatos('2',this.materiasInformes2, this.materiasPrimeroSegundo)
   this.cargarDatos('3',this.materiasInformes3, this.materiasTercero)
-
-
    
   }
 
@@ -103,8 +101,8 @@ export class GraficosComponent implements OnInit {
   ngAfterViewInit() {
   setTimeout(() => {
     this.RenderChart1(this.materiasInformes1)
-    this.RenderChart2(this.materiasInformes1)
-    this.RenderChart3(this.materiasInformes1)
+    this.RenderChart2(this.materiasInformes2)
+    this.RenderChart3(this.materiasInformes3)
     this.RenderChart4(this.materiasInformes1)
     this.RenderChart5(this.materiasInformes1)
     this.RenderChart6(this.materiasInformes1)
