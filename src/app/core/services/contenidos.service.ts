@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { contenido } from '../Entities/Contenido';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContenidosService {
 
-  ContenidoURL = 'http://localhost:8001/contenidos/';
+  ContenidoURL = environment.apiURL+'/contenidos/';
 
   constructor(private httpClient: HttpClient) { }
 

@@ -1,92 +1,69 @@
+<h2>{{ operacion }} Curso</h2>
 <div class="container">
-  <h2 mat-dialog-title>{{ operacion }} Curso</h2>
   <mat-spinner *ngIf="loading" [diameter]="30"></mat-spinner>
 </div>
 <form [formGroup]="form" (ngSubmit)="addEditCurso()">
 
   <mat-dialog-content >
 
-    <div class="row">
-      <div class="column">
-        <mat-form-field appearance="fill">
-          <mat-label>Año</mat-label>
-          <mat-select formControlName="anio">
-            <mat-option *ngFor="let anio of anios" [value]="anio.value">
-              {{anio.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        
-      </div>
-      <div class="column">
-        <mat-form-field appearance="fill">
-          <mat-label>División</mat-label>
-          <mat-select formControlName="division">
-            <mat-option *ngFor="let division of divisiones" [value]="division.value">
-              {{division.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        
-      </div>
-      
-    </div>
+   
 
-    <div class="column">
-      <mat-form-field appearance="fill">
+
+    <table class="example-full-width" cellspacing="0"><tr>
+      <td> <mat-form-field class="example-full-width">
+        <mat-label>Año</mat-label >
+        <mat-select formControlName="anio" class="example-full-width">
+          <mat-option *ngFor="let anio of anios" [value]="anio.value" class="example-full-width">
+            {{anio.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>División</mat-label>
+        <mat-select formControlName="division">
+          <mat-option *ngFor="let division of divisiones" [value]="division.value">
+            {{division.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field></td>
+    </tr></table>
+     
+      
+
+    <table class="example-full-width" cellspacing="0"><tr>
+      <td> <mat-form-field class="example-full-width">
         <mat-label>Turno</mat-label>
         <mat-select formControlName="turno">
           <mat-option *ngFor="let turno of turnos" [value]="turno.value">
             {{turno.viewValue}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
-      <div class="error">
-        <span *ngIf="form.get('turno')?.hasError('required') && form.get('turno')?.touched">
-          La división del curso es un campo <strong>requerido</strong>  
-        </span>
-      </div>
-    </div>
-
-    <div class="column">
-      <mat-form-field appearance="fill">
+        
+      </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
         <mat-label>tecnicatura</mat-label>
         <mat-select formControlName="tecnicatura">
           <mat-option *ngFor="let tec of tecnicaturas" [value]="tec.value">
             {{tec.viewValue}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
-      <div class="error">
-        <span *ngIf="form.get('tecnicatura')?.hasError('required') && form.get('tecnicatura')?.touched">
-          La tecnicatura del curso es un campo <strong>requerido</strong>  
-        </span>
-      </div>
-    </div>
+      </mat-form-field></td>
+    </tr></table>
  
   
-    <div class="row">
+  
       <div class="column">
-        <mat-form-field appearance="fill">
+        <mat-form-field class="middle-width">
           <mat-label>Ciclo Lectivo</mat-label>
-          <input formControlName="cicloLectivo" matInput placeholder="Ingrese Correo" autocomplete="off">
+          <input formControlName="cicloLectivo" matInput placeholder="Ingrese el ciclo lectivo" autocomplete="off">
         </mat-form-field>
         <div class="error">
           <span *ngIf="form.get('cicloLectivo')?.hasError('required') && form.get('cicloLectivo')?.touched">
             El Ciclo Lectivo es un campo <strong>requerido</strong>  
           </span>
-          <span *ngIf="form.get('cicloLectivo')?.hasError('email') && form.get('cicloLectivo')?.touched">
-            El correo es <strong>invalido</strong>
-          </span>
         </div>
       </div>
-    </div>
-  
    
-  
-    <div class="row">
-      
-    </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button type="button" (click)="cancelar()" mat-button>Cancelar</button>

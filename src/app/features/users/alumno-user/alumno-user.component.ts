@@ -13,6 +13,7 @@ import { ProfesorService } from 'src/app/core/services/profesor.service';
 import { AddEditProfesoresComponent } from '../../profesor/add-edit-profesores/add-edit-profesores.component';
 import { changePasswordDto } from 'src/app/core/Entities/changePasswordDto';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { AddEditAlumnosComponent } from '../../Alumno/add-edit-alumnos/add-edit-alumnos.component';
 
 @Component({
   selector: 'app-alumno-user',
@@ -56,13 +57,13 @@ export class AlumnoUserComponent implements OnInit {
    
 
      this.dataSource.sort = this.sort;
-     this.cargarProfesores();
+     this.cargarAlumnos();
     
  
     
      
    }
-   cargarProfesores(): void {
+   cargarAlumnos(): void {
      
      this.alumnosService.lista().subscribe(data => {
        this.dataSource.data = data;
@@ -79,8 +80,8 @@ export class AlumnoUserComponent implements OnInit {
      this.dataSource.sort = this.sort;
    }
  
-   addEditProfesor(id?: number) {
-     const dialogRef = this.dialog.open(AddEditProfesoresComponent, {
+   addEditAlumnos(id?: number) {
+     const dialogRef = this.dialog.open(AddEditAlumnosComponent, {
        width: "550px",
        disableClose: true,
        data: { id: id },
@@ -88,7 +89,7 @@ export class AlumnoUserComponent implements OnInit {
  
      dialogRef.afterClosed().subscribe((result) => {
        if (result) {
-         this.cargarProfesores();
+         this.cargarAlumnos();
        }
      });
    }
@@ -136,14 +137,14 @@ export class AlumnoUserComponent implements OnInit {
   
    }
  
-   deleteProfesor(id: number) {
+   deleteAlumno(id: number) {
      
     this.dialog.open(ConfirmDialogComponent, {
       width: "500px",
       disableClose: true,
    data: {
-    title:"Eliminar Profesor",
-    message:"¿Esta seguro de eliminar el Profesor?"
+    title:"Eliminar Alumno/a",
+    message:"¿Esta seguro de eliminar el Alumno/a?"
    }
    
 
@@ -152,7 +153,7 @@ export class AlumnoUserComponent implements OnInit {
      if(res){
       
       this.alumnosService.delete(id).subscribe(() => {
-        this.cargarProfesores();
+        this.cargarAlumnos();
         this.mensajeExito();
       })
 

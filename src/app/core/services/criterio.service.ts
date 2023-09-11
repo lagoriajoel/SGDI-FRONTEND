@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { criterioDto } from '../Entities/criterioDTO';
 import { criterio } from '../Entities/criterio';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class criterioService {
 
-  ContenidoURL = 'http://localhost:8001/criterios/';
+  ContenidoURL = environment.apiURL+'/criterios/';
 
   constructor(private httpClient: HttpClient) { }
 

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Profesor } from '../Entities/profesor';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Profesor } from '../Entities/profesor';
 export class ProfesorService {
 
 
-  profesorURL = 'http://localhost:8001/profesor/';
+  profesorURL = environment.apiURL+'/profesor/';
 
   constructor(private httpClient: HttpClient) { }
 

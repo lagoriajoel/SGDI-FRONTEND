@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CursoDto } from '../../Entities/CursoDto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CursosService {
 
   
 
-    cursoURL = 'http://localhost:8001/cursos/';
+    cursoURL = environment.apiURL+'/cursos/';
 
   constructor(private httpClient: HttpClient) { }
 

@@ -109,7 +109,7 @@ export class ListarComponent implements OnInit {
       params.get("curso") ? (this.isCurso = true) : (this.isCurso = false);
       params.get("informesDesempenio") ? (this.isInformeDesempenio = true) : (this.isInformeDesempenio = false);
       params.get("materias") ? (this.isMaterias = true) : (this.isMaterias = false);
-      console.log(this,this.isMaterias);
+      
 
 
 
@@ -191,10 +191,22 @@ export class ListarComponent implements OnInit {
     this.loading = true;
 
     setTimeout(() => {
-      this.cursoService.delete(id).subscribe(() => {
-        this.cargarCurso();
-        this.mensajeExito();
-      })
+      this.cursoService.delete(id).subscribe(
+      {
+        next: data =>{
+          {
+      
+            this.cargarCurso();
+            this.mensajeExito();
+          }
+        },
+        error: (error) =>{
+          this.notificationService.openSnackBar(error.error.Mensaje);
+          this.cargarCurso()
+
+        }
+      }
+      )
     }, 1000);
   }
   mensajeExito() {
@@ -245,6 +257,8 @@ export class ListarComponent implements OnInit {
 
 
 mostrarFila( curso1: CursoDto){
+
+
   
   this.idCurso=curso1.idCurso;
   if(this.isInforme){

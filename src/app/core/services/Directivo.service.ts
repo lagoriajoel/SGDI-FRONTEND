@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Directivo } from '../Entities/Directivo';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Directivo } from '../Entities/Directivo';
 export class DirectivoService {
 
 
-  DireURL = 'http://localhost:8001/directivo/';
+  DireURL = environment.apiURL+'/directivo/';
 
   constructor(private httpClient: HttpClient) { }
 

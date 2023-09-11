@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Administrador } from '../Entities/administrador';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Administrador } from '../Entities/administrador';
 export class AdministradorService {
 
 
-  AdminURL = 'http://localhost:8001/admin/';
+  AdminURL = environment.apiURL+'/admin/';
 
   constructor(private httpClient: HttpClient) { }
 

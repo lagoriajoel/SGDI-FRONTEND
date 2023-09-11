@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Alumno } from '../Entities/alumno';
 import { AlumnoDto } from '../Entities/AlumnoDto';
 import { AlumnoInformeDto } from '../Entities/AlumnoInformeDto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AlumnoService {
  
 
 
-  AlumnoURL = 'http://localhost:8001/alumnos/';
+  AlumnoURL = environment.apiURL+'/alumnos/';
 
   constructor(private httpClient: HttpClient) { }
 

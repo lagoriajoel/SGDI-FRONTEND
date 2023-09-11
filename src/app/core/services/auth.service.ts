@@ -6,6 +6,7 @@ import { JwtDTO } from '../Entities/JwtDTO';
 import { Router } from '@angular/router';
 import { changePasswordDto } from '../Entities/changePasswordDto';
 import { usuario } from '../Entities/usuario';
+import { environment } from 'src/environments/environment';
 const TOKEN_KEY = 'token';
 
 @Injectable({
@@ -14,7 +15,7 @@ const TOKEN_KEY = 'token';
 export class AuthenticationService {
     
 
-    authURL = 'http://localhost:8001/auth/';
+    authURL = environment.apiURL+'/auth/';
 
     constructor(private http: HttpClient,
         @Inject('LOCALSTORAGE') private localStorage: Storage, private router: Router) {

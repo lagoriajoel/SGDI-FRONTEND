@@ -112,6 +112,7 @@ export class DetalleMateriaComponent implements OnInit {
      this._materiasService.asignarAsignatura(this.idProfesor, this.idAsignatura).subscribe({
       next: data=>{
         console.log("ok");
+        this._router.navigate(["/materias/mostrar"]);
         
       },
     error: error=>{

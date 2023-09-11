@@ -36,6 +36,7 @@ export class AddEditCursoComponent implements OnInit {
   ];
 
   tecnicaturas: turno[] = [
+    {value: '---', viewValue: '---'},
     {value: 'EIE', viewValue: 'E.I.E'},
     {value: 'MMO', viewValue: 'M.M.O'},
     {value: 'IP', viewValue: 'I.P'},

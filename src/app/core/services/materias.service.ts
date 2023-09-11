@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MateriasCursoDto } from '../Entities/materiaCursoDto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MateriasService {
-  materiasURL = 'http://localhost:8001/asignaturas/';
+  materiasURL = environment.apiURL+'/asignaturas/';
 
   constructor(private httpClient: HttpClient) { }
 

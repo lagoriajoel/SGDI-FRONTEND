@@ -68,8 +68,8 @@ export class MostrarMateriasComponent implements OnInit {
     "anio",
   "Division",
   "turno",
-  "Ciclo Lectivo",
-  "acciones"];
+  "Ciclo Lectivo"
+  ];
 
   dataSource = new MatTableDataSource(this.materias);
   dataSourceFilters = new MatTableDataSource(this.materias);

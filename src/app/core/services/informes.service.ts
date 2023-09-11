@@ -6,13 +6,14 @@ import { Observable } from 'rxjs';
 import { contenidoAdeudadoDto } from '../Entities/contenidoAdeudadoDto';
 import { InformeContenidoDto } from '../Entities/informeContenidosDto';
 import { contenidoInformeDto } from '../Entities/contenidoInformeDto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InformesService {
 
-  informeURL = 'http://localhost:8001/informes/';
+  informeURL = environment.apiURL+'/informes/';
 
   constructor(private httpClient: HttpClient) { }
 
