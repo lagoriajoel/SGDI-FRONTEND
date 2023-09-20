@@ -9,5 +9,7 @@ export const environment = {
   production: false,
   logLevel: NgxLoggerLevel.TRACE,
   serverLogLevel: NgxLoggerLevel.OFF,
-  apiURL: 'https://informes-backend.onrender.com'
+  //apiURL: 'https://informes-backend.onrender.com'
+  apiURL: 'http://localhost:8001'
+
 };

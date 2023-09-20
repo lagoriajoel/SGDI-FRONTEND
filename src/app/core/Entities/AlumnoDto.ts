@@ -4,10 +4,10 @@ import { Informes } from "./informe";
 
 
 export interface AlumnoDto {
-    dni: number;
+    dni: string;
     nombres: string;
     apellido: string;
     email: string;
-    curso: cursoAlumno;
+    curso: cursoAlumno[];
     informeDesempenios : Informes[]
   }

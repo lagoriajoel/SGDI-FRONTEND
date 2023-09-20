@@ -14,6 +14,10 @@ import { AddEditProfesoresComponent } from '../../profesor/add-edit-profesores/a
 import { changePasswordDto } from 'src/app/core/Entities/changePasswordDto';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { AddEditAlumnosComponent } from '../../Alumno/add-edit-alumnos/add-edit-alumnos.component';
+import { AddAlumnoCursoComponent } from '../../Alumno/add-alumno-curso/add-alumno-curso.component';
+import { tap } from 'rxjs';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-alumno-user',
@@ -44,7 +48,8 @@ export class AlumnoUserComponent implements OnInit {
     private alumnosService: AlumnoService,
      public dialog: MatDialog,
      private _snackBar: MatSnackBar,
-     private authService: AuthenticationService
+     private authService: AuthenticationService,
+     private _routes :ActivatedRoute,
    
     
  
@@ -162,13 +167,57 @@ export class AlumnoUserComponent implements OnInit {
     });
 
     
- 
+    
+  }
+  AddCurso(id: Number){
+
+    const dialogRef = this.dialog.open(AddAlumnoCursoComponent, {
+      width: "700px",
+      disableClose: true,
+      data: {id: id},
+      
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.cargarAlumnos();
+      }
+    });
    
-   }
+  }
    mensajeExito() {
      this._snackBar.open('El usuario fue eliminado con exito', '', {
        duration: 2000
      });
 
 }
+
+
+
+loaded = 0;
+selectedFiles!: FileList;
+currentFileUpload!: File;
+// Selected file is stored into selectedFiles.
+selectFile(event: any) {
+this.selectedFiles = event.target.files;
+}
+
+// Uploads the file to backend server.
+upload() {
+this.currentFileUpload = this.selectedFiles.item(0)!;
+this.alumnosService.uploadSingleFile(this.currentFileUpload, 1)
+  .pipe(tap(event => {
+    if (event.type === HttpEventType.UploadProgress) {
+      this.loaded = Math.round(100 * event.loaded / event.total!);
+    }
+  })).subscribe(event => {
+  if (event instanceof HttpResponse) {
+    this._snackBar.open('Archivos subidos correctamente!', 'Cerrar', {
+      duration: 3000
+    });
+    this.cargarAlumnos();
+  }
+});
+}
+
 }

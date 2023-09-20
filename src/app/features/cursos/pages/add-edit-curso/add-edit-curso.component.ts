@@ -121,7 +121,7 @@ export class AddEditCursoComponent implements OnInit {
     }
    
     const curso: CursoDto = {
-      idCurso: 0,
+      id: 0,
       anio: this.form.value.anio,
       division: this.form.value.division,
       tecnicatura: this.form.value.tecnicatura,

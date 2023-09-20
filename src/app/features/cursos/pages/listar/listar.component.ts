@@ -154,12 +154,18 @@ export class ListarComponent implements OnInit {
 
   // metodo que lista los curso 
   cargarCurso(): void {
-    this.cursoService.lista().subscribe(data => {
-      this.dataSource.data = data;
-      this.cursos=data
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-         })
+    this.cursoService.lista().subscribe({
+      next: data => {
+        console.log(data);
+        this.dataSource.data = data;
+        this.cursos=data
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+           },
+          error: error => {
+            console.log(error);
+          }
+    })
     
   }
 
@@ -258,13 +264,14 @@ export class ListarComponent implements OnInit {
 
 mostrarFila( curso1: CursoDto){
 
-
+console.log(curso1);
   
-  this.idCurso=curso1.idCurso;
+  this.idCurso=curso1.id;
+  console.log(this.idCurso);
   if(this.isInforme){
 
             this.isContenidos = 1;
-            this.idCurso = curso1.idCurso;
+            this.idCurso = curso1.id;
             this.añoCurso = curso1.anio;
             this.informesPorAsignatura=1
 

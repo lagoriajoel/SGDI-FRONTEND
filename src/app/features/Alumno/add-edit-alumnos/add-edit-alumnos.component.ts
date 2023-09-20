@@ -28,7 +28,7 @@ export class AddEditAlumnosComponent implements OnInit {
   operacion: string = 'Agregar ';
   id: number | undefined;
   idCurso: number | undefined;
-  cursoAlumno!: cursoAlumno;
+  cursoAlumno!: cursoAlumno[];
   Informes: Informes[]=[]
 
   constructor(public dialogRef: MatDialogRef<AddEditAlumnosComponent>,
@@ -108,7 +108,7 @@ export class AddEditAlumnosComponent implements OnInit {
       nombres: this.form.value.nombres,
       apellido: this.form.value.apellido,
       email: this.form.value.email,
-      curso: cursoAlumno,
+      curso: this.cursoAlumno,
      informeDesempenios: this.Informes
 
     }

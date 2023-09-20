@@ -1,3 +1,3 @@
 export interface CursoInforme {
-    idCurso: number;
+    id: number;
 }

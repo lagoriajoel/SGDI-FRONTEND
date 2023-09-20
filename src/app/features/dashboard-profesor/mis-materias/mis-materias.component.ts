@@ -152,7 +152,7 @@ export class MisMateriasComponent implements OnInit {
 
     this.router.navigate(["/informes/listar/"], { 
       queryParams: {
-        curso:asignaturas.curso.idCurso,
+        curso:asignaturas.curso.id,
         asignatura:asignaturas.asignatura_id,
         informe: this.isInformes,
         nombreAsignatura:asignaturas.nombre

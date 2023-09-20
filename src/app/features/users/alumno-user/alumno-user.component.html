@@ -6,6 +6,21 @@
   <mat-icon>add</mat-icon>
   Agregar Alumno/a
 </button>
+
+<div>
+
+  <div class="selectFile">
+    <input class="seleccionar" #fileInput type="file" (change)="selectFile($event)"  ngModel/>
+  <mat-form-field class="example-full-width" (click)="fileInput.click()">
+    <input matInput placeholder="Seleccione un archivo" value="{{fileInput.value.substr(fileInput.value.lastIndexOf('\\')+1)}}">
+    <mat-icon matSuffix>folder_open</mat-icon>
+  </mat-form-field>
+  
+  
+  <button mat-raised-button  (click)="upload()">Subir archivo CSV</button>
+  </div>
+ 
+</div>
 <mat-form-field appearance="standard">
   <mat-label>Filtro</mat-label>
   <input matInput (keyup)="applyFilter($event)" #input autocomplete="off">
@@ -47,6 +62,8 @@
         <mat-icon (click)="addEditAlumnos(element.id)" class="btnEdit" matTooltip="Editar">edit</mat-icon>
         <mat-icon (click)="deleteAlumno(element.id)" class="btnDelete" matTooltip="Eliminar">delete</mat-icon>
         <mat-icon (click)="changePassword(element.dni)"  matTooltip="Blanquear contraseña">password</mat-icon>
+        <mat-icon (click)="AddCurso(element.id)"  matTooltip="Asignar Curso">add</mat-icon>
+
                 
       </td>
  </ng-container>

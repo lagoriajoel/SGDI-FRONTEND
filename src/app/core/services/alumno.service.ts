@@ -52,6 +52,11 @@ export class AlumnoService {
     return this.httpClient.put<any>(this.AlumnoURL + `update/${id}`, alumno);
   }
 
+  
+  public agregarCurso(id: number, idCurso: number): Observable<any> {
+    return this.httpClient.put<any>(this.AlumnoURL + `agregarCurso/${id}/cursoId/${idCurso}`, null);
+  }
+
   public delete(id: number): Observable<any> {
     return this.httpClient.delete<any>(this.AlumnoURL + `delete/${id}`);
   }

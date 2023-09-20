@@ -98,7 +98,7 @@ export class AgregarMateriasCursoComponent implements OnInit {
       return;
     }
     const cursoAlumno: CursoInforme = {
-      idCurso: this.data.idCurso,
+      id: this.data.idCurso,
     };
 
     const materiaNueva: MateriasCursoDto = {
@@ -135,7 +135,7 @@ export class AgregarMateriasCursoComponent implements OnInit {
   }
 
   mensajeExito(operacion: string) {
-    this._snackBar.open(`El Alumno fue ${operacion} con exito`, "", {
+    this._snackBar.open(`El espacio curricular fue ${operacion} con exito`, "", {
       duration: 2000,
     });
   }

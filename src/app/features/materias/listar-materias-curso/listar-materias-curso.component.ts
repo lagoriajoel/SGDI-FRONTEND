@@ -107,7 +107,7 @@ export class ListarMateriasCursoComponent implements OnInit {
       } else {
         this.router.navigate(["/informes/listar/"], {
           queryParams: {
-            curso: asignaturas.curso.idCurso,
+            curso: asignaturas.curso.id,
             asignatura: asignaturas.asignatura_id,
             informe: 1,
             nombreAsignatura: asignaturas.nombre,

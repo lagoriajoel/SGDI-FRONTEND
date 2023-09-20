@@ -1,6 +1,27 @@
 table {
     width: 100%;
 }
+.mat-form-field {
+    display: inline;
+    position: relative;
+    text-align: left;
+}
+.seleccionar {
+    display: none;
+    width: 25%;
+}
+.serch {
+    display: grid;
+  column-gap: 50px;
+  grid-template-columns: auto auto;
+  align-items: center;
+}
 button {
     margin-right: 10px;
+    margin-left: 10px;
+}
+.selectFile{
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
 }

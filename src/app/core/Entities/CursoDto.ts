@@ -1,6 +1,6 @@
 export interface  CursoDto {
    
-        idCurso: number;   
+        id: number;   
         anio: string;
         division:string;
         tecnicatura:string;

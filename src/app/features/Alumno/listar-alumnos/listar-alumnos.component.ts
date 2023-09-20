@@ -15,6 +15,8 @@ import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { tap } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { CursosService } from 'src/app/core/services/cursos/cursos.service';
+import { AddAlumnoCursoComponent } from '../add-alumno-curso/add-alumno-curso.component';
 
 
 @Component({
@@ -25,7 +27,9 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 export class ListarAlumnosComponent implements OnInit {
   alumnos: Alumno[] = [];
   loading: boolean=false
-  idCurso = null;
+  idCurso:number;
+  anioCurso!:string;
+  divisionCurso!:string;
 
   
   
@@ -42,6 +46,7 @@ export class ListarAlumnosComponent implements OnInit {
     private notificationService: NotificationService,
     private titleService: Title,
     private alumnoService: AlumnoService,
+    private cursoService: CursosService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _routes :ActivatedRoute,
@@ -61,6 +66,13 @@ export class ListarAlumnosComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.listarAlumnos();
     
+    this.cursoService.detail(this.idCurso).subscribe({
+      next: data=>{
+        this.anioCurso=data.anio
+        this.divisionCurso = data.division
+
+      }
+    })
     
     
   }
@@ -86,9 +98,9 @@ export class ListarAlumnosComponent implements OnInit {
 
   addEditAlumno(id?: number, idCurso?: number) {
 
-    const dialogRef = this.dialog.open(AddEditAlumnosComponent, {
-      width: "600px",
-      height: "500px",
+    const dialogRef = this.dialog.open(AddAlumnoCursoComponent, {
+      width: "800px",
+      height: "600px",
       disableClose: true,
       data: { id: id, idCurso: this.idCurso},
     });

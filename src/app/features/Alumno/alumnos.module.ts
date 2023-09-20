@@ -5,12 +5,14 @@ import { CommonModule } from '@angular/common';
 
 import { AlumnosRoutingModule } from './alumnos-routing.module';
 import { AddEditAlumnosComponent } from './add-edit-alumnos/add-edit-alumnos.component';
+import { AddAlumnoCursoComponent } from './add-alumno-curso/add-alumno-curso.component';
 
 
 @NgModule({
   declarations: [
     ListarAlumnosComponent,
-    AddEditAlumnosComponent
+    AddEditAlumnosComponent,
+    AddAlumnoCursoComponent
   ],
   imports: [
     CommonModule,
